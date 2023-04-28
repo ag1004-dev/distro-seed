@@ -1,0 +1,8 @@
+config REGENERATE_COMMAND_NOT_FOUND
+        default y
+	bool "Updates the command-not-found database"
+	help
+	  When an unknown command is run in the default bash shell, the
+          command-not-found package can specify which package is needed
+          to run a command. If this is not selected some space is saved on the
+          image, but this is useful for development.

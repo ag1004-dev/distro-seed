@@ -1,0 +1,57 @@
+
+#
+# Target Options
+#
+CONFIG_ARCH_ARMHF=y
+# CONFIG_ARCH_ARMEL is not set
+# end of Target Options
+
+#
+# Distribution
+#
+CONFIG_DISTRO_DEBIAN_11=y
+# CONFIG_DISTRO_DEBIAN_12 is not set
+# CONFIG_DISTRO_UBUNTU_22_04 is not set
+CONFIG_PACKAGELIST="debian-11-minimal.txt"
+# end of Distribution
+
+#
+# Kernel
+#
+CONFIG_KERNEL_PROVIDER_GIT=y
+CONFIG_KERNEL_PROVIDER_GIT_URL="https://github.com/embeddedTS/linux-lts.git"
+CONFIG_KERNEL_PROVIDER_GIT_VERSION="v5.10.170.4-ts"
+CONFIG_KERNEL_DEFCONFIG="tsimx6_minimal_defconfig"
+CONFIG_KERNEL_INSTALL_DEVICETREE_FILESYSTEM="imx6q-ts7970 imx6dl-ts7970"
+CONFIG_KERNEL_INSTALL_ZIMAGE_FILESYSTEM=y
+# end of Kernel
+
+#
+# Packages
+#
+# CONFIG_PACKAGE_DISTROBOOT_SCRIPTS is not set
+
+#
+# Hardware Specific Packages
+#
+CONFIG_PACKAGE_TS4900_UTILS=y
+# end of Hardware Specific Packages
+# end of Packages
+
+#
+# Image Configuration
+#
+CONFIG_REGENERATE_SSH_KEYS=y
+CONFIG_REGENERATE_COMMAND_NOT_FOUND=y
+CONFIG_TIMEZONE_OVERRIDE=y
+CONFIG_TIMEZONE_VALUE="US/Arizona"
+# end of Image Configuration
+
+#
+# Output Image
+#
+CONFIG_IMAGE_ROOTFS_TAR=y
+# CONFIG_IMAGE_ROOTFS_TAR_NONE is not set
+CONFIG_IMAGE_ROOTFS_TAR_XZ=y
+# CONFIG_IMAGE_ROOTFS_TAR_BZIP2 is not set
+# end of Output Image

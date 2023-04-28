@@ -1,0 +1,9 @@
+menu "Packages"
+
+source "packages/distroboot-scripts/Kconfig"
+
+menu "Hardware Specific Packages"
+source "packages/ts4900-utils/Kconfig"
+endmenu
+
+endmenu

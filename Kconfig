@@ -1,0 +1,20 @@
+menu "Target Options"
+choice
+        prompt "Architecture"
+        default ARCH_ARMHF
+config ARCH_ARMHF
+	bool "armhf"
+        help
+          Target armhf (arm32 hard float) system
+config ARCH_ARMEL
+	bool "armel"
+        help
+          Target armel (arm32 soft float) system
+endchoice
+endmenu
+
+source "distros/Kconfig"
+source "kernel/Kconfig"
+source "packages/Kconfig"
+source "image/Kconfig"
+source "generators/Kconfig"

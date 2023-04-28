@@ -1,0 +1,7 @@
+config REGENERATE_SSH_KEYS
+        default y
+	bool "Regenerate SSH keys on first boot"
+	help
+	  Regenerate SSH keys during first boot. Otherwise if ssh is included
+          in the image, all images would have the same keys. You should say
+          'y' here unless ssh is not included in the image.

@@ -1,0 +1,8 @@
+#!/bin/bash
+
+SOURCE="$WORK/kernel/linux/"
+GITURL="$KERNEL_PROVIDER_GIT_URL"
+GITVERSION="$KERNEL_PROVIDER_GIT_VERSION"
+
+mkdir -p "$SOURCE"
+common/fetch_git.sh "$GITURL" "$GITVERSION" "$SOURCE"

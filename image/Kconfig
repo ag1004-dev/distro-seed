@@ -1,0 +1,7 @@
+menu "Image Configuration"
+
+source "image/ssh-regen-keys/Kconfig"
+source "image/update-command-not-found/Kconfig"
+source "image/set-timezone/Kconfig"
+
+endmenu

@@ -1,0 +1,13 @@
+# mkimage -A arm -T script -C none -n 'boot' -d boot.source boot.scr
+
+setenv bootargs "console=${console} rootwait init=/sbin/init loglevel=4"
+
+part uuid ${devtype} ${devnum}:${distro_bootpart} bootuuid
+if test -n "${bootuuid}"; then
+  setenv bootargs "${bootargs} root=PARTUUID=${bootuuid}"
+fi
+
+load ${devtype} ${devnum}:${distro_bootpart} ${kernel_addr_r} ${prefix}zImage \
+&& load ${devtype} ${devnum}:${distro_bootpart} ${fdt_addr_r} ${prefix}${fdtfile} \
+&& echo "Booting $DISTRO $RELEASE from ${devtype} ${devnum}:${distro_bootpart}..." \
+&& bootz ${kernel_addr_r} - ${fdt_addr_r}

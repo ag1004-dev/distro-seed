@@ -1,0 +1,5 @@
+config PACKAGE_TS4900_UTILS
+        bool "ts4900-utils"
+        help
+          This includes tools like tshwctl to control the crossbar for the onboard
+          FPGA, get board versions, and misc board specific utils
