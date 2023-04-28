@@ -6,5 +6,5 @@ INSTALL="$WORK/deploy/80-ts4900-utils/"
 cd "$SOURCE"
 
 ./autogen.sh
-./configure --bindir="${INSTALL}/usr/local/bin/"
+./configure --prefix="${INSTALL}/usr/local/"
 make -j"$(nproc --all)" && make install
