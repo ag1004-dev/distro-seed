@@ -3,7 +3,7 @@
 import os
 import glob
 import sys
-import kconfiglib
+from kconfiglib import kconfiglib
 import subprocess
 import colorama
 from pprint import pprint
