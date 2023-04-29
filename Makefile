@@ -10,4 +10,7 @@ menuconfig:
 docker-shell:
 	common/docker-shell.py
 
+check:
+	common/check.py
+
 clean:
