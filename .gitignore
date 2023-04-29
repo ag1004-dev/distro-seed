@@ -2,3 +2,5 @@
 .config.old
 work/
 dl/
+__pycache__/
+
