@@ -17,3 +17,7 @@ check:
 	common/check.py
 
 clean:
+	-common/clean-work.py
+
+clean-cache:
+	common/clean-cache.py
