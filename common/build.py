@@ -43,12 +43,14 @@ else:
 host_root_path = os.path.dirname(os.path.abspath("__file__/"))
 dl_dir = os.path.dirname(host_root_path + "/dl/")
 work_path = os.path.dirname(host_root_path + "/work/")
+cache_path = os.path.dirname(host_root_path + "/cache/")
 host_docker_tag=f"distro-seed/{TARGET_ARCH}-{DISTRO}-{RELEASE}"
 
 # Set common env variables, also write them to an env file
 os.environ["WORK"] = work_path
 os.environ["DL"] = dl_dir
 os.environ["TAG"] = host_docker_tag
+os.environ["CACHE"] = cache_path
 os.environ["HOST_ROOT_PATH"] = host_root_path
 os.environ["DISTRO"] = DISTRO
 os.environ["RELEASE"] = RELEASE

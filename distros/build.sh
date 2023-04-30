@@ -1,10 +1,9 @@
 #!/bin/bash -e
 
-SOURCE="$WORK/rootfs/"
+INSTALL="$WORK/rootfs/"
 packages=packagelist/$PACKAGELIST
 
-echo "SOURCE: $SOURCE"
-mkdir -p "$SOURCE"
+mkdir -p "$INSTALL"
 
 if [[ "$DISTRO" == "debian" ]]; then
         keyringname="debian-archive-keyring"
@@ -33,11 +32,17 @@ tr -s '[:space:]' ' ' < "${packages}" | tr -d '\n' >> "$MULTISTRAPCONF"
 
 cat <<EOF >> "$MULTISTRAPCONF"
 
-source=$sourceurl
-keyring=$keyringname
+source=${sourceurl}
+keyring=${keyringname}
 suite=${RELEASE}
 components=main contrib non-free
 EOF
 
-/usr/sbin/multistrap -f "$MULTISTRAPCONF" -d "$SOURCE"
+# For Debian based distributions we checksum the multistrap config
+# which comprises our arch/distro/release/sourceurl/
+DISTRO_CACHE_KEY=$(sha256sum $MULTISTRAPCONF | cut -f 1 -d ' ')
 
+if ! common/fetch_cache_obj.sh "$DISTRO_CACHE_KEY" "$INSTALL"; then
+        /usr/sbin/multistrap -f "$MULTISTRAPCONF" -d "$INSTALL"
+        common/store_cache_obj.sh "$DISTRO_CACHE_KEY" "$INSTALL"
+fi
