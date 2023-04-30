@@ -10,6 +10,9 @@ menuconfig:
 docker-shell:
 	common/docker-shell.py
 
+chroot-shell:
+	common/chroot-shell.py
+
 check:
 	common/check.py
 
