@@ -3,7 +3,7 @@
 import os
 import sys
 import subprocess
-import kconfiglib
+from kconfiglib import kconfiglib
 import colorama
 
 kconf = kconfiglib.Kconfig('Kconfig')
