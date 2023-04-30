@@ -3,40 +3,27 @@
 import os
 import sys
 import subprocess
-from kconfiglib import kconfiglib
 import colorama
+
+from lib.kconfiglib import kconfiglib
+from lib.set_kconfig_vars import set_kconfig_vars
 
 kconf = kconfiglib.Kconfig('Kconfig')
 kconf.load_config('.config')
+set_kconfig_vars(kconf)
 
-if kconf.eval_string('ARCH_ARMHF') != '0':
-    TARGET_ARCH='armhf'
-elif kconf.eval_string('ARCH_ARMEL') != '0':
-    TARGET_ARCH='armel'
-
-if kconf.eval_string('DISTRO_DEBIAN_11') != '0':
-    DISTRO='debian'
-    RELEASE='bullseye'
-elif kconf.eval_string('DISTRO_DEBIAN_12') != '0':
-    DISTRO='debian'
-    RELEASE='bookworm'
-elif kconf.eval_string('DISTRO_UBUNTU_22_04') != '0':
-    DISTRO='ubuntu'
-    RELEASE='jammy'
-
-host_root_path = os.path.dirname(os.path.abspath("__file__/"))
-dl_dir = os.path.dirname(host_root_path + "/dl/")
-work_path = os.path.dirname(host_root_path + "/work/")
-host_docker_tag=f"distro-seed/{TARGET_ARCH}-{DISTRO}-{RELEASE}"
-dockerenv = os.path.abspath(work_path + "/dockerenv")
+HOST_ROOT_PATH = os.environ['HOST_ROOT_PATH']
+WORK = os.environ['WORK']
+TAG = os.environ['TAG']
+dockerenv = os.path.abspath(WORK + "/dockerenv")
 
 result = subprocess.run(['which', 'docker'], capture_output=True,
                         text=True, check=True)
 docker_path = result.stdout.strip()
 
 os.execl(docker_path, 'docker', 'run', '-it',
-         '--volume', f'{host_root_path}:/work/',
+         '--volume', f'{HOST_ROOT_PATH}:/work/',
          '--env-file', f'{dockerenv}',
          '--workdir', '/work/',
-         host_docker_tag,
+         TAG,
          'bash')

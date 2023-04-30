@@ -3,7 +3,6 @@
 import os
 import glob
 import sys
-from kconfiglib import kconfiglib
 import subprocess
 import colorama
 from pprint import pprint
@@ -11,50 +10,22 @@ from colorama import Fore, Style
 
 from lib.tasks import ExecType, Task
 from lib.manifests import load_manifest
+from lib.kconfiglib import kconfiglib
+from lib.set_kconfig_vars import set_kconfig_vars
 
 colorama.init()
 
 kconf = kconfiglib.Kconfig('Kconfig')
 kconf.load_config('.config')
+set_kconfig_vars(kconf)
 
-if kconf.eval_string('ARCH_ARMHF') != '0':
-    TARGET_ARCH='armhf'
-    QEMU_STATIC='qemu-arm-static'
-elif kconf.eval_string('ARCH_ARMEL') != '0':
-    TARGET_ARCH='armel'
-    QEMU_STATIC='qemu-armeb-static'
-else:
-    print("Unsupported arch!")
-    sys.exit(1)
-
-if kconf.eval_string('DISTRO_DEBIAN_11') != '0':
-    DISTRO='debian'
-    RELEASE='bullseye'
-elif kconf.eval_string('DISTRO_DEBIAN_12') != '0':
-    DISTRO='debian'
-    RELEASE='bookworm'
-elif kconf.eval_string('DISTRO_UBUNTU_22_04') != '0':
-    DISTRO='ubuntu'
-    RELEASE='jammy'
-else:
-    print("Unsupported Distro!")
-    sys.exit(1)
-
-host_root_path = os.path.dirname(os.path.abspath("__file__/"))
-dl_dir = os.path.dirname(host_root_path + "/dl/")
-work_path = os.path.dirname(host_root_path + "/work/")
-cache_path = os.path.dirname(host_root_path + "/cache/")
-host_docker_tag=f"distro-seed/{TARGET_ARCH}-{DISTRO}-{RELEASE}"
-
-# Set common env variables, also write them to an env file
-os.environ["WORK"] = work_path
-os.environ["DL"] = dl_dir
-os.environ["TAG"] = host_docker_tag
-os.environ["CACHE"] = cache_path
-os.environ["HOST_ROOT_PATH"] = host_root_path
-os.environ["DISTRO"] = DISTRO
-os.environ["RELEASE"] = RELEASE
-os.environ["TARGET_ARCH"] = TARGET_ARCH
+HOST_ROOT_PATH = os.environ['HOST_ROOT_PATH']
+DL = os.environ['DL']
+WORK = os.environ['WORK']
+DISTRO = os.environ['DISTRO']
+RELEASE = os.environ['RELEASE']
+TARGET_ARCH = os.environ['TARGET_ARCH']
+QEMU_STATIC = os.environ['QEMU_STATIC']
 
 tasks = []
 
@@ -69,7 +40,7 @@ tasks.append(Task(['common/build_host_docker.sh',
 tasks.append(Task(['rm', '-rf', '/work/work'],
                   "Cleaning old Work directory",
                    exectype = ExecType.DOCKER))
-tasks.append(Task(['mkdir', '-p', work_path],
+tasks.append(Task(['mkdir', '-p', WORK],
                   "Creating new Work directory",
                    exectype = ExecType.HOST))
 # Generate docker environment file. This has to be done after the work
@@ -127,7 +98,7 @@ for manifest in manifests:
 
         for i, host_action in enumerate(host_actions):
             cmdpath = os.path.relpath(
-                f"{manifest['path']}/{host_action}", host_root_path)
+                f"{manifest['path']}/{host_action}", HOST_ROOT_PATH)
             description = manifest['host_descriptions'][i]
             tasks.append(Task([cmdpath],
                             description,
@@ -136,7 +107,7 @@ for manifest in manifests:
 
         for i, docker_action in enumerate(docker_actions):
             cmdpath = os.path.relpath(
-                f"{manifest['path']}/{docker_action}", host_root_path)
+                f"{manifest['path']}/{docker_action}", HOST_ROOT_PATH)
             description = manifest['docker_descriptions'][i]
             tasks.append(Task([cmdpath],
                             description,
@@ -145,7 +116,7 @@ for manifest in manifests:
 
         for i, chroot_script_action in enumerate(chroot_script_actions):
             cmdpath = os.path.relpath(
-                f"{manifest['path']}/{chroot_script_action}", host_root_path)
+                f"{manifest['path']}/{chroot_script_action}", HOST_ROOT_PATH)
             description = manifest['chroot_script_descriptions'][i]
             tasks.append(Task([cmdpath],
                             description,
@@ -154,7 +125,7 @@ for manifest in manifests:
 
         for i, chroot_cmd_action in enumerate(chroot_cmd_actions):
             cmdpath = os.path.relpath(
-                f"{manifest['path']}/{chroot_cmd_action}", host_root_path)
+                f"{manifest['path']}/{chroot_cmd_action}", HOST_ROOT_PATH)
             description = manifest['chroot_cmd_descriptions'][i]
             tasks.append(Task([cmdpath],
                             description,
