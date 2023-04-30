@@ -13,7 +13,7 @@ ENV LC_ALL en_US.UTF-8
 ENV LANG en_US.UTF-8
 ENV LANGUAGE en_US.UTF-8
 RUN dpkg --add-architecture armhf
-RUN apt-get update && apt-get install -y autogen automake bash bc bison build-essential bzip2 ca-certificates curl fakeroot file flex gcc-arm-linux-gnueabihf git gzip kmod libgpiod-dev:armhf libncursesw5-dev libssl-dev libtool lzop make multistrap ncurses-dev pkg-config python qemu-user-static rsync runit u-boot-tools vim wget xz-utils
+RUN apt-get update && apt-get install -y autogen automake bash bc bison build-essential bzip2 ca-certificates curl fakeroot file flex gcc-arm-linux-gnueabihf git gzip kmod libgpiod-dev:armhf libncursesw5-dev libssl-dev libtool lzop lz4 make multistrap ncurses-dev pkg-config python qemu-user-static rsync runit u-boot-tools vim wget xz-utils
 
 # For linux cross compile
 ENV CROSS_COMPILE=arm-linux-gnueabihf-
