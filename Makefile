@@ -1,23 +1,23 @@
 all:
-	common/build.py
+	@common/build.py
 
 %_defconfig:
-	common/kconfiglib/defconfig.py --kconfig Kconfig configs/$@
+	@common/kconfiglib/defconfig.py --kconfig Kconfig configs/$@
 
 menuconfig:
-	common/kconfiglib/menuconfig.py
+	@common/kconfiglib/menuconfig.py
 
 docker-shell:
-	common/docker-shell.py
+	@common/docker-shell.py
 
 chroot-shell:
-	common/chroot-shell.py
+	@common/chroot-shell.py
 
 check:
-	common/check.py
+	@common/check.py
 
 clean:
-	-common/clean-work.py
+	-@common/clean-work.py
 
 clean-cache:
-	common/clean-cache.py
+	@common/clean-cache.py
