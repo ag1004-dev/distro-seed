@@ -1,6 +1,6 @@
 config REGENERATE_COMMAND_NOT_FOUND
         default y
-	bool "Updates the command-not-found database"
+	bool "Update command-not-found database"
 	help
 	  When an unknown command is run in the default bash shell, the
           command-not-found package can specify which package is needed
