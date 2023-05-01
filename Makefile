@@ -2,10 +2,10 @@ all:
 	@common/build.py
 
 %_defconfig:
-	@common/kconfiglib/defconfig.py --kconfig Kconfig configs/$@
+	@common/lib/kconfiglib/defconfig.py --kconfig Kconfig configs/$@
 
 menuconfig:
-	@common/kconfiglib/menuconfig.py
+	@common/lib/kconfiglib/menuconfig.py
 
 docker-shell:
 	@common/docker-shell.py
