@@ -1,0 +1,4 @@
+config PURGE_MAN_PAGES
+	bool "Purge man pages"
+	help
+	  Removes man pages from image.  Saves roughly 10-20MB
