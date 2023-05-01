@@ -21,3 +21,8 @@ clean:
 
 clean-cache:
 	@common/clean-cache.py
+
+clean-all:
+	-@rm -rf dl/
+	-@common/clean-cache.py
+	-@common/clean-work.py
