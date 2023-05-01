@@ -3,42 +3,42 @@ import sys
 from lib.kconfiglib import kconfiglib
 
 def set_kconfig_vars(kconf):
-    if kconf.eval_string('ARCH_ARMHF') != '0':
-        TARGET_ARCH='armhf'
-        QEMU_STATIC='qemu-arm-static'
-    elif kconf.eval_string('ARCH_ARMEL') != '0':
-        TARGET_ARCH='armel'
-        QEMU_STATIC='qemu-armeb-static'
+    if kconf.eval_string('DS_ARCH_ARMHF') != '0':
+        DS_TARGET_ARCH='armhf'
+        DS_QEMU_STATIC='qemu-arm-static'
+    elif kconf.eval_string('DS_ARCH_ARMEL') != '0':
+        DS_TARGET_ARCH='armel'
+        DS_QEMU_STATIC='qemu-armeb-static'
     else:
         print("Unsupported arch!")
         sys.exit(1)
 
-    if kconf.eval_string('DISTRO_DEBIAN_11') != '0':
-        DISTRO='debian'
-        RELEASE='bullseye'
-    elif kconf.eval_string('DISTRO_DEBIAN_12') != '0':
-        DISTRO='debian'
-        RELEASE='bookworm'
-    elif kconf.eval_string('DISTRO_UBUNTU_22_04') != '0':
-        DISTRO='ubuntu'
-        RELEASE='jammy'
+    if kconf.eval_string('DS_DISTRO_DEBIAN_11') != '0':
+        DS_DISTRO='debian'
+        DS_RELEASE='bullseye'
+    elif kconf.eval_string('DS_DISTRO_DEBIAN_12') != '0':
+        DS_DISTRO='debian'
+        DS_RELEASE='bookworm'
+    elif kconf.eval_string('DS_DISTRO_UBUNTU_22_04') != '0':
+        DS_DISTRO='ubuntu'
+        DS_RELEASE='jammy'
     else:
         print("Unsupported Distro!")
         sys.exit(1)
 
-    HOST_ROOT_PATH = os.path.dirname(os.path.abspath("__file__"))
-    DL = os.path.dirname(HOST_ROOT_PATH + "/dl/")
-    WORK = os.path.dirname(HOST_ROOT_PATH + "/work/")
-    CACHE = os.path.dirname(HOST_ROOT_PATH + "/cache/")
-    TAG = f"distro-seed/{TARGET_ARCH}-{DISTRO}-{RELEASE}"
+    DS_HOST_ROOT_PATH = os.path.dirname(os.path.abspath("__file__"))
+    DS_DL = os.path.dirname(DS_HOST_ROOT_PATH + "/dl/")
+    DS_WORK = os.path.dirname(DS_HOST_ROOT_PATH + "/work/")
+    DS_CACHE = os.path.dirname(DS_HOST_ROOT_PATH + "/cache/")
+    DS_TAG = f"distro-seed/{DS_TARGET_ARCH}-{DS_DISTRO}-{DS_RELEASE}"
 
     # Set common env variables
-    os.environ["WORK"] = WORK
-    os.environ["DL"] = DL
-    os.environ["TAG"] = TAG
-    os.environ["CACHE"] = CACHE
-    os.environ["HOST_ROOT_PATH"] = HOST_ROOT_PATH
-    os.environ["DISTRO"] = DISTRO
-    os.environ["RELEASE"] = RELEASE
-    os.environ["TARGET_ARCH"] = TARGET_ARCH
-    os.environ["QEMU_STATIC"] = QEMU_STATIC
+    os.environ["DS_WORK"] = DS_WORK
+    os.environ["DS_DL"] = DS_DL
+    os.environ["DS_TAG"] = DS_TAG
+    os.environ["DS_CACHE"] = DS_CACHE
+    os.environ["DS_HOST_ROOT_PATH"] = DS_HOST_ROOT_PATH
+    os.environ["DS_DISTRO"] = DS_DISTRO
+    os.environ["DS_RELEASE"] = DS_RELEASE
+    os.environ["DS_TARGET_ARCH"] = DS_TARGET_ARCH
+    os.environ["DS_QEMU_STATIC"] = DS_QEMU_STATIC

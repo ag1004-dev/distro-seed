@@ -1,4 +1,4 @@
-config HOSTNAME
+config DS_HOSTNAME
 	string "Set hostname value"
 	help
 	  Set the hostname for the target system.  If it is left blank,

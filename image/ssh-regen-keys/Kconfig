@@ -1,4 +1,4 @@
-config REGENERATE_SSH_KEYS
+config DS_REGENERATE_SSH_KEYS
         default y
 	bool "Regenerate SSH keys on first boot"
 	help

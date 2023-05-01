@@ -8,7 +8,6 @@ def load_manifest(manifest_path):
         # that represents the information you want to extract
         manifest = {
             'manifest_config': None,
-            'relevant_configs': None,
             'docker_actions': None,
             'docker_descriptions': None,
             'host_actions': None,

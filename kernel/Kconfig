@@ -2,49 +2,49 @@ menu "Kernel"
 
 choice
         prompt "Kernel version"
-        default KERNEL_PROVIDER_GIT
+        default DS_KERNEL_PROVIDER_GIT
 
-config KERNEL_PROVIDER_GIT
+config DS_KERNEL_PROVIDER_GIT
         bool "Kernel source provider is custom git repository"
         help
           This option allows distro-seed to grab the kernel sources from git
 
 endchoice
 
-if KERNEL_PROVIDER_GIT
+if DS_KERNEL_PROVIDER_GIT
 
-config KERNEL_PROVIDER_GIT_URL
+config DS_KERNEL_PROVIDER_GIT_URL
         string "URL of git repository"
         help
           Specify git repo to fetch kernel
 
-config KERNEL_PROVIDER_GIT_VERSION
+config DS_KERNEL_PROVIDER_GIT_VERSION
         string "Kernel GIT srcrev"
         help
           Specify tag or branch to checkout before building
 endif
 
-config KERNEL_DEFCONFIG
+config DS_KERNEL_DEFCONFIG
         string "Git defconfig"
         help
           Specify kernel defconfig to use
 
-config KERNEL_INSTALL_DEVICETREE_FILESYSTEM
+config DS_KERNEL_INSTALL_DEVICETREE_FILESYSTEM
         string "Names of device tree targets to install on the target"
         help   
           Device tree names to install on the target, eg:
           foo
           would build foo.dtb and install it to /boot/foo.dtb
 
-config KERNEL_INSTALL_ZIMAGE_FILESYSTEM
+config DS_KERNEL_INSTALL_ZIMAGE_FILESYSTEM
         bool "Install zImage to the target filesystem in /boot/"
 
-config KERNEL_INSTALL_UIMAGE_FILESYSTEM
+config DS_KERNEL_INSTALL_UIMAGE_FILESYSTEM
         bool "Install legacy uImage to the target filesystem in /boot/"
 
-config KERNEL_INSTALL_UIMAGE_LOADADDR
+config DS_KERNEL_INSTALL_UIMAGE_LOADADDR
         hex "uImage Loadaddr"
-        depends on KERNEL_INSTALL_UIMAGE_FILESYSTEM
+        depends on DS_KERNEL_INSTALL_UIMAGE_FILESYSTEM
         help
           Specify the load address for the kernel. This is required for the
           uImage kernel format.  This is usually found in the target's u-boot

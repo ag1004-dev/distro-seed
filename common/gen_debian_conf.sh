@@ -6,7 +6,7 @@ sourceurl="$3"
 keyringname="$4"
 arch="$5"
 
-cat <<EOF > "$WORK/debian.conf"
+cat <<EOF > "$DS_WORK/debian.conf"
 [General]
 arch=$arch
 directory=rootfs
@@ -18,10 +18,10 @@ aptsources=Base
 
 [Base]
 EOF
-echo -n "packages=" >> "$WORK/debian.conf"
-tr -s '[:space:]' ' ' < "$packagelist" | tr -d '\n' >> "$WORK/debian.conf"
+echo -n "packages=" >> "$DS_WORK/debian.conf"
+tr -s '[:space:]' ' ' < "$packagelist" | tr -d '\n' >> "$DS_WORK/debian.conf"
 
-cat <<EOF >> "$WORK/debian.conf"
+cat <<EOF >> "$DS_WORK/debian.conf"
 
 source=$sourceurl
 keyring=$keyringname

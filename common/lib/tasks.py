@@ -2,6 +2,7 @@ import sys
 import os
 import shutil
 import subprocess
+from pprint import pprint
 from enum import Enum
 
 class ExecType(Enum):
@@ -19,42 +20,37 @@ class ExecType(Enum):
     CHROOT_CMD = 3
 
 class Task:
-    """Setup task to execute in different environments
-    """
-    def __init__(self, command, description, exectype=ExecType.HOST, relevant_configs = None):
+    """Setup task to execute in different environments """
+    def __init__(self, command, description, exectype=ExecType.HOST, configs = None):
         self.exectype = exectype
-        self.relevant_configs = relevant_configs
         self.command = command
-        if relevant_configs is None:
-            self.relevant_configs = []
+        if configs is None:
+            self.configs = {}
         else:
-            self.relevant_configs = relevant_configs
+            self.configs = configs
         self.description = description
     
-    def run(self, configs = None):
-        """ Execute task in target environment
-        """
-        if configs is None:
-            configs = []
+    def run(self):
+        """ Execute task in target environment """
         if self.exectype == ExecType.HOST:
             # If we're not using docker, add in any environment variables
             # and execute in our current env.  This is mostly just used
             # for fetches and early setup commands
             taskenv = os.environ.copy()
-            taskenv.update(configs)
+            taskenv.update(self.configs)
             subprocess.run(self.command, check=True, env=taskenv)
         elif self.exectype == ExecType.CHROOT_SCRIPT:
             # This executes in the target rootfs. This cmd must be a single
             # file we copy into the environment and execute. Eg,
             # a self contained bash or python script.
-            tag = os.environ.get('TAG')
-            prjroot = os.environ.get('HOST_ROOT_PATH')
-            work = os.environ.get('WORK')
+            tag = os.environ.get('DS_TAG')
+            prjroot = os.environ.get('DS_HOST_ROOT_PATH')
+            work = os.environ.get('DS_WORK')
             rootfs = '/work/work/rootfs'
             chroot_cmd = os.path.abspath(work + "/rootfs/run_in_chroot")
 
             if (len(self.command) > 1):
-                print("CHROOT_CMD must be a single script, see CHROOT_CMD")
+                print("CHROOT_CMD must be a single script")
                 sys.exit(1)
 
             copy_task = Task(['cp', self.command[0],
@@ -64,7 +60,7 @@ class Task:
             copy_task.run()
 
             chroot_cmd = ''
-            for key, value in configs.items():
+            for key, value in self.configs.items():
                 chroot_cmd += (f"export {key}=\"{value}\";")
             chroot_cmd += ('/run_in_chroot')
 
@@ -85,12 +81,12 @@ class Task:
             # This executes in the target rootfs. This cmd must be a single
             # file we copy into the environment and execute. Eg,
             # a self contained bash or python script.
-            tag = os.environ.get('TAG')
-            prjroot = os.environ.get('HOST_ROOT_PATH')
+            tag = os.environ.get('DS_TAG')
+            prjroot = os.environ.get('DS_HOST_ROOT_PATH')
             rootfs = '/work/work/rootfs'
 
             chroot_cmd = ''
-            for key, value in configs.items():
+            for key, value in self.configs.items():
                 chroot_cmd += (f"export {key}=\"{value}\";")
             chroot_cmd += " ".join(self.command)
 
@@ -102,9 +98,9 @@ class Task:
 
             subprocess.run(command, check=True)
         elif self.exectype == ExecType.DOCKER:
-            tag = os.environ.get('TAG')
-            prjroot = os.environ.get('HOST_ROOT_PATH')
-            work = os.environ.get('WORK')
+            tag = os.environ.get('DS_TAG')
+            prjroot = os.environ.get('DS_HOST_ROOT_PATH')
+            work = os.environ.get('DS_WORK')
             dockerenv = os.path.abspath(work + "/dockerenv")
             command = [ 'docker', 'run', '-it',
                         '--volume', f'{prjroot}:/work/',
@@ -115,10 +111,9 @@ class Task:
                 command.append('--env-file')
                 command.append(f'{dockerenv}')
 
-            if(configs):
-                for key, value in configs.items():
-                    command.append('-e')
-                    command.append(f'{key}={value}')
+            for key, value in self.configs.items():
+                command.append('-e')
+                command.append(f'{key}={value}')
 
             command.append(tag)
             command += self.command

@@ -23,11 +23,8 @@ Create a packages/hello-world/manifest.py:
 ```
 # This is the 'bool' config that causes this manifest.py to run
 manifest_config = 'PACKAGE_HELLO_WORLD'
-# These are the configs that are relevant to the scripts that will be run
-# The values of these will be in the execution environment where any action is run
-relevant_configs = 'PACKAGE_HELLO_WORLD_TEXT'
 # This will execute this at a bash prompt, and print the description while it runs
-chroot_cmd_actions = [ 'echo $PACKAGE_HELLO_WORLD_TEXT > /helloworld' ]
+chroot_cmd_actions = [ 'echo $CONFIG_DS_PACKAGE_HELLO_WORLD_TEXT > /helloworld' ]
 chroot_cmd_descriptions = [ 'Populating /helloworld' ]
 
 ## We would include this if we wanted to copy a script into the chroot and execute

@@ -19,20 +19,29 @@ kconf = kconfiglib.Kconfig('Kconfig')
 kconf.load_config('.config')
 set_kconfig_vars(kconf)
 
-HOST_ROOT_PATH = os.environ['HOST_ROOT_PATH']
-DL = os.environ['DL']
-WORK = os.environ['WORK']
-DISTRO = os.environ['DISTRO']
-RELEASE = os.environ['RELEASE']
-TARGET_ARCH = os.environ['TARGET_ARCH']
-QEMU_STATIC = os.environ['QEMU_STATIC']
+DS_HOST_ROOT_PATH = os.environ['DS_HOST_ROOT_PATH']
+DS_DL = os.environ['DS_DL']
+DS_WORK = os.environ['DS_WORK']
+DS_DISTRO = os.environ['DS_DISTRO']
+DS_RELEASE = os.environ['DS_RELEASE']
+DS_TARGET_ARCH = os.environ['DS_TARGET_ARCH']
+DS_QEMU_STATIC = os.environ['DS_QEMU_STATIC']
+
+# Get all kconfig values in to key=value string list
+config_dict={}
+for key, value in kconf.syms.items():
+    # Skip the preset MODULES symbol which does not apply here
+    if key == 'MODULES':
+        continue
+    config_dict[f'CONFIG_{key}'] = value.str_value
 
 tasks = []
 
 # Generate the docker environment we use to build the kernel and userspace packages
 tasks.append(Task(['common/build_host_docker.sh',
-                   f"distros/{DISTRO}/{RELEASE}/host-{TARGET_ARCH}-docker/"],
+                   f"distros/{DS_DISTRO}/{DS_RELEASE}/host-{DS_TARGET_ARCH}-docker/"],
                    "Generating Host Docker image",
+                   configs = config_dict,
                    exectype = ExecType.HOST))
 
 # Wipe the work directory from the docker. This directory has files owned by
@@ -40,13 +49,14 @@ tasks.append(Task(['common/build_host_docker.sh',
 tasks.append(Task(['rm', '-rf', '/work/work'],
                   "Cleaning old Work directory",
                    exectype = ExecType.DOCKER))
-tasks.append(Task(['mkdir', '-p', WORK],
+tasks.append(Task(['mkdir', '-p', DS_WORK],
                   "Creating new Work directory",
                    exectype = ExecType.HOST))
 # Generate docker environment file. This has to be done after the work
 # directory is created
 tasks.append(Task(['common/gen_host_docker_env.sh' ],
                    "Generating Docker environment file",
+                   configs = config_dict,
                    exectype = ExecType.HOST))
 
 # Add tasks in order of kernel/distros/packages
@@ -74,8 +84,6 @@ manifests = [
 # Convert all of the manifest files into tasks
 for manifest in manifests:
     if not manifest ['manifest_config'] or kconf.eval_string(manifest['manifest_config']) != 0:
-        relevant_configs = []
-
         host_actions = manifest['host_actions']
         if manifest['host_actions'] is None:
             host_actions = []
@@ -92,44 +100,38 @@ for manifest in manifests:
         if manifest['chroot_cmd_actions'] is None:
             chroot_cmd_actions = []
 
-        # Split config list in the manifest into a string array
-        if manifest['relevant_configs']:
-            relevant_configs = [x for x in manifest['relevant_configs'].split() if x]
-
         for i, host_action in enumerate(host_actions):
             cmdpath = os.path.relpath(
-                f"{manifest['path']}/{host_action}", HOST_ROOT_PATH)
+                f"{manifest['path']}/{host_action}", DS_HOST_ROOT_PATH)
             description = manifest['host_descriptions'][i]
             tasks.append(Task([cmdpath],
                             description,
-                            relevant_configs=relevant_configs,
+                            configs=config_dict,
                             exectype = ExecType.HOST))
 
         for i, docker_action in enumerate(docker_actions):
             cmdpath = os.path.relpath(
-                f"{manifest['path']}/{docker_action}", HOST_ROOT_PATH)
+                f"{manifest['path']}/{docker_action}", DS_HOST_ROOT_PATH)
             description = manifest['docker_descriptions'][i]
             tasks.append(Task([cmdpath],
                             description,
-                            relevant_configs=relevant_configs,
+                            configs=config_dict,
                             exectype = ExecType.DOCKER))
 
         for i, chroot_script_action in enumerate(chroot_script_actions):
             cmdpath = os.path.relpath(
-                f"{manifest['path']}/{chroot_script_action}", HOST_ROOT_PATH)
+                f"{manifest['path']}/{chroot_script_action}", DS_HOST_ROOT_PATH)
             description = manifest['chroot_script_descriptions'][i]
             tasks.append(Task([cmdpath],
                             description,
-                            relevant_configs=relevant_configs,
+                            configs=config_dict,
                             exectype = ExecType.CHROOT_SCRIPT))
 
         for i, chroot_cmd_action in enumerate(chroot_cmd_actions):
-            cmdpath = os.path.relpath(
-                f"{chroot_cmd_action}", HOST_ROOT_PATH)
             description = manifest['chroot_cmd_descriptions'][i]
-            tasks.append(Task([cmdpath],
+            tasks.append(Task([chroot_cmd_action],
                             description,
-                            relevant_configs=relevant_configs,
+                            configs=config_dict,
                             exectype = ExecType.CHROOT_CMD))
 
 # After we load all the tasks for kernel, distro, and packages, the next steps
@@ -140,7 +142,7 @@ tasks.append(Task(['common/combine_installs.sh'],
              exectype = ExecType.DOCKER))
 
 # Copy in QEMU static binary.  We cannot execute CHROOT types until this is done
-which_result = subprocess.run(['which', QEMU_STATIC], stdout=subprocess.PIPE, check = True)
+which_result = subprocess.run(['which', DS_QEMU_STATIC], stdout=subprocess.PIPE, check = True)
 qemu_static_path = which_result.stdout.decode().strip()
 tasks.append(Task(['cp', qemu_static_path, f'/work/work/rootfs/{qemu_static_path}'],
                    "Setting up QEMU static binary in rootfs",
@@ -186,10 +188,5 @@ for i, cmd in enumerate(tasks, start=1):
     # Print out the description of the command
     print(f"Task ({TASKTYPE}) {i}/{len(tasks)}: {Fore.GREEN}{cmd.description}{Style.RESET_ALL}")
 
-    # Find any option configs for this package
-    for relevant_config in cmd.relevant_configs:
-        if relevant_config:
-            config[relevant_config] = kconf.syms[relevant_config].str_value
-
     #pprint(cmd.command)
-    cmd.run(config)
+    cmd.run()

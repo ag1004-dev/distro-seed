@@ -5,8 +5,8 @@ git_version="$2"
 work_path="$3"
 
 prj_name=$(echo "$git_url" | sed 's/[^a-zA-Z0-9]/-/g')
-git_path="$DL/git/$prj_name"
-mkdir -p "$DL/git/"
+git_path="$DS_DL/git/$prj_name"
+mkdir -p "$DS_DL/git/"
 
 if [[ -d "$git_path" ]]; then
     cd "$git_path"

@@ -1,16 +1,16 @@
-config JOURNAL_SIZE_OVERRIDE
+config DS_JOURNAL_SIZE_OVERRIDE
 	bool "journalctl log size override"
 	help
 	  Override the defaults for how many logs are saved
 
-config JOURNAL_DISABLE_LOGS
-	depends on JOURNAL_SIZE_OVERRIDE
+config DS_JOURNAL_DISABLE_LOGS
+	depends on DS_JOURNAL_SIZE_OVERRIDE
 	bool "Disable all logs"
 	help
 	  Disable logging
 
-config JOURNAL_SIZE_VALUE
-	depends on JOURNAL_SIZE_OVERRIDE && !JOURNAL_DISABLE_LOGS
+config DS_JOURNAL_SIZE_VALUE
+	depends on DS_JOURNAL_SIZE_OVERRIDE && !DS_JOURNAL_DISABLE_LOGS
 	default "200M"
 	string "Set Journal size limit"
 	help

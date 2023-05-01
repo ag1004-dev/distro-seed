@@ -1,18 +1,18 @@
 #!/bin/bash
 
 # Write common environment variables to the env for docker
-ENVFILE="$WORK/dockerenv"
+ENVFILE="$DS_WORK/dockerenv"
 
 # Paths should be updated to be relative to work
-DL=${DL//$HOST_ROOT_PATH/\/work}
-WORK=${WORK//$HOST_ROOT_PATH/\/work}
-CACHE=${CACHE//$HOST_ROOT_PATH/\/work}
+DS_DL=${DS_DL//$DS_HOST_ROOT_PATH/\/work}
+DS_WORK=${DS_WORK//$DS_HOST_ROOT_PATH/\/work}
+DS_CACHE=${DS_CACHE//$DS_HOST_ROOT_PATH/\/work}
 
 cat <<EOF > $ENVFILE
-WORK=$WORK
-DL=$DL
-DISTRO=$DISTRO
-CACHE=$CACHE
-RELEASE=$RELEASE
-TARGET_ARCH=$TARGET_ARCH
+DS_WORK=$DS_WORK
+DS_DL=$DS_DL
+DS_DISTRO=$DS_DISTRO
+DS_CACHE=$DS_CACHE
+DS_RELEASE=$DS_RELEASE
+DS_TARGET_ARCH=$DS_TARGET_ARCH
 EOF

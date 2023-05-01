@@ -1,32 +1,32 @@
 menu "Distribution"
 choice
         prompt "Base Distribution"
-config DISTRO_DEBIAN_11
+config DS_DISTRO_DEBIAN_11
 	bool "Debian 11 Bullseye"
 	help
 	  Use Debian 11 Bullseye as the base distribution
 	
-config DISTRO_DEBIAN_12
+config DS_DISTRO_DEBIAN_12
 	bool "Debian 12 Bookworm"
 	help
 	  Use Debian 12 Bookworm as the base distribution
 
-config DISTRO_UBUNTU_22_04
+config DS_DISTRO_UBUNTU_22_04
 	bool "Ubuntu 22.04 Jammy Jellyfish"
 	help
 	  Use Ubuntu 22.04 as the base distribution
 
 endchoice
 
-config PACKAGELIST
+config DS_PACKAGELIST
 	string "Package List"
 	help
 	  Set a package list to use to generate the image. See the files under
 	  packagelist/
 
-	default "debian-11-minimal.txt" if DISTRO_DEBIAN_11 
-	default "debian-12-minimal.txt" if DISTRO_DEBIAN_12
-	default "ubuntu_22_04-minimal.txt" if DISTRO_UBUNTU_22_04
+	default "debian-11-minimal.txt" if DS_DISTRO_DEBIAN_11 
+	default "debian-12-minimal.txt" if DS_DISTRO_DEBIAN_12
+	default "ubuntu_22_04-minimal.txt" if DS_DISTRO_UBUNTU_22_04
 
 source "distros/ubuntu/Kconfig"
 source "distros/debian/Kconfig"

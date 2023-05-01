@@ -1,20 +1,20 @@
-config IMAGE_ROOTFS_TAR
+config DS_IMAGE_ROOTFS_TAR
 	bool "rootfs tar"
 	help
 	  Outputs image in a single tar
 
-if  IMAGE_ROOTFS_TAR
+if  DS_IMAGE_ROOTFS_TAR
 choice
         prompt "Tar compression format"
-        default IMAGE_ROOTFS_TAR_XZ
+        default DS_IMAGE_ROOTFS_TAR_XZ
 
-config IMAGE_ROOTFS_TAR_NONE
+config DS_IMAGE_ROOTFS_TAR_NONE
         bool "No compression"
 
-config IMAGE_ROOTFS_TAR_XZ
+config DS_IMAGE_ROOTFS_TAR_XZ
         bool "xz compression"
 
-config IMAGE_ROOTFS_TAR_BZIP2
+config DS_IMAGE_ROOTFS_TAR_BZIP2
         bool "bz2 compression"
 
 endchoice

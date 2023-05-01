@@ -1,4 +1,4 @@
-config REGENERATE_COMMAND_NOT_FOUND
+config DS_REGENERATE_COMMAND_NOT_FOUND
         default y
 	bool "Update command-not-found database"
 	help

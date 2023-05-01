@@ -1,7 +1,7 @@
 #!/bin/bash -e
 
-SOURCE="$WORK/packages/ts4900-utils/"
-INSTALL="$WORK/deploy/80-ts4900-utils/"
+SOURCE="$DS_WORK/packages/ts4900-utils/"
+INSTALL="$DS_WORK/deploy/80-ts4900-utils/"
 
 cd "$SOURCE"
 

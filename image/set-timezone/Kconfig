@@ -1,4 +1,4 @@
-config TIMEZONE
+config DS_TIMEZONE
 	default "America/Phoenix"
 	string "Set System Timezone"
 	help

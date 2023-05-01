@@ -2,7 +2,7 @@
 
 KEY="$1"
 TARGET="$2"
-CACHE_FILE="${CACHE}/${KEY}.tar.lz4"
+CACHE_FILE="${DS_CACHE}/${KEY}.tar.lz4"
 
 # Check integrity of lz4 archive
 if lz4 -t "$CACHE_FILE" > /dev/null 2>&1; then
