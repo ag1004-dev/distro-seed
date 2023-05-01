@@ -22,7 +22,7 @@ source packages/hello-world/Kconfig
 Create a packages/hello-world/manifest.py:
 ```
 # This is the 'bool' config that causes this manifest.py to run
-manifest_config = 'PACKAGE_HELLO_WORLD'
+component_config = 'PACKAGE_HELLO_WORLD'
 # This will execute this at a bash prompt, and print the description while it runs
 chroot_cmd_actions = [ 'echo $CONFIG_DS_PACKAGE_HELLO_WORLD_TEXT > /helloworld' ]
 chroot_cmd_descriptions = [ 'Populating /helloworld' ]

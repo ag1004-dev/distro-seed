@@ -7,7 +7,7 @@ def load_manifest(manifest_path):
         # Parse the manifest data into a dictionary or other data structure
         # that represents the information you want to extract
         manifest = {
-            'manifest_config': None,
+            'component_config': None,
             'docker_actions': None,
             'docker_descriptions': None,
             'host_actions': None,
