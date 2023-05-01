@@ -1,6 +1,6 @@
 config SET_LOCALES
 	default y
-	bool "Timezone Override"
+	bool "Override Locales"
 	help
 	  Override the timezone
 
