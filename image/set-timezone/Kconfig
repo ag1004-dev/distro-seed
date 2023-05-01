@@ -5,7 +5,8 @@ config TIMEZONE_OVERRIDE
 	  Override the timezone
 
 config TIMEZONE_VALUE
-        default "America/Phoenix"
+	depends on TIMEZONE_OVERRIDE
+	default "America/Phoenix"
 	string "Set System Timezone"
 	help
 	  Set the timezone on the image.  See timezone from /usr/share/zoneinfo
