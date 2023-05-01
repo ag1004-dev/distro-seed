@@ -125,7 +125,7 @@ for manifest in manifests:
 
         for i, chroot_cmd_action in enumerate(chroot_cmd_actions):
             cmdpath = os.path.relpath(
-                f"{manifest['path']}/{chroot_cmd_action}", HOST_ROOT_PATH)
+                f"{chroot_cmd_action}", HOST_ROOT_PATH)
             description = manifest['chroot_cmd_descriptions'][i]
             tasks.append(Task([cmdpath],
                             description,
