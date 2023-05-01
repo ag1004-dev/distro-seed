@@ -1,5 +1,10 @@
 #!/bin/bash
 
+if [ ! -e "/usr/sbin/sshd" ]; then
+    echo "ssh not installed"
+    exit 1
+fi
+
 servicename=sshfirstboot.service
 servicefile="/etc/systemd/system/${servicename}"
 runscript="/usr/local/bin/regen_ssh_keys"
