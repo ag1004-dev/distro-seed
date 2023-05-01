@@ -65,7 +65,7 @@ class Task:
 
             chroot_cmd = ''
             for key, value in configs.items():
-                chroot_cmd += (f"{key}={value};")
+                chroot_cmd += (f"{key}=\"{value}\";")
             chroot_cmd += ('/run_in_chroot')
 
             command = [ 'docker', 'run', '-it',
