@@ -52,6 +52,10 @@ tasks.append(Task(['rm', '-rf', '/work/work'],
 tasks.append(Task(['mkdir', '-p', DS_WORK],
                   "Creating new Work directory",
                    exectype = ExecType.HOST))
+tasks.append(Task(['mkdir', '-p', f'{DS_WORK}/deploy'],
+                  "Creating new work/deploy directory",
+                   exectype = ExecType.HOST))
+
 # Generate docker environment file. This has to be done after the work
 # directory is created
 tasks.append(Task(['common/gen_host_docker_env.sh' ],
