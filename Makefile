@@ -13,7 +13,7 @@ docker-shell:
 chroot-shell:
 	@common/chroot-shell.py
 
-check:
+checkdeps:
 	@common/check.py
 
 clean:
