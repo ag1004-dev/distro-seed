@@ -73,7 +73,7 @@ manifests = [
 
 # Convert all of the manifest files into tasks
 for manifest in manifests:
-    if kconf.eval_string(manifest['manifest_config']) != 0:
+    if not manifest ['manifest_config'] or kconf.eval_string(manifest['manifest_config']) != 0:
         relevant_configs = []
 
         host_actions = manifest['host_actions']
