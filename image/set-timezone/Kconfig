@@ -1,11 +1,4 @@
-config TIMEZONE_OVERRIDE
-	default y
-	bool "Timezone Override"
-	help
-	  Override the timezone
-
-config TIMEZONE_VALUE
-	depends on TIMEZONE_OVERRIDE
+config TIMEZONE
 	default "America/Phoenix"
 	string "Set System Timezone"
 	help
