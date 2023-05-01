@@ -48,8 +48,10 @@ class Task:
             work = os.environ.get('DS_WORK')
             rootfs = '/work/work/rootfs'
             chroot_cmd = os.path.abspath(work + "/rootfs/run_in_chroot")
+            work = os.environ.get('DS_WORK')
+            dockerenv = os.path.abspath(work + "/dockerenv")
 
-            if (len(self.command) > 1):
+            if len(self.command) > 1:
                 print("CHROOT_CMD must be a single script")
                 sys.exit(1)
 
@@ -66,9 +68,18 @@ class Task:
 
             command = [ 'docker', 'run', '-it',
                         '--volume', f'{prjroot}:/work/',
-                        '--workdir', '/work/',
-                        tag,
-                        'chroot', rootfs, '/bin/bash', '-c', chroot_cmd ]
+                        '--workdir', '/work/' ]
+
+            if os.path.exists(dockerenv):
+                command.append('--env-file')
+                command.append(f'{dockerenv}')
+
+            command.append(tag)
+            command.append('chroot')
+            command.append(rootfs)
+            command.append('/bin/bash')
+            command.append('-c')
+            command.append(chroot_cmd)
 
             subprocess.run(command, check=True)
 
@@ -84,6 +95,8 @@ class Task:
             tag = os.environ.get('DS_TAG')
             prjroot = os.environ.get('DS_HOST_ROOT_PATH')
             rootfs = '/work/work/rootfs'
+            work = os.environ.get('DS_WORK')
+            dockerenv = os.path.abspath(work + "/dockerenv")
 
             chroot_cmd = ''
             for key, value in self.configs.items():
@@ -92,9 +105,18 @@ class Task:
 
             command = [ 'docker', 'run', '-it',
                         '--volume', f'{prjroot}:/work/',
-                        '--workdir', '/work/',
-                        tag,
-                        'chroot', rootfs, '/bin/bash', '-c', chroot_cmd ]
+                        '--workdir', '/work/' ]
+
+            if os.path.exists(dockerenv):
+                command.append('--env-file')
+                command.append(f'{dockerenv}')
+
+            command.append(tag)
+            command.append('chroot')
+            command.append(rootfs)
+            command.append('/bin/bash')
+            command.append('-c')
+            command.append(chroot_cmd)
 
             subprocess.run(command, check=True)
         elif self.exectype == ExecType.DOCKER:
