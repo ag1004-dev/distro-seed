@@ -4,5 +4,6 @@ source "image/ssh-regen-keys/Kconfig"
 source "image/update-command-not-found/Kconfig"
 source "image/set-timezone/Kconfig"
 source "image/set-log-size/Kconfig"
+source "image/set-locales/Kconfig"
 
 endmenu

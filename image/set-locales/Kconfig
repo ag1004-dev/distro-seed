@@ -1,0 +1,19 @@
+config SET_LOCALES
+	default y
+	bool "Timezone Override"
+	help
+	  Override the timezone
+
+config SET_LOCALE_VALUE
+	depends on SET_LOCALES
+	default "en_US.UTF-8"
+	string "Set Locale value"
+	help
+	  Set the locale on the image. See "dpkg-reconfigure locales" for the 
+	  full list
+
+config PURGE_LOCALES
+	depends on SET_LOCALES
+	bool "Purge unused locales"
+	help
+	  Purges unused locales, all but what is specified in CONFIG_SET_LOCALE_VALUE
