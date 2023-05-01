@@ -18,8 +18,18 @@ if ! common/fetch_cache_obj.sh "$BUILD_OBJECT_KEY" "$KBUILD_OUTPUT"; then
         set +e
         cd "$SOURCE"
         # CROSS_COMPILE and ARCH are set from the dockerfile
+
+        if [[ "$KERNEL_INSTALL_ZIMAGE_FILESYSTEM" == 'y' ]]; then
+            TARGETS="$TARGETS zImage"
+        fi
+
+        if [[ "$KERNEL_INSTALL_UIMAGE_FILESYSTEM" == 'y' ]]; then
+            export LOADADDR="$KERNEL_INSTALL_UIMAGE_LOADADDR"
+            TARGETS="$TARGETS uImage"
+        fi
+
         make "$KERNEL_DEFCONFIG"
-        make -j"$(nproc --all)" all zImage
+        make -j"$(nproc --all)" all $TARGETS
     )
     common/store_cache_obj.sh "$BUILD_OBJECT_KEY" "$KBUILD_OUTPUT"
 fi
@@ -34,8 +44,12 @@ if ! common/fetch_cache_obj.sh "$INSTALL_OBJECT_KEY" "$INSTALL"; then
         INSTALL_MOD_PATH="${INSTALL}" make modules_install
 
         if [[ "$TARGET_ARCH" == "armel" || "$TARGET_ARCH" == "armhf" ]]; then
-            if [[ -n "$KERNEL_INSTALL_DEVICETREE_FILESYSTEM" ]]; then
+            if [[ "$KERNEL_INSTALL_ZIMAGE_FILESYSTEM" == 'y' ]]; then
                 cp "$KBUILD_OUTPUT/arch/arm/boot/zImage" "${INSTALL}/boot/zImage"
+            fi
+
+            if [[ "$KERNEL_INSTALL_UIMAGE_FILESYSTEM" == 'y' ]]; then
+                cp "$KBUILD_OUTPUT/arch/arm/boot/uImage" "${INSTALL}/boot/uImage"
             fi
             
             for dtb in $KERNEL_INSTALL_DEVICETREE_FILESYSTEM; do

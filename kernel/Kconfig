@@ -39,6 +39,15 @@ config KERNEL_INSTALL_DEVICETREE_FILESYSTEM
 config KERNEL_INSTALL_ZIMAGE_FILESYSTEM
         bool "Install zImage to the target filesystem in /boot/"
 
+config KERNEL_INSTALL_UIMAGE_FILESYSTEM
+        bool "Install legacy uImage to the target filesystem in /boot/"
 
+config KERNEL_INSTALL_UIMAGE_LOADADDR
+        hex "uImage Loadaddr"
+        depends on KERNEL_INSTALL_UIMAGE_FILESYSTEM
+        help
+          Specify the load address for the kernel. This is required for the
+          uImage kernel format.  This is usually found in the target's u-boot
+          from:  "env print loadaddr" or "env print kernel_addr_r"
 
 endmenu
