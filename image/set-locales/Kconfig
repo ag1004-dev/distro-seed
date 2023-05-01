@@ -1,11 +1,4 @@
-config SET_LOCALES
-	default y
-	bool "Override Locales"
-	help
-	  Override the timezone
-
-config SET_LOCALE_VALUE
-	depends on SET_LOCALES
+config LOCALES
 	default "en_US.UTF-8"
 	string "Set Locale value"
 	help
@@ -13,7 +6,6 @@ config SET_LOCALE_VALUE
 	  full list
 
 config PURGE_LOCALES
-	depends on SET_LOCALES
 	bool "Purge unused locales"
 	help
 	  Purges unused locales, all but what is specified in CONFIG_SET_LOCALE_VALUE

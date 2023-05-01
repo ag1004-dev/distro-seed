@@ -1,9 +1,9 @@
 #!/bin/bash
 
-sed -i -e "s/# $SET_LOCALE_VALUE.*/$SET_LOCALE_VALUE UTF-8/" /etc/locale.gen
+sed -i -e "s/# $LOCALES.*/$LOCALES UTF-8/" /etc/locale.gen
 dpkg-reconfigure --frontend=noninteractive locales
-update-locale LANG=$SET_LOCALE_VALUE
+update-locale LANG=$LOCALES
 
 if [[ "$PURGE_LOCALES" == "y" ]]; then
-    locale-gen --purge $SET_LOCALE_VALUE
+    locale-gen --purge $LOCALES
 fi
