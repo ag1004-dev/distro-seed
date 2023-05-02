@@ -12,5 +12,6 @@ source "image/update-command-not-found/Kconfig"
 source "image/set-log-size/Kconfig"
 source "image/purge-man-pages/Kconfig"
 source "image/nfsroot-helper/Kconfig"
+source "image/set-ntp/Kconfig"
 
 endmenu
