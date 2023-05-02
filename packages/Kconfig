@@ -4,6 +4,7 @@ source "packages/distroboot-scripts/Kconfig"
 
 menu "Hardware Specific Packages"
 source "packages/ts4900-utils/Kconfig"
+source "packages/ts4900-fpga/Kconfig"
 endmenu
 
 endmenu
