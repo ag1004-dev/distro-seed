@@ -28,7 +28,8 @@ aptsources=Base
 [Base]
 EOF
 echo -n "packages=" >> "$MULTISTRAPCONF"
-tr -s '[:space:]' ' ' < "${packagelist_file}" | tr -d '\n' >> "$MULTISTRAPCONF"
+# Skip anything between # and \n, and remove blank lines.
+sed -e 's/#.*$//' "${packagelist_file}" | tr -s '[:space:]' ' ' | tr -d '\n' >> "$MULTISTRAPCONF"
 
 cat <<EOF >> "$MULTISTRAPCONF"
 
