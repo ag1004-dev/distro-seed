@@ -1,0 +1,7 @@
+config DS_NFSROOT_FIXUP
+        default y
+	bool "NFSROOT dns support"
+	help
+	  When booting an nfsroot the resolv.conf is not normally set up
+          automatically. This adds a check on startup to read the DNS and search
+          domain advertised on DHCP, and sets up a valid resolv.conf.
