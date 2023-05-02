@@ -4,6 +4,7 @@ comment "Required Settings"
 source "image/set-locales/Kconfig"
 source "image/set-hostname/Kconfig"
 source "image/set-timezone/Kconfig"
+source "image/set-fstab/Kconfig"
 
 comment "Optional Settings"
 source "image/ssh-regen-keys/Kconfig"

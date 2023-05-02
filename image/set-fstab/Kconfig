@@ -1,0 +1,36 @@
+choice
+	prompt "fstab provider"
+	default DS_FSTAB_GEN
+
+config DS_FSTAB_GEN
+	bool "Generate simple fstab"
+	help
+	  Use Kconfig settings to generate a basic kconfig file
+
+config DS_FSTAB_FILE
+	bool "User provided fstab"
+	help
+	  If selected, fstab will be provided by a user selected file
+endchoice
+
+config DS_FSTAB_FILE_PATH
+	string "fstab file path"
+	depends on DS_FSTAB_FILE
+	help
+	  Path to the fstab to use in the target image
+
+menu "geneated fstab options"
+	depends on DS_FSTAB_GEN
+
+config DS_FSTAB_GEN_ROOT_DEVICE
+        string "rootfs device"
+	default "/dev/root"
+
+config DS_FSTAB_GEN_ROOT_FS
+        string "rootfs filesystem"
+	default "ext4"
+
+config DS_FSTAB_GEN_ROOT_OPTIONS
+        string "rootfs mount options"
+	default "defaults"
+endmenu
