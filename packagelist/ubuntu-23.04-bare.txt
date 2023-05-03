@@ -1,4 +1,5 @@
-# Bare minimum options:
+## Bare minimum options:
+kmod # Required for kernel module management
 systemd # needed for init system
 systemd-sysv # needed to provide /sbin/init
 udev # needed to set up serial console
