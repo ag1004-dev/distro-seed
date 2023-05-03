@@ -1,6 +1,7 @@
 menu "Packages"
 
 source "packages/distroboot-scripts/Kconfig"
+source "packages/legacy-bootscript/Kconfig"
 source "packages/resize/Kconfig"
 
 menu "Hardware Specific Packages"
