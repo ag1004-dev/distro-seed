@@ -3,23 +3,23 @@ import sys
 from lib.kconfiglib import kconfiglib
 
 def set_kconfig_vars(kconf):
-    if kconf.eval_string('DS_ARCH_ARMHF') != '0':
+    if kconf.eval_string('DS_ARCH_ARMHF') != 0:
         DS_TARGET_ARCH='armhf'
         DS_QEMU_STATIC='qemu-arm-static'
-    elif kconf.eval_string('DS_ARCH_ARMEL') != '0':
+    elif kconf.eval_string('DS_ARCH_ARMEL') != 0:
         DS_TARGET_ARCH='armel'
         DS_QEMU_STATIC='qemu-armeb-static'
     else:
         print("Unsupported arch!")
         sys.exit(1)
 
-    if kconf.eval_string('DS_DISTRO_DEBIAN_11') != '0':
+    if kconf.eval_string('DS_DISTRO_DEBIAN_11') != 0:
         DS_DISTRO='debian'
         DS_RELEASE='bullseye'
-    elif kconf.eval_string('DS_DISTRO_DEBIAN_12') != '0':
+    elif kconf.eval_string('DS_DISTRO_DEBIAN_12') != 0:
         DS_DISTRO='debian'
         DS_RELEASE='bookworm'
-    elif kconf.eval_string('DS_DISTRO_UBUNTU_22_04') != '0':
+    elif kconf.eval_string('DS_DISTRO_UBUNTU_22_04') != 0:
         DS_DISTRO='ubuntu'
         DS_RELEASE='jammy'
     else:
