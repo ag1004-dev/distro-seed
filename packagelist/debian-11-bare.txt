@@ -1,0 +1,4 @@
+# Bare minimum options:
+systemd # needed for init system
+systemd-sysv # needed to provide /sbin/init
+udev # needed to set up serial console
