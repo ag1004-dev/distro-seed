@@ -1,0 +1,45 @@
+## Bare minimum options:
+systemd # needed for init system
+systemd-sysv # needed to provide /sbin/init
+udev # needed to set up serial console
+
+## Small package options:
+# Text editors
+vim
+
+# Network configuration
+ifupdown2
+iproute2
+isc-dhcp-client
+systemd-timesyncd
+
+# Wireless support
+iw
+wpasupplicant
+
+# Base utils
+dbus
+less
+locales
+lsb-release
+sensible-utils
+watchdog
+
+# Network utilities
+curl
+iputils-ping
+openssh-client
+wget
+
+# Hardware utilities
+can-utils
+gpiod
+i2c-tools
+libiio-utils
+memtool
+mmc-utils
+picocom
+usbutils
+
+# Debug utilities
+strace

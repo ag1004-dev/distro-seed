@@ -1,0 +1,73 @@
+## Bare minimum options:
+systemd # needed for init system
+systemd-sysv # needed to provide /sbin/init
+udev # needed to set up serial console
+
+## Full package options:
+# Text editors
+nano
+vim
+
+# Network configuration
+ethtool
+ifupdown2
+iproute2
+isc-dhcp-client
+net-tools
+systemd-timesyncd
+
+# Wireless support
+iw
+wireless-tools
+wpasupplicant
+
+# Bluetooth support
+bluetooth
+bluez
+bluez-hcidump
+bluez-test-tools
+
+# Base utils
+dbus
+less
+locales
+lsb-release
+sensible-utils
+watchdog
+
+# Network utilities
+bridge-utils
+curl
+iputils-ping
+openssh-client
+rsync
+wget
+
+# Remote connectivity
+openssh-server
+
+# Hardware utilities
+can-utils
+gpiod
+i2c-tools
+libiio-utils
+memtool
+mmc-utils
+picocom
+setserial
+usbutils
+
+# Debug utilities
+strace
+
+# Development tools
+autoconf
+automake
+build-essential
+command-not-found
+gdb
+git
+libiio-dev
+lsof
+nfs-common
+u-boot-tools
