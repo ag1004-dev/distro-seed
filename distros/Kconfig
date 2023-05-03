@@ -16,6 +16,11 @@ config DS_DISTRO_UBUNTU_22_04
 	help
 	  Use Ubuntu 22.04 as the base distribution
 
+config DS_DISTRO_UBUNTU_23_04
+	bool "Ubuntu 23.04 Lunar Lobster"
+	help
+	  Use Ubuntu 23.04 as the base distribution
+
 endchoice
 
 config DS_PACKAGELIST
@@ -27,5 +32,6 @@ config DS_PACKAGELIST
 	default "debian-11-minimal.txt" if DS_DISTRO_DEBIAN_11 
 	default "debian-12-minimal.txt" if DS_DISTRO_DEBIAN_12
 	default "ubuntu_22_04-minimal.txt" if DS_DISTRO_UBUNTU_22_04
+	default "ubuntu_22304-minimal.txt" if DS_DISTRO_UBUNTU_23_04
 
 endmenu

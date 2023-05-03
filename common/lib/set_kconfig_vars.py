@@ -22,6 +22,9 @@ def set_kconfig_vars(kconf):
     elif kconf.eval_string('DS_DISTRO_UBUNTU_22_04') != 0:
         DS_DISTRO='ubuntu'
         DS_RELEASE='jammy'
+    elif kconf.eval_string('DS_DISTRO_UBUNTU_23_04') != 0:
+        DS_DISTRO='ubuntu'
+        DS_RELEASE='lunar'
     else:
         print("Unsupported Distro!")
         sys.exit(1)
