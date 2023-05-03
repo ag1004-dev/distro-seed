@@ -9,4 +9,4 @@ config DS_PACKAGE_DISTROBOOT_SCRIPTS_INSTALL_SOURCE
     depends on DS_PACKAGE_DISTROBOOT_SCRIPTS
     help
       Install the distroboot script source to the image. This can be used to
-      change the script simpler on the unit itself
+      change the script on the unit itself
