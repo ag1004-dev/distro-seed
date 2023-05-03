@@ -28,7 +28,4 @@ config DS_PACKAGELIST
 	default "debian-12-minimal.txt" if DS_DISTRO_DEBIAN_12
 	default "ubuntu_22_04-minimal.txt" if DS_DISTRO_UBUNTU_22_04
 
-source "distros/ubuntu/Kconfig"
-source "distros/debian/Kconfig"
-
 endmenu
