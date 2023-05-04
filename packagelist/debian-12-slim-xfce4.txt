@@ -72,3 +72,21 @@ libiio-dev
 lsof
 nfs-common
 u-boot-tools
+
+## graphics
+# X11
+xorg
+xserver-xorg-input-all
+xserver-xorg-video-fbdev
+x11-xserver-utils
+
+# Display server
+slim
+
+# XFCE graphics
+xfce4
+xinput
+xinit
+
+# Graphics applications
+#chromium
