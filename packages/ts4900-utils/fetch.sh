@@ -6,4 +6,4 @@ GITVERSION="v1.0.0"
 
 mkdir -p "$SOURCE"
 
-common/fetch_git.sh "$GITURL" "$GITVERSION" "$SOURCE"
+common/host/fetch_git.sh "$GITURL" "$GITVERSION" "$SOURCE"

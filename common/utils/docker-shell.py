@@ -5,12 +5,16 @@ import sys
 import subprocess
 import colorama
 
+current = os.path.dirname(os.path.realpath(__file__))
+parent = os.path.dirname(current)
+sys.path.append(parent)
+
 from lib.kconfiglib import kconfiglib
-from lib.set_kconfig_vars import set_kconfig_vars
+from lib.vars import kconfig_export_vars
 
 kconf = kconfiglib.Kconfig('Kconfig')
 kconf.load_config('.config')
-set_kconfig_vars(kconf)
+kconfig_export_vars(kconf)
 
 HOST_ROOT_PATH = os.environ['DS_HOST_ROOT_PATH']
 WORK = os.environ['DS_WORK']
@@ -29,17 +33,11 @@ command = [ 'docker', 'run', '-it',
         '--volume', f'{HOST_ROOT_PATH}:/work/',
         '--workdir', '/work/' ]
 
+# For the very first run we might not have a docker env file
 if os.path.exists(dockerenv):
-    command.append('--env-file')
-    command.append(f'{dockerenv}')
+    command += ['--env-file', dockerenv]
 
-for key, value in config_dict.items():
-    command.append('-e')
-    command.append(f'{key}={value}')
-
-command.append(TAG)
-command.append('/bin/bash')
-
+command += [TAG, '/bin/bash']
 result = subprocess.run(['which', 'docker'], capture_output=True,
                         text=True, check=True)
 docker_path = result.stdout.strip()

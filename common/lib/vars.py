@@ -1,8 +1,11 @@
+#!/usr/bin/python3
+
 import os
 import sys
 from lib.kconfiglib import kconfiglib
 
-def set_kconfig_vars(kconf):
+def kconfig_export_vars(kconf):
+    ''' Exports Kconfig options to the environment '''
     if kconf.eval_string('DS_ARCH_ARMHF') != 0:
         DS_TARGET_ARCH='armhf'
         DS_QEMU_STATIC='qemu-arm-static'
@@ -45,3 +48,10 @@ def set_kconfig_vars(kconf):
     os.environ["DS_RELEASE"] = DS_RELEASE
     os.environ["DS_TARGET_ARCH"] = DS_TARGET_ARCH
     os.environ["DS_QEMU_STATIC"] = DS_QEMU_STATIC
+
+    # Set all config values
+    for key, value in kconf.syms.items():
+        # Skip the preset MODULES symbol which does not apply here
+        if key == 'MODULES':
+            continue
+        os.environ[f'CONFIG_{key}'] = value.str_value

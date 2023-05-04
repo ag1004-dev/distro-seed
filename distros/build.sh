@@ -39,6 +39,12 @@ aptsources=Base
 [Base]
 EOF
 echo -n "packages=" >> "$MULTISTRAPCONF"
+
+if [ ! -e "$packagelist_file" ] && [ -n "$packagelist_file" ]; then
+    echo "Specified packagelist \"$packagelist_file\" doesn't exist!"
+    exit 1
+fi
+
 # Skip anything between # and \n, and remove blank lines.
 sed -e 's/#.*$//' "${packagelist_file}" | tr -s '[:space:]' ' ' | tr -d '\n' >> "$MULTISTRAPCONF"
 
@@ -55,7 +61,7 @@ EOF
 DISTRO_CACHE_KEY=$(sha256sum $MULTISTRAPCONF | cut -f 1 -d ' ')
 DISTRO_CACHE_KEY="distro-${DS_DISTRO}-${DS_RELEASE}-${DS_TARGET_ARCH}-${DISTRO_CACHE_KEY}"
 
-if ! common/fetch_cache_obj.sh "$DISTRO_CACHE_KEY" "$INSTALL"; then
+if ! common/host/fetch_cache_obj.sh "$DISTRO_CACHE_KEY" "$INSTALL"; then
     /usr/sbin/multistrap -f "$MULTISTRAPCONF" -d "$INSTALL"
-    common/store_cache_obj.sh "$DISTRO_CACHE_KEY" "$INSTALL"
+    common/host/store_cache_obj.sh "$DISTRO_CACHE_KEY" "$INSTALL"
 fi

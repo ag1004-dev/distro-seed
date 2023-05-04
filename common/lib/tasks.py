@@ -24,32 +24,25 @@ class Task:
     def __init__(self, command, description, exectype=ExecType.HOST, configs = None):
         self.exectype = exectype
         self.command = command
-        if configs is None:
-            self.configs = {}
-        else:
-            self.configs = configs
         self.description = description
     
     def run(self):
         """ Execute task in target environment """
+
+        tag = os.environ.get('DS_TAG')
+        prjroot = os.environ.get('DS_HOST_ROOT_PATH')
+        work = os.environ.get('DS_WORK')
+        dockerenv = os.path.abspath(work + "/dockerenv")
         if self.exectype == ExecType.HOST:
             # If we're not using docker, add in any environment variables
             # and execute in our current env.  This is mostly just used
             # for fetches and early setup commands
             taskenv = os.environ.copy()
-            taskenv.update(self.configs)
             subprocess.run(self.command, check=True, env=taskenv)
         elif self.exectype == ExecType.CHROOT_SCRIPT:
             # This executes in the target rootfs. This cmd must be a single
             # file we copy into the environment and execute. Eg,
             # a self contained bash or python script.
-            tag = os.environ.get('DS_TAG')
-            prjroot = os.environ.get('DS_HOST_ROOT_PATH')
-            work = os.environ.get('DS_WORK')
-            rootfs = '/work/work/rootfs'
-            chroot_cmd = os.path.abspath(work + "/rootfs/run_in_chroot")
-            work = os.environ.get('DS_WORK')
-            dockerenv = os.path.abspath(work + "/dockerenv")
 
             if len(self.command) > 1:
                 print("CHROOT_CMD must be a single script")
@@ -61,82 +54,43 @@ class Task:
                               exectype = ExecType.DOCKER)
             copy_task.run()
 
-            chroot_cmd = ''
-            for key, value in self.configs.items():
-                chroot_cmd += (f"export {key}=\"{value}\";")
-            chroot_cmd += ('/run_in_chroot')
-
-            command = [ 'docker', 'run', '-it',
-                        '--volume', f'{prjroot}:/work/',
-                        '--workdir', '/work/' ]
-
-            if os.path.exists(dockerenv):
-                command.append('--env-file')
-                command.append(f'{dockerenv}')
-
-            command.append(tag)
-            command.append('chroot')
-            command.append(rootfs)
-            command.append('/bin/bash')
-            command.append('-c')
-            command.append(chroot_cmd)
+            command = [
+                'docker', 'run', '-it',
+                '--volume', f'{prjroot}:/work/',
+                '--workdir', '/work/',
+                '--env-file', dockerenv,
+                tag, 'chroot', '/work/work/rootfs',
+                '/bin/bash', '-c', '/run_in_chroot'
+            ]
 
             subprocess.run(command, check=True)
-
             rm_task = Task(['rm', '/work/work/rootfs/run_in_chroot'],
-                              f'Chroot setup for: {self.description}',
-                              exectype = ExecType.DOCKER)
+                           f'Chroot setup for: {self.description}',
+                           exectype = ExecType.DOCKER)
             rm_task.run()
-
         elif self.exectype == ExecType.CHROOT_CMD:
             # This executes in the target rootfs. This cmd must be a single
             # file we copy into the environment and execute. Eg,
             # a self contained bash or python script.
-            tag = os.environ.get('DS_TAG')
-            prjroot = os.environ.get('DS_HOST_ROOT_PATH')
-            rootfs = '/work/work/rootfs'
-            work = os.environ.get('DS_WORK')
-            dockerenv = os.path.abspath(work + "/dockerenv")
-
-            chroot_cmd = ''
-            for key, value in self.configs.items():
-                chroot_cmd += (f"export {key}=\"{value}\";")
-            chroot_cmd += " ".join(self.command)
-
-            command = [ 'docker', 'run', '-it',
-                        '--volume', f'{prjroot}:/work/',
-                        '--workdir', '/work/' ]
-
-            if os.path.exists(dockerenv):
-                command.append('--env-file')
-                command.append(f'{dockerenv}')
-
-            command.append(tag)
-            command.append('chroot')
-            command.append(rootfs)
-            command.append('/bin/bash')
-            command.append('-c')
-            command.append(chroot_cmd)
+            command = [
+                'docker', 'run', '-it',
+                '--volume', f'{prjroot}:/work/',
+                '--workdir', '/work/',
+                '--env-file', dockerenv,
+                tag, 'chroot', '/work/work/rootfs',
+                '/bin/bash', '-c'
+            ]
+            command += self.command
 
             subprocess.run(command, check=True)
         elif self.exectype == ExecType.DOCKER:
-            tag = os.environ.get('DS_TAG')
-            prjroot = os.environ.get('DS_HOST_ROOT_PATH')
-            work = os.environ.get('DS_WORK')
-            dockerenv = os.path.abspath(work + "/dockerenv")
             command = [ 'docker', 'run', '-it',
                         '--volume', f'{prjroot}:/work/',
                         '--workdir', '/work/' ]
 
             # For the very first run we might not have a docker env file
             if os.path.exists(dockerenv):
-                command.append('--env-file')
-                command.append(f'{dockerenv}')
+                command += ['--env-file', dockerenv]
 
-            for key, value in self.configs.items():
-                command.append('-e')
-                command.append(f'{key}={value}')
-
-            command.append(tag)
-            command += self.command
+            command += [tag] + self.command
             subprocess.run(command, check=True)

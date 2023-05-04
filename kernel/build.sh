@@ -12,7 +12,7 @@ INSTALL_OBJECT_KEY="linux-kernel-install-${KERNEL_CACHE_KEY}"
 # The installed kernel+modules make up one cached object, and the build objects make up
 # the other. We still need the build object in the cache to support building other modules
 # that may use the kernel source as a dependency.
-if ! common/fetch_cache_obj.sh "$BUILD_OBJECT_KEY" "$KBUILD_OUTPUT"; then
+if ! common/host/fetch_cache_obj.sh "$BUILD_OBJECT_KEY" "$KBUILD_OUTPUT"; then
     export KBUILD_OUTPUT INSTALL
     (
         set +e
@@ -31,10 +31,10 @@ if ! common/fetch_cache_obj.sh "$BUILD_OBJECT_KEY" "$KBUILD_OUTPUT"; then
         make "$CONFIG_DS_KERNEL_DEFCONFIG"
         make -j"$(nproc --all)" all $TARGETS
     )
-    common/store_cache_obj.sh "$BUILD_OBJECT_KEY" "$KBUILD_OUTPUT"
+    common/host/store_cache_obj.sh "$BUILD_OBJECT_KEY" "$KBUILD_OUTPUT"
 fi
 
-if ! common/fetch_cache_obj.sh "$INSTALL_OBJECT_KEY" "$INSTALL"; then
+if ! common/host/fetch_cache_obj.sh "$INSTALL_OBJECT_KEY" "$INSTALL"; then
     export KBUILD_OUTPUT INSTALL
     (
         set +e
@@ -60,5 +60,5 @@ if ! common/fetch_cache_obj.sh "$INSTALL_OBJECT_KEY" "$INSTALL"; then
             exit 1
         fi
     )
-    common/store_cache_obj.sh "$INSTALL_OBJECT_KEY" "$INSTALL"
+    common/host/store_cache_obj.sh "$INSTALL_OBJECT_KEY" "$INSTALL"
 fi

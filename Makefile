@@ -8,21 +8,21 @@ menuconfig:
 	@common/lib/kconfiglib/menuconfig.py
 
 docker-shell:
-	@common/docker-shell.py
+	@common/utils/docker-shell.py
 
 chroot-shell:
-	@common/chroot-shell.py
+	@common/utils/chroot-shell.py
 
 checkdeps:
-	@common/check.py
+	@common/utils/check.py
 
 clean:
-	-@common/clean-work.py
+	-@common/utils/clean-work.py
 
 clean-cache:
-	@common/clean-cache.py
+	@common/utils/clean-cache.py
 
 clean-all:
 	-@rm -rf dl/
-	-@common/clean-cache.py
-	-@common/clean-work.py
+	-@common/utils/clean-cache.py
+	-@common/utils/clean-work.py

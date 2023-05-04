@@ -5,12 +5,16 @@ import sys
 import subprocess
 import colorama
 
+current = os.path.dirname(os.path.realpath(__file__))
+parent = os.path.dirname(current)
+sys.path.append(parent)
+
 from lib.kconfiglib import kconfiglib
-from lib.set_kconfig_vars import set_kconfig_vars
+from lib.vars import kconfig_export_vars
 
 kconf = kconfiglib.Kconfig('Kconfig')
 kconf.load_config('.config')
-set_kconfig_vars(kconf)
+kconfig_export_vars(kconf)
 
 HOST_ROOT_PATH = os.environ['DS_HOST_ROOT_PATH']
 WORK = os.environ['DS_WORK']
@@ -25,22 +29,13 @@ for key, value in kconf.syms.items():
         continue
     config_dict[f'CONFIG_{key}'] = value.str_value
 
-command = [ 'docker', 'run', '-it',
-        '--volume', f'{HOST_ROOT_PATH}:/work/',
-        '--workdir', '/work/' ]
-
-if os.path.exists(dockerenv):
-    command.append('--env-file')
-    command.append(f'{dockerenv}')
-
-for key, value in config_dict.items():
-    command.append('-e')
-    command.append(f'{key}={value}')
-
-command.append(TAG)
-command.append('chroot')
-command.append('/work/work/rootfs')
-command.append('/bin/bash')
+command = [
+    'docker', 'run', '-it',
+    '--volume', f'{HOST_ROOT_PATH}:/work/',
+    '--workdir', '/work/',
+    '--env-file', f'{dockerenv}',
+    f'{TAG}', 'chroot', '/work/work/rootfs', '/bin/bash'
+]
 
 result = subprocess.run(['which', 'docker'], capture_output=True,
                         text=True, check=True)
