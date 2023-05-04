@@ -26,10 +26,32 @@ if grep -q "nfsroot" /proc/cmdline; then
     search=\$(awk '/^domain/ { print \$2 }' /proc/net/pnp)
 
     # Check if /etc/resolv.conf exists
-    if [ ! -f "/etc/resolv.conf" ]; then
+    if [ ! -e "/etc/resolv.conf" ]; then
         # Create /etc/resolv.conf with the extracted DNS and search domain
         echo "nameserver \$dns" > /etc/resolv.conf
         echo "search \$search" >> /etc/resolv.conf
+    else
+        # resolved is likely controlling dns
+        if ! resolvectl status | grep -q 'DNS Servers:'; then
+            # Get a list of all network interfaces
+            interfaces=(\$(ls /sys/class/net/))
+
+            # Filter the list to only include interfaces that are up
+            up_interfaces=()
+            for interface in "\${interfaces[@]}"; do
+            if [[ -f "/sys/class/net/\$interface/operstate" && \\
+                    "\$(cat /sys/class/net/\$interface/operstate)" == "up" ]]; then
+                up_interfaces+=("\$interface")
+            fi
+            done
+
+            for interface in "\${up_interfaces[@]}"; do
+                resolvectl dns \$interface \$dns
+                if [ -n "\$search" ]; then
+                    resolvectl domain \$interface \$search
+                fi
+            done
+        fi
     fi
 fi
 EOF
