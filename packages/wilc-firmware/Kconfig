@@ -1,0 +1,4 @@
+config DS_PACKAGE_WILC3000_FIRMWARE
+    bool "wilc3000-firmware"
+    help
+      Installs Microchip Wilc3000 Firmware
