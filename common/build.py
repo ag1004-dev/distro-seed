@@ -28,7 +28,7 @@ DS_QEMU_STATIC = os.environ['DS_QEMU_STATIC']
 
 tasks = []
 
-# Generate the docker environment we use to build the kernel and userspace packages
+# Generate the docker environment we use to build the kernel and userspace components
 tasks.append(Task(['common/host/build_host_docker.sh',
                    f"distros/{DS_DISTRO}/{DS_RELEASE}/host-{DS_TARGET_ARCH}-docker/"],
                    "Generating Host Docker image",
@@ -49,12 +49,12 @@ tasks.append(Task(['common/host/gen_docker_env.py'],
                   "Generate docker environment",
                    exectype = ExecType.HOST))
 
-# Add tasks in order of kernel/distros/packages
+# Add tasks in order of kernel/distros/components
 kernel_manifest_files = glob.glob(os.path.join('kernel', '**', 'manifest.py'),
                            recursive=True)
 distro_manifest_files = glob.glob(os.path.join('distros', '**', 'manifest.py'),
                            recursive=True)
-package_manifest_files = glob.glob(os.path.join('packages', '**', 'manifest.py'),
+component_manifest_files = glob.glob(os.path.join('components', '**', 'manifest.py'),
                            recursive=True)
 image_manifest_files = glob.glob(os.path.join('image', '**', 'manifest.py'),
                            recursive=True)
@@ -66,7 +66,7 @@ manifests = [
     load_manifest(manifest_path)
     for manifest_path in kernel_manifest_files +
         distro_manifest_files +
-        package_manifest_files +
+        component_manifest_files +
         image_manifest_files + 
         generator_manifest_files
 ]
@@ -120,11 +120,11 @@ for manifest in manifests:
                             description,
                             exectype = ExecType.CHROOT_CMD))
 
-# After we load all the tasks for kernel, distro, and packages, the next steps
+# After we load all the tasks for kernel, distro, and components, the next steps
 # are to combine all the above installs and enter the chroot through qemu.
 # When we are executing in the rootfs we can finish the apt installations
 tasks.append(Task(['common/docker/combine_installs.sh'],
-             "Combining package installations",
+             "Combining component installations",
              exectype = ExecType.DOCKER))
 
 # This sets up the qemu static binary, and sets up a few required /dev/ nodes

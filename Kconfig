@@ -15,6 +15,6 @@ endmenu
 
 source "distros/Kconfig"
 source "kernel/Kconfig"
-source "packages/Kconfig"
+source "components/Kconfig"
 source "image/Kconfig"
 source "generators/Kconfig"

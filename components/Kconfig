@@ -1,0 +1,13 @@
+menu "Components"
+
+source "components/distroboot-scripts/Kconfig"
+source "components/legacy-bootscript/Kconfig"
+source "components/resize/Kconfig"
+
+menu "Hardware Specific Components"
+source "components/ts4900-utils/Kconfig"
+source "components/ts4900-fpga/Kconfig"
+source "components/wilc-firmware/Kconfig"
+endmenu
+
+endmenu
