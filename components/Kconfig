@@ -8,6 +8,7 @@ menu "Hardware Specific Components"
 source "components/ts4900-utils/Kconfig"
 source "components/ts4900-fpga/Kconfig"
 source "components/wilc-firmware/Kconfig"
+source "components/wl12xx-firmware/Kconfig"
 endmenu
 
 endmenu
