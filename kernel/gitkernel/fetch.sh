@@ -1,4 +1,4 @@
-#!/bin/bash -ex
+#!/bin/bash -e
 
 SOURCE="$DS_WORK/kernel/linux/"
 KERNEL_CACHE_KEY="$DS_WORK/kernel/linux-cache-key"
