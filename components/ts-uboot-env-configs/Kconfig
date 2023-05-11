@@ -1,0 +1,4 @@
+config DS_COMPONENT_TS_UBOOT_CONFIGS
+    bool "Install embeddedTS's u-boot fw_env.config files"
+    help
+      Installs embeddedTS's u-boot fw_env.config files to /usr/share/uboot-env-configs/

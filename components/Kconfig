@@ -8,6 +8,7 @@ source "components/ts4900-utils/Kconfig"
 source "components/ts7100-utils/Kconfig"
 source "components/ts4900-fpga/Kconfig"
 source "components/tssupervisorupdate/Kconfig"
+source "components/ts-uboot-env-configs/Kconfig"
 endmenu
 
 menu "Microchip"
