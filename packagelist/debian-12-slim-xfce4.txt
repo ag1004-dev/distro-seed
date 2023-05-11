@@ -1,8 +1,8 @@
 ## Bare minimum options:
 kmod # Required for kernel module management
 systemd # needed for init system
-systemd-sysv # needed to provide /sbin/init
 systemd-resolved # systemd dns resolution
+systemd-sysv # needed to provide /sbin/init
 udev # needed to set up serial console
 
 ## Full package options:
@@ -71,8 +71,9 @@ gdb
 git
 libiio-dev
 lsof
+meson
 nfs-common
-u-boot-tools
+libubootenv-tool
 
 ## graphics
 # X11
