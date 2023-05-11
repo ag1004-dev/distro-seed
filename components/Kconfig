@@ -1,20 +1,26 @@
 menu "Components"
 
-source "components/distroboot-scripts/Kconfig"
-source "components/legacy-bootscript/Kconfig"
-source "components/resize/Kconfig"
-
 menu "Hardware Specific Components"
+
+menu "embeddedTS"
+source "components/legacy-bootscript/Kconfig"
 source "components/ts4900-utils/Kconfig"
 source "components/ts7100-utils/Kconfig"
 source "components/ts4900-fpga/Kconfig"
-source "components/wilc-firmware/Kconfig"
-source "components/wl12xx-firmware/Kconfig"
 source "components/tssupervisorupdate/Kconfig"
 endmenu
 
-menu "External Kernel Modules"
+menu "Microchip"
+source "components/wilc-firmware/Kconfig"
 source "components/wilc3000-external-module/Kconfig"
 endmenu
+
+menu "TI"
+source "components/wl12xx-firmware/Kconfig"
+endmenu
+endmenu
+
+source "components/distroboot-scripts/Kconfig"
+source "components/resize/Kconfig"
 
 endmenu
