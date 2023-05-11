@@ -1,0 +1,5 @@
+menu "Output Image"
+
+source "image_output/tar/Kconfig"
+
+endmenu

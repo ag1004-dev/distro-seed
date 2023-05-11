@@ -1,5 +1,0 @@
-menu "Output Image"
-
-source "generators/tar/Kconfig"
-
-endmenu

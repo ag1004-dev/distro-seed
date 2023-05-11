@@ -1,5 +1,5 @@
 source "distros/Kconfig"
 source "kernel/Kconfig"
 source "components/Kconfig"
-source "image/Kconfig"
-source "generators/Kconfig"
+source "image_configuration/Kconfig"
+source "image_output/Kconfig"

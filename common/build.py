@@ -56,9 +56,9 @@ distro_manifest_files = glob.glob(os.path.join('distros', '**', 'manifest.py'),
                            recursive=True)
 component_manifest_files = glob.glob(os.path.join('components', '**', 'manifest.py'),
                            recursive=True)
-image_manifest_files = glob.glob(os.path.join('image', '**', 'manifest.py'),
+image_manifest_files = glob.glob(os.path.join('image_configuration', '**', 'manifest.py'),
                            recursive=True)
-generator_manifest_files = glob.glob(os.path.join('generators', '**', 'manifest.py'),
+generator_manifest_files = glob.glob(os.path.join('image_output', '**', 'manifest.py'),
                            recursive=True)
 
 # Process all the manifest files
