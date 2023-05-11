@@ -13,4 +13,8 @@ source "components/wl12xx-firmware/Kconfig"
 source "components/tssupervisorupdate/Kconfig"
 endmenu
 
+menu "External Kernel Modules"
+source "components/wilc3000-external-module/Kconfig"
+endmenu
+
 endmenu
