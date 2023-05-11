@@ -1,5 +1,18 @@
 menu "Distribution"
 choice
+        prompt "Architecture"
+        default DS_ARCH_ARMHF
+config DS_ARCH_ARMHF
+        bool "armhf"
+        help
+          Target armhf (arm32 hard float) system
+config DS_ARCH_ARMEL
+        bool "armel"
+        help
+          Target armel (arm32 soft float) system
+endchoice
+
+choice
         prompt "Base Distribution"
 config DS_DISTRO_DEBIAN_11
 	bool "Debian 11 Bullseye"
@@ -33,5 +46,4 @@ config DS_PACKAGELIST
 	default "debian-12-minimal.txt" if DS_DISTRO_DEBIAN_12
 	default "ubuntu_22_04-minimal.txt" if DS_DISTRO_UBUNTU_22_04
 	default "ubuntu_22304-minimal.txt" if DS_DISTRO_UBUNTU_23_04
-
 endmenu
