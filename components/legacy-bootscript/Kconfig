@@ -1,17 +1,17 @@
 config DS_PACKAGE_LEGACY_BOOTSCRIPT
-    bool "Install legacy u-boot compatible /boot/boot.ub script"
-    help
-      For pre-distroboot systems this can be used to customize the command line
+	bool "Install legacy u-boot compatible /boot/boot.ub script"
+	help
+	  For pre-distroboot systems this can be used to customize the command line
 
 config DS_PACKAGE_LEGACY_BOOTSCRIPT_CMDLINE
-    string "Boot script legacy CMDLINE"
-    depends on DS_PACKAGE_LEGACY_BOOTSCRIPT
-    help
-      Sets the "cmdline_append" variable in u-boot
+	string "Boot script legacy CMDLINE"
+	depends on DS_PACKAGE_LEGACY_BOOTSCRIPT
+	help
+	  Sets the "cmdline_append" variable in u-boot
 
 config DS_PACKAGE_LEGACY_BOOTSCRIPT_INSTALL_SOURCE
-    bool "Install legacy boot script source file to /boot/boot.source"
-    depends on DS_PACKAGE_LEGACY_BOOTSCRIPT
-    help
-      Install the legacy script source to the image. This can be used to
-      change the script on the unit itself
+	bool "Install legacy boot script source file to /boot/boot.source"
+	depends on DS_PACKAGE_LEGACY_BOOTSCRIPT
+	help
+	  Install the legacy script source to the image. This can be used to
+	  change the script on the unit itself

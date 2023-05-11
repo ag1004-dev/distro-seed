@@ -1,6 +1,6 @@
 config DS_PACKAGE_RESIZE
-    bool "resize"
-    help
-      Installs a "resize" utility to match the terminal size of your host.  This
-      is similar to xterm's resize utility, but without pulling in xterm and its
-      dependencies.
+	bool "resize"
+	help
+	  Installs a "resize" utility to match the terminal size of your host.  This
+	  is similar to xterm's resize utility, but without pulling in xterm and its
+	  dependencies.

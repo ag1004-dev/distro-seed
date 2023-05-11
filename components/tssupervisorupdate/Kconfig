@@ -1,6 +1,6 @@
 config DS_PACKAGE_TSSUPERVISORUPDATE
-        bool "tssupervisorupdate"
-        help
+	bool "tssupervisorupdate"
+	help
 	  This project is used to update the supervisory microcontroller on
-          embeddedTS products. This supports the TS-7250-V3, TS-7970, and more
-          in the future.
+	  embeddedTS products. This supports the TS-7250-V3, TS-7970, and more
+	  in the future.

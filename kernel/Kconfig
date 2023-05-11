@@ -1,53 +1,53 @@
 menu "Kernel"
 
 choice
-        prompt "Kernel version"
-        default DS_KERNEL_PROVIDER_GIT
+	prompt "Kernel version"
+	default DS_KERNEL_PROVIDER_GIT
 
 config DS_KERNEL_PROVIDER_GIT
-        bool "Kernel source provider is custom git repository"
-        help
-          This option allows distro-seed to grab the kernel sources from git
+	bool "Kernel source provider is custom git repository"
+	help
+	  This option allows distro-seed to grab the kernel sources from git
 
 endchoice
 
 if DS_KERNEL_PROVIDER_GIT
 
 config DS_KERNEL_PROVIDER_GIT_URL
-        string "URL of git repository"
-        help
-          Specify git repo to fetch kernel
+	string "URL of git repository"
+	help
+	  Specify git repo to fetch kernel
 
 config DS_KERNEL_PROVIDER_GIT_VERSION
-        string "Kernel GIT srcrev"
-        help
-          Specify tag or branch to checkout before building
+	string "Kernel GIT srcrev"
+	help
+	  Specify tag or branch to checkout before building
 endif
 
 config DS_KERNEL_DEFCONFIG
-        string "Git defconfig"
-        help
-          Specify kernel defconfig to use
+	string "Git defconfig"
+	help
+	  Specify kernel defconfig to use
 
 config DS_KERNEL_INSTALL_DEVICETREE_FILESYSTEM
-        string "Names of device tree targets to install on the target"
-        help   
-          Device tree names to install on the target, eg:
-          foo
-          would build foo.dtb and install it to /boot/foo.dtb
+	string "Names of device tree targets to install on the target"
+	help   
+	  Device tree names to install on the target, eg:
+	  foo
+	  would build foo.dtb and install it to /boot/foo.dtb
 
 config DS_KERNEL_INSTALL_ZIMAGE_FILESYSTEM
-        bool "Install zImage to the target filesystem in /boot/"
+	bool "Install zImage to the target filesystem in /boot/"
 
 config DS_KERNEL_INSTALL_UIMAGE_FILESYSTEM
-        bool "Install legacy uImage to the target filesystem in /boot/"
+	bool "Install legacy uImage to the target filesystem in /boot/"
 
 config DS_KERNEL_INSTALL_UIMAGE_LOADADDR
-        hex "uImage Loadaddr"
-        depends on DS_KERNEL_INSTALL_UIMAGE_FILESYSTEM
-        help
-          Specify the load address for the kernel. This is required for the
-          uImage kernel format.  This is usually found in the target's u-boot
-          from:  "env print loadaddr" or "env print kernel_addr_r"
+	hex "uImage Loadaddr"
+	depends on DS_KERNEL_INSTALL_UIMAGE_FILESYSTEM
+	help
+	  Specify the load address for the kernel. This is required for the
+	  uImage kernel format.  This is usually found in the target's u-boot
+	  from:  "env print loadaddr" or "env print kernel_addr_r"
 
 endmenu

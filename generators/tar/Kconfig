@@ -5,17 +5,17 @@ config DS_IMAGE_ROOTFS_TAR
 
 if  DS_IMAGE_ROOTFS_TAR
 choice
-        prompt "Tar compression format"
-        default DS_IMAGE_ROOTFS_TAR_XZ
+	prompt "Tar compression format"
+	default DS_IMAGE_ROOTFS_TAR_XZ
 
 config DS_IMAGE_ROOTFS_TAR_NONE
-        bool "No compression"
+	bool "No compression"
 
 config DS_IMAGE_ROOTFS_TAR_XZ
-        bool "xz compression"
+	bool "xz compression"
 
 config DS_IMAGE_ROOTFS_TAR_BZIP2
-        bool "bz2 compression"
+	bool "bz2 compression"
 
 endchoice
 endif

@@ -1,5 +1,5 @@
 config DS_PACKAGE_TS7100_UTILS
-        bool "ts7100-utils"
-        help
+	bool "ts7100-utils"
+	help
 	  This set of utils is for the TS-7100 and TS-7250-V3 including tools for checking
-          board versions, keypad/lcd tools, pc104/fpga tools, etc.
+	  board versions, keypad/lcd tools, pc104/fpga tools, etc.

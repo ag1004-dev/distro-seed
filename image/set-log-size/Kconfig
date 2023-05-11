@@ -14,4 +14,4 @@ config DS_JOURNAL_SIZE_VALUE
 	default "200M"
 	string "Set Journal size limit"
 	help
-		Sets the journalctl --vacuum-size= value.
+	  Sets the journalctl --vacuum-size= value.

@@ -23,14 +23,14 @@ menu "geneated fstab options"
 	depends on DS_FSTAB_GEN
 
 config DS_FSTAB_GEN_ROOT_DEVICE
-        string "rootfs device"
+	string "rootfs device"
 	default "/dev/root"
 
 config DS_FSTAB_GEN_ROOT_FS
-        string "rootfs filesystem"
+	string "rootfs filesystem"
 	default "ext4"
 
 config DS_FSTAB_GEN_ROOT_OPTIONS
-        string "rootfs mount options"
+	string "rootfs mount options"
 	default "defaults"
 endmenu

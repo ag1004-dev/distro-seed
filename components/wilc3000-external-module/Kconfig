@@ -1,4 +1,4 @@
 config DS_MODULE_WILC3000
-    bool "wilc3000-module"
-    help
-      This module provides the drivers from Microchip's linux4microchip git
+	bool "wilc3000-module"
+	help
+	  This module provides the drivers from Microchip's linux4microchip git

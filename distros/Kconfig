@@ -1,19 +1,19 @@
 menu "Distribution"
 choice
-        prompt "Architecture"
-        default DS_ARCH_ARMHF
+	prompt "Architecture"
+	default DS_ARCH_ARMHF
 config DS_ARCH_ARMHF
-        bool "armhf"
-        help
-          Target armhf (arm32 hard float) system
+	bool "armhf"
+	help
+	  Target armhf (arm32 hard float) system
 config DS_ARCH_ARMEL
-        bool "armel"
-        help
-          Target armel (arm32 soft float) system
+	bool "armel"
+	help
+	  Target armel (arm32 soft float) system
 endchoice
 
 choice
-        prompt "Base Distribution"
+	prompt "Base Distribution"
 config DS_DISTRO_DEBIAN_11
 	bool "Debian 11 Bullseye"
 	help

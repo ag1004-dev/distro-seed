@@ -1,12 +1,12 @@
 config DS_PACKAGE_DISTROBOOT_SCRIPTS
-    bool "Install distroboot compatible /boot/boot.scr script"
-    help
-      For newer u-boots with distroboot a valid /boot/boot.scr script
-      is needed to boot the system.
+	bool "Install distroboot compatible /boot/boot.scr script"
+	help
+	  For newer u-boots with distroboot a valid /boot/boot.scr script
+	  is needed to boot the system.
 
 config DS_PACKAGE_DISTROBOOT_SCRIPTS_INSTALL_SOURCE
-    bool "Install distroboot script source file to /boot/boot.source"
-    depends on DS_PACKAGE_DISTROBOOT_SCRIPTS
-    help
-      Install the distroboot script source to the image. This can be used to
-      change the script on the unit itself
+	bool "Install distroboot script source file to /boot/boot.source"
+	depends on DS_PACKAGE_DISTROBOOT_SCRIPTS
+	help
+	  Install the distroboot script source to the image. This can be used to
+	  change the script on the unit itself
