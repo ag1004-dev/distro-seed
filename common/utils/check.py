@@ -4,7 +4,18 @@ import sys
 import os
 import subprocess
 import shutil
-from colorama import Fore, Style
+import importlib
+
+
+def is_module_available(module_name):
+    """
+    Test if module can be imported
+    """
+    try:
+        importlib.import_module(module_name)
+        return True
+    except ImportError:
+        return False
 
 def is_filesystem_case_sensitive():
     """
@@ -72,51 +83,72 @@ def check_bin_in_path(bin):
 ret = 0
 
 if is_filesystem_case_sensitive():
-    print(f'{Fore.GREEN}Pass: The local filesystem is case sensitive.{Style.RESET_ALL}')
+    print("Pass: The local filesystem is case sensitive.")
 else:
-    print(f'{Fore.RED}Fail: The local filesystem is not case sensitive.{Style.RESET_ALL}')
+    print("Fail: The local filesystem is not case sensitive.")
     print("This is not recommended to run from WSL, Cygwin, or network drive shares which")
     print("may not support typical unix permissions or case sensitivity. This can also")
     print("happen when using a fat32/ntfs or other case insensitive filesystem.")
     ret = 1
 
 if run_hello_world_docker():
-    print(f'{Fore.GREEN}Pass: Ran the hello-world docker.{Style.RESET_ALL}')
+    print("Pass: Ran the hello-world docker.")
 else:
-    print(f'{Fore.RED}Fail: Failed to start docker.{Style.RESET_ALL}')
+    print("Fail: Failed to start docker.")
     print("Install docker using your distribution's docker package, or follow the")
     print("instructions here: https://docs.docker.com/engine/install/")
     ret = 1
 
 if check_free_space():
-    print(f"{Fore.GREEN}Pass: Sufficient free space{Style.RESET_ALL}")
+    print("Pass: Sufficient free space")
 else:
-    print(f"{Fore.RED}Fail: Insufficient free space{Style.RESET_ALL}")
+    print("Fail: Insufficient free space")
     print("Recommend having at minimum 40GB free")
     ret = 1
 
 if check_bin_in_path('qemu-arm-static'):
-    print(f"{Fore.GREEN}Pass: QEMU for armhf{Style.RESET_ALL}")
+    print("Pass: QEMU for armhf")
 else:
-    print(f"{Fore.RED}Fail: QEMU for armhf{Style.RESET_ALL}")
+    print("Fail: QEMU for armhf")
     print("qemu-arm-static is required on the host for armhf targets")
-    printf("Install your distribution's qemu static support, eg \'qemu-user-static\'")
+    print("Install your distribution's qemu static support, eg \'qemu-user-static\'")
     ret = 1
 
 if check_bin_in_path('qemu-armeb-static'):
-    print(f"{Fore.GREEN}Pass: QEMU for armel{Style.RESET_ALL}")
+    print("Pass: QEMU for armel")
 else:
-    print(f"{Fore.RED}Fail: QEMU for armel{Style.RESET_ALL}")
+    print("Fail: QEMU for armel")
     print("qemu-armeb-static is required on the host for armel targets")
-    printf("Install your distribution's qemu static support, eg \'qemu-user-static\'")
+    print("Install your distribution's qemu static support, eg \'qemu-user-static\'")
+    ret = 1
+
+if check_bin_in_path('sha256sum'):
+    print("Pass: sha256sum available")
+else:
+    print("Fail: sha256sum missing")
+    print("Install sha256sum for your host system")
+    ret = 1
+
+if is_module_available('colorama'):
+    print("Pass: python 'colorama' module is available")
+else:
+    print("Fail: python 'colorama' module is not available")
+    print("Try \"pip install colorama\"")
+    ret = 1
+
+if is_module_available('path'):
+    print("Pass: python 'path' module is available")
+else:
+    print("Fail: python 'path' module is not available")
+    print("Try \"pip install path\"")
     ret = 1
 
 if check_bin_in_path('qemu-aarch64-static'):
-    print(f"{Fore.GREEN}Pass: QEMU for arm64{Style.RESET_ALL}")
+    print("Pass: QEMU for arm64")
 else:
-    print(f"{Fore.RED}Fail: QEMU for aarch64{Style.RESET_ALL}")
+    print("Fail: QEMU for aarch64")
     print("qemu-armeb-static is required on the host for aarch64 targets")
-    printf("Install your distribution's qemu static support, eg \'qemu-user-static\'")
+    print("Install your distribution's qemu static support, eg \'qemu-user-static\'")
     ret = 1
 
 if not ret:
