@@ -1,0 +1,18 @@
+config DS_XORG_STARTX_SERVICE
+	bool "startx service to launch kiosk applications"
+	help
+	  Run startx automatically on startup
+
+config DS_XORG_STARTX_SERVICE_TARGET
+	string "startx application"
+	depends on DS_XORG_STARTX_SERVICE
+	default "xterm"
+	help
+	  Application to launch
+
+config DS_XORG_STARTX_SERVICE_NO_DECORATIONS
+	bool "Hide titlebars and cursor"
+	depends on DS_XORG_STARTX_SERVICE
+	help
+	  Launches the matchbox window manager with the cursor and titlebar
+	  disabled

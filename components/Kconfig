@@ -27,5 +27,6 @@ endmenu
 
 source "components/distroboot-scripts/Kconfig"
 source "components/resize/Kconfig"
+source "components/startx-service/Kconfig"
 
 endmenu
