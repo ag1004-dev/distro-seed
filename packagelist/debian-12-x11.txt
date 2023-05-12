@@ -34,6 +34,7 @@ dbus
 less
 locales
 lsb-release
+psmisc
 sensible-utils
 watchdog
 
@@ -75,20 +76,21 @@ meson
 nfs-common
 libubootenv-tool
 
-## graphics
+# DRM packages
+libdrm-etnaviv1
+
 # X11
+matchbox-window-manager
+x11-xserver-utils
+xinput-calibrator
+kbd # Needed for chvt
+xinit
+xinput
 xorg
 xserver-xorg-input-all
 xserver-xorg-video-fbdev
-x11-xserver-utils
-
-# Display server
-slim
-
-# XFCE graphics
-xfce4
-xinput
-xinit
+xdotool
 
 # Graphics applications
+kmscube
 #chromium
