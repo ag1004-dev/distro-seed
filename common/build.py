@@ -56,9 +56,9 @@ distro_manifest_files = glob.glob(os.path.join('distros', '**', 'manifest.py'),
                            recursive=True)
 component_manifest_files = glob.glob(os.path.join('components', '**', 'manifest.py'),
                            recursive=True)
-image_manifest_files = glob.glob(os.path.join('image_configuration', '**', 'manifest.py'),
+image_configuration_manifest_files = glob.glob(os.path.join('image_configuration', '**', 'manifest.py'),
                            recursive=True)
-generator_manifest_files = glob.glob(os.path.join('image_output', '**', 'manifest.py'),
+image_output_manifest_files = glob.glob(os.path.join('image_output', '**', 'manifest.py'),
                            recursive=True)
 
 # Process all the manifest files
@@ -67,8 +67,8 @@ manifests = [
     for manifest_path in kernel_manifest_files +
         distro_manifest_files +
         component_manifest_files +
-        image_manifest_files + 
-        generator_manifest_files
+        image_configuration_manifest_files +
+        image_output_manifest_files
 ]
 
 # Convert all of the manifest files into tasks
@@ -151,9 +151,9 @@ tasks.append(Task(['common/docker/chroot_clean.sh'],
                   "Cleaning up chroot environment",
                   exectype = ExecType.DOCKER))
 
-# Sort any task from generators/ to the end
+# Sort any task from image_output/ to the end
 tasks = sorted(tasks, key=lambda task: (
-    1 if task.command[0].startswith('generator') else
+    1 if task.command[0].startswith('image_output') else
     0
 ))
 
@@ -173,5 +173,5 @@ for i, cmd in enumerate(tasks, start=1):
     # Print out the description of the command
     print(f"Task ({TASKTYPE}) {i}/{len(tasks)}: {Fore.GREEN}{cmd.description}{Style.RESET_ALL}")
 
-    #pprint(cmd.command)
-    cmd.run()
+    pprint(cmd.command)
+    #cmd.run()
