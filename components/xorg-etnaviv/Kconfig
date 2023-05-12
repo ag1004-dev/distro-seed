@@ -1,0 +1,4 @@
+config DS_COMPONENT_XORG_ETNAVIV
+	bool "xorg.conf.d files to support etnaviv gpu (i.MX6)"
+	help
+	  Used on i.MX6 based systems using Xorg+etnaviv

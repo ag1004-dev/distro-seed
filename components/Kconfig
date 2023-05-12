@@ -11,6 +11,10 @@ source "components/tssupervisorupdate/Kconfig"
 source "components/ts-uboot-env-configs/Kconfig"
 endmenu
 
+menu "NXP"
+source "components/xorg-etnaviv/Kconfig"
+endmenu
+
 menu "Microchip"
 source "components/wilc-firmware/Kconfig"
 source "components/wilc3000-external-module/Kconfig"
