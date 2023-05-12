@@ -3,6 +3,7 @@
 import os
 import glob
 import sys
+import argparse
 import colorama
 from pprint import pprint
 from colorama import Fore, Style
@@ -13,6 +14,11 @@ from lib.kconfiglib import kconfiglib
 from lib.vars import kconfig_export_vars
 
 colorama.init()
+
+parser = argparse.ArgumentParser()
+parser.add_argument("--dry-run", action="store_true", help="Perform a dry run")
+args = parser.parse_args()
+is_dry_run = args.dry_run
 
 kconf = kconfiglib.Kconfig('Kconfig')
 kconf.load_config('.config')
@@ -173,5 +179,7 @@ for i, cmd in enumerate(tasks, start=1):
     # Print out the description of the command
     print(f"Task ({TASKTYPE}) {i}/{len(tasks)}: {Fore.GREEN}{cmd.description}{Style.RESET_ALL}")
 
-    pprint(cmd.command)
-    #cmd.run()
+    if is_dry_run:
+        pprint(cmd.command)
+        continue
+    cmd.run()

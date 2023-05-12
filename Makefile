@@ -1,6 +1,9 @@
 all:
 	@common/build.py
 
+dry-run:
+	@common/build.py --dry-run
+
 %_defconfig:
 	@common/lib/kconfiglib/defconfig.py --kconfig Kconfig configs/$@
 
