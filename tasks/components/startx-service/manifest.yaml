@@ -1,0 +1,6 @@
+config: DS_XORG_STARTX_SERVICE
+tasks:
+- cmd: install.sh
+  cmd_type: target
+  description: Installing and Enabling startx.service
+

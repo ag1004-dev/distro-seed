@@ -1,0 +1,8 @@
+config: DS_SET_LOCALES
+tasks:
+  - cmd: set-locales.sh
+    cmd_type: target
+    # Try to run before other applications just to clear up locale warnings
+    dependencies:
+      - DS_APT_CONFIGURED
+    description: Setting locales

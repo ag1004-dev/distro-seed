@@ -1,0 +1,5 @@
+config: DS_FSTAB_GEN
+tasks:
+  - cmd: gen-fstab.sh
+    cmd_type: host
+    description: Generating fstab

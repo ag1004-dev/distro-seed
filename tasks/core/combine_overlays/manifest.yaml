@@ -1,0 +1,9 @@
+config: DS_CORE_COMBINE_OVERLAYS
+tasks:
+- cmd: combine.sh
+  cmd_type: docker
+  dependencies:
+    - DS_DOCKER_READY
+  provides: DS_ROOTFS_COMBINED
+  enforce_dependencies: true
+  description: Combining overlays into rootfs

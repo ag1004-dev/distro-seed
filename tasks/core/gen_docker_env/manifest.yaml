@@ -1,0 +1,9 @@
+config: DS_CORE_GEN_DOCKER_ENV
+tasks:
+- cmd: gen_docker_env.py
+  cmd_type: host
+  dependencies:
+    - DS_WORK_READY
+  provides: DS_DOCKER_READY
+  enforce_dependencies: true
+  description: Generating Docker environment

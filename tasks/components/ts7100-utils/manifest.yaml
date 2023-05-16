@@ -1,0 +1,8 @@
+config: DS_PACKAGE_TS7100_UTILS
+tasks:
+- cmd: build.sh
+  cmd_type: docker
+  description: Building ts7100-utils
+- cmd: fetch.sh
+  cmd_type: host
+  description: Downloading ts7100-utils

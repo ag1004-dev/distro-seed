@@ -1,0 +1,10 @@
+config: DS_CORE_CREATE_WORK
+tasks:
+# Create work structure from the host so its not owned by root
+- cmd: create.sh
+  cmd_type: host
+  dependencies:
+    - DS_CORE_CLEAN_WORK
+  provides: DS_WORK_READY
+  enforce_dependencies: true
+  description: Creating Work directory

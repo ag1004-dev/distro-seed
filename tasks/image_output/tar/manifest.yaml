@@ -1,0 +1,7 @@
+config: DS_IMAGE_ROOTFS_TAR
+tasks:
+  - cmd: package-tar.sh
+    cmd_type: docker
+    dependencies:
+      - DS_ROOTFS_READY
+    description: Packaging up output tar

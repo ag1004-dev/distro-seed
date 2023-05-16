@@ -1,0 +1,5 @@
+config: DS_USE_NTPSERVER
+tasks:
+  - cmd: set-ntp.sh
+    cmd_type: target
+    description: Setting NTP server

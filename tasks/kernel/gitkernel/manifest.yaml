@@ -1,0 +1,9 @@
+config: DS_KERNEL_PROVIDER_GIT
+tasks:
+- cmd: fetch.sh
+  cmd_type: host
+  description: Fetching Linux Kernel from git
+- cmd: ../build.sh
+  cmd_type: docker
+  provides: DS_KERNEL
+  description: Building Linux Kernel

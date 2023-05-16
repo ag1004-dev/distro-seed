@@ -1,0 +1,5 @@
+config: DS_JOURNAL_SIZE_OVERRIDE
+tasks:
+  - cmd: set-logsize.sh
+    cmd_type: target
+    description: Setting Journal Size

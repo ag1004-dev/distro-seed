@@ -1,0 +1,6 @@
+config: DS_PACKAGE_LEGACY_BOOTSCRIPT
+tasks:
+- cmd: build.sh
+  cmd_type: docker
+  description: Generating legacy u-boot scripts
+

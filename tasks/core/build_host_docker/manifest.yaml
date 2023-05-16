@@ -1,0 +1,6 @@
+config: DS_CORE_BUILD_HOST_DOCKER
+tasks:
+- cmd: build_host_docker.sh
+  cmd_type: host
+  enforce_dependencies: true
+  description: Generating Docker Image

@@ -1,0 +1,9 @@
+config: DS_CORE_CHROOT_CLEAN
+tasks:
+- cmd: chroot_clean.sh
+  cmd_type: docker
+  dependencies:
+    - DS_CHROOT_READY
+  provides: DS_ROOTFS_CLEANUP
+  enforce_dependencies: true
+  description: Cleaning chroot environment

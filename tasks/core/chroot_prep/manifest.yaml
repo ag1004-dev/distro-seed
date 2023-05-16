@@ -1,0 +1,9 @@
+config: DS_CORE_CHROOT_PREP
+tasks:
+- cmd: chroot_prep.sh
+  cmd_type: docker
+  dependencies:
+    - DS_ROOTFS_COMBINED
+  provides: DS_CHROOT_EARLY
+  enforce_dependencies: true
+  description: Preparing chroot environment

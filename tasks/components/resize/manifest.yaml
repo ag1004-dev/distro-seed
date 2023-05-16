@@ -1,0 +1,5 @@
+config: DS_PACKAGE_RESIZE
+tasks:
+- cmd: install.sh
+  cmd_type: host
+  description: Installing resize

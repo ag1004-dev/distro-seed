@@ -1,0 +1,9 @@
+config: DS_CORE_CLEAN_WORK
+tasks:
+# Clean work from docker since it has files owned by root
+- cmd: clean.sh
+  cmd_type: docker
+  dependencies:
+    - DS_CORE_BUILD_HOST_DOCKER
+  enforce_dependencies: true
+  description: Cleaning Work directory

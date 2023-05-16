@@ -1,0 +1,5 @@
+config: DS_DISTRO_UBUNTU_22_04
+tasks:
+- cmd: ../../build.sh
+  cmd_type: docker
+  description: Fetching Ubuntu 22.04 distribution

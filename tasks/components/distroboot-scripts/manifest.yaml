@@ -1,0 +1,5 @@
+config: DS_PACKAGE_DISTROBOOT_SCRIPTS
+tasks:
+- cmd: build.sh
+  cmd_type: docker
+  description: Generating Distroboot compatible scripts

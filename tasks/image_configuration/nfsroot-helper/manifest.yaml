@@ -1,0 +1,5 @@
+config: DS_NFSROOT_FIXUP
+tasks:
+  - cmd: fixup-nfs.sh
+    cmd_type: target
+    description: Setting up nfsroot fixup service

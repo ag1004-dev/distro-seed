@@ -1,0 +1,5 @@
+config: DS_SET_HOSTNAME
+tasks:
+  - cmd: set-hostname.sh
+    cmd_type: target
+    description: Setting Hostname

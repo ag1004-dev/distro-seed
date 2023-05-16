@@ -1,0 +1,8 @@
+config: DS_PACKAGE_TSSUPERVISORUPDATE
+tasks:
+- cmd: fetch.sh
+  cmd_type: host
+  description: Downloading tssupervisorupdate
+- cmd: build.sh
+  cmd_type: docker
+  description: Building tssupervisorupdate

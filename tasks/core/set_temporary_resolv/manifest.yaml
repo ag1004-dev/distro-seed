@@ -1,0 +1,8 @@
+config: DS_SET_TEMPORARY_RESOLV
+tasks:
+  - cmd: set.sh
+    cmd_type: target
+    # Run before other applications so resolv.conf is sane
+    dependencies:
+      - DS_APT_CONFIGURED
+    description: Setting temporary resolv.conf

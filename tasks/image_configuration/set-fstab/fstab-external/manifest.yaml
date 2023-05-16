@@ -1,0 +1,5 @@
+config: DS_FSTAB_FILE
+tasks:
+  - cmd: fetch.sh
+    cmd_type: host
+    description: Installing external fstab

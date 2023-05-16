@@ -1,0 +1,10 @@
+config: DS_MODULE_WILC3000
+tasks:
+- cmd: fetch.sh
+  cmd_type: host
+  description: Fetching wilc3000-module
+- cmd: build.sh
+  cmd_type: docker
+  dependencies:
+    - DS_KERNEL
+  description: Building wilc3000-module

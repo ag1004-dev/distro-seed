@@ -1,0 +1,9 @@
+config: DS_APT_CONFIGURED
+tasks:
+- cmd: apt_finish_install.sh
+  cmd_type: target
+  dependencies:
+    - DS_CHROOT_EARLY
+  provides: DS_CHROOT_APT
+  enforce_dependencies: true
+  description: Finishing apt install

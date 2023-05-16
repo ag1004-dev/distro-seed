@@ -1,0 +1,7 @@
+config: DS_CHROOT_READY
+tasks:
+- cmd_type: dummy
+  dependencies:
+    - DS_CHROOT_APT
+  enforce_dependencies: true
+  description: Chroot ready

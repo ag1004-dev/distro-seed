@@ -1,0 +1,5 @@
+config: DS_REGENERATE_COMMAND_NOT_FOUND
+tasks:
+  - cmd: update-command-not-found.sh
+    cmd_type: target
+    description: Generating command-not-found database

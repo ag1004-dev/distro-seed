@@ -1,0 +1,5 @@
+config: DS_PACKAGE_WILC3000_FIRMWARE
+tasks:
+- cmd: fetch.sh
+  cmd_type: host
+  description: Installing WILC3000 firmware

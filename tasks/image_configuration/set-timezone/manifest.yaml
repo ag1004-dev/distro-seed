@@ -1,0 +1,5 @@
+config: DS_SET_TIMEZONE
+tasks:
+  - cmd: set-timezone.sh
+    cmd_type: target
+    description: Setting timezone

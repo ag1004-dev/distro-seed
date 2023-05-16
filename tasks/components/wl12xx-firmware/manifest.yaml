@@ -1,0 +1,5 @@
+config: DS_PACKAGE_WL12XX_FIRMWARE
+tasks:
+- cmd: fetch.sh
+  cmd_type: host
+  description: Installing TI Wl1271 firmware

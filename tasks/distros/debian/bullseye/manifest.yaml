@@ -1,0 +1,5 @@
+config: DS_DISTRO_DEBIAN_11
+tasks:
+- cmd: ../../build.sh
+  cmd_type: docker
+  description: Fetching Debian 11 distribution
