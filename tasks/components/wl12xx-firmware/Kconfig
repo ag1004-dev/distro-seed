@@ -1,5 +1,5 @@
 config DS_PACKAGE_WL12XX_FIRMWARE
 	bool "ti-wl12xx-firmware"
 	help
-	  Installs TI Wl12xx firwmare for modules like TIWI-BLE
+	  Installs TI Wl12xx firmware for modules like TIWI-BLE
 
