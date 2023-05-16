@@ -1,0 +1,17 @@
+menu "Image Configuration"
+
+comment "Required Settings"
+source "tasks/image_configuration/set-locales/Kconfig"
+source "tasks/image_configuration/set-hostname/Kconfig"
+source "tasks/image_configuration/set-timezone/Kconfig"
+source "tasks/image_configuration/set-fstab/Kconfig"
+
+comment "Optional Settings"
+source "tasks/image_configuration/ssh-regen-keys/Kconfig"
+source "tasks/image_configuration/update-command-not-found/Kconfig"
+source "tasks/image_configuration/set-log-size/Kconfig"
+source "tasks/image_configuration/purge-man-pages/Kconfig"
+source "tasks/image_configuration/nfsroot-helper/Kconfig"
+source "tasks/image_configuration/set-ntp/Kconfig"
+
+endmenu

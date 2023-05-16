@@ -1,0 +1,41 @@
+### Default CONFIG options enabled all the time
+config DS_CORE_CLEAN_WORK
+    bool
+    default "y"
+config DS_CORE_CREATE_WORK
+    bool
+    default "y"
+config DS_CORE_BUILD_HOST_DOCKER
+    bool
+    default "y"
+config DS_CORE_GEN_DOCKER_ENV
+    bool
+    default "y"
+config DS_CORE_COMBINE_OVERLAYS
+    bool
+    default "y"
+config DS_CORE_CHROOT_PREP
+    bool
+    default "y"
+config DS_APT_CONFIGURED
+    bool
+    default "y"
+config DS_CORE_CHROOT_CLEAN
+    bool
+    default "y"
+config DS_SET_TEMPORARY_RESOLV
+    bool
+    default "y"
+config DS_CHROOT_READY
+    bool
+    default "y"
+config DS_ROOTFS_READY
+    bool
+    default "y"
+
+# This task is never enabled. This task is only invoked form clean-cache.py,
+# but this definition silences the warning from this manifest not finding
+# matching Kconfig symbol.
+config DS_CORE_CLEAN_CACHE
+    bool
+    default "n"

@@ -9,17 +9,18 @@ parent = os.path.dirname(current)
 sys.path.append(parent)
 
 from lib.kconfiglib import kconfiglib
+from lib.task import Task
+from lib import task_manager
 from lib.vars import kconfig_export_vars
-from lib.tasks import ExecType, Task
 
 kconf = kconfiglib.Kconfig('Kconfig')
 kconf.load_config('.config')
 kconfig_export_vars(kconf)
 
-HOST_ROOT_PATH = os.environ['DS_HOST_ROOT_PATH']
-WORK = os.environ['DS_WORK']
-TAG = os.environ['DS_TAG']
-dockerenv = os.path.abspath(WORK + "/dockerenv")
+host_root_path = os.environ['DS_HOST_ROOT_PATH']
+work = os.environ['DS_WORK']
+tag = os.environ['DS_TAG']
+dockerenv = os.path.abspath(work + "/dockerenv")
 
 # Get all kconfig values in to key=value string list
 config_dict={}
@@ -31,24 +32,24 @@ for key, value in kconf.syms.items():
 
 command = [
     'docker', 'run', '-it',
-    '--volume', f'{HOST_ROOT_PATH}:/work/',
+    '--volume', f'{host_root_path}:/work/',
     '--workdir', '/work/',
     '--env-file', f'{dockerenv}',
-    f'{TAG}', 'chroot', '/work/work/rootfs', '/bin/bash'
+    tag, 'chroot', '/work/work/rootfs', '/bin/bash'
 ]
 
 result = subprocess.run(['which', 'docker'], capture_output=True,
                         text=True, check=True)
 docker_path = result.stdout.strip()
 
-prep = Task(['common/docker/chroot_prep.sh'],
-            "Preparing chroot environment",
-            exectype = ExecType.DOCKER)
-clean = Task(['common/docker/chroot_clean.sh'],
-               "Cleaning up chroot environment",
-               exectype = ExecType.DOCKER)
-prep.run()
+clean_tasks = task_manager.load_tasks_from_manifest('tasks/core/chroot_clean/manifest.yaml')
+prep_tasks = task_manager.load_tasks_from_manifest('tasks/core/chroot_prep/manifest.yaml')
+for prep in prep_tasks:
+    prep.run()
+
 ret = os.system(" ".join(command))
-clean.run()
+
+for clean in clean_tasks:
+    clean.run()
 
 sys.exit(ret)

@@ -5,15 +5,20 @@ import sys
 import subprocess
 import colorama
 
+current = os.path.dirname(os.path.realpath(__file__))
+parent = os.path.dirname(current)
+sys.path.append(parent)
+
 from lib.kconfiglib import kconfiglib
-from lib.set_kconfig_vars import set_kconfig_vars
-from lib.tasks import ExecType, Task
+from lib.task import Task
+from lib import task_manager
+from lib.vars import kconfig_export_vars
 
 kconf = kconfiglib.Kconfig('Kconfig')
 kconf.load_config('.config')
-set_kconfig_vars(kconf)
+kconfig_export_vars(kconf)
 
-clear_task = Task(['rm', '-rf', '/work/work/'],
-                 f'Clearing work',
-                 exectype = ExecType.DOCKER)
-clear_task.run()
+clean_tasks = task_manager.load_tasks_from_manifest('tasks/core/clean_work/manifest.yaml')
+
+for clean in clean_tasks:
+    clean.run()

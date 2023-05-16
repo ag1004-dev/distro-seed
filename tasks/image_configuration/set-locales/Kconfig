@@ -1,0 +1,16 @@
+# Enabled without an option, we always run this
+config DS_SET_LOCALES
+	bool
+	default y
+
+config DS_LOCALES
+	default "en_US.UTF-8"
+	string "Set Locale value"
+	help
+	  Set the locale on the image. See "dpkg-reconfigure locales" for the 
+	  full list
+
+config DS_PURGE_LOCALES
+	bool "Purge unused locales"
+	help
+	  Purges unused locales, all but what is specified in DS_LOCALES

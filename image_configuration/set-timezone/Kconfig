@@ -1,6 +1,0 @@
-config DS_TIMEZONE
-	default "America/Phoenix"
-	string "Set System Timezone"
-	help
-	  Set the timezone on the image.  See timezone from /usr/share/zoneinfo
-	  for the list of all timezones.

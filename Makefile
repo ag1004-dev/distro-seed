@@ -19,6 +19,9 @@ chroot-shell:
 checkdeps:
 	@common/utils/check.py
 
+plotdeps:
+	@common/build.py --plot-deps
+
 clean:
 	-@common/utils/clean-work.py
 

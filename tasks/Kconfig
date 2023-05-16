@@ -1,0 +1,6 @@
+source "tasks/core/Kconfig"
+source "tasks/distros/Kconfig"
+source "tasks/kernel/Kconfig"
+source "tasks/components/Kconfig"
+source "tasks/image_configuration/Kconfig"
+source "tasks/image_output/Kconfig"
