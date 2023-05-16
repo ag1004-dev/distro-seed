@@ -10,6 +10,9 @@ dry-run:
 menuconfig:
 	@common/lib/kconfiglib/menuconfig.py
 
+savedefconfig:
+	@common/lib/kconfiglib/savedefconfig.py
+
 docker-shell:
 	@common/utils/docker-shell.py
 
