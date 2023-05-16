@@ -16,7 +16,7 @@ elif [[ "$CONFIG_DS_IMAGE_ROOTFS_TAR_BZIP2" == 'y' ]]; then
         COMPRESSION="j"
         TARFILE="${TARFILE}.bz2"
 else 
-        echo "Invalid compresion!"
+        echo "Invalid compression!"
         exit 1
 fi
 
