@@ -153,7 +153,7 @@ def create_dependency_edges(graph, node):
 def create_enforced_dependencies(graph, node, enforced_task_node=None):
     """
     Creates edges from from the children of the parent node to this node.
-    This enforces parent depedencies are finished before proceeding
+    This enforces parent dependencies are finished before proceeding
 
     Args:
         graph (networkx.DiGraph): A directed graph representing the task dependencies.
@@ -201,7 +201,7 @@ def create_task_graph(tasks):
     graph = nx.DiGraph()
 
     # Add nodes for each task
-    # We attatch an id to each task in the order we read it in.
+    # We attach an id to each task in the order we read it in.
     # This way if there are no other order priorities, the tasks are
     # sorted the way they are listed in the manifest.
     for i, task in enumerate(tasks, start=1):
