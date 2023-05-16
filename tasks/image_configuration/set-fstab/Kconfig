@@ -19,7 +19,7 @@ config DS_FSTAB_FILE_PATH
 	help
 	  Path to the fstab to use in the target image
 
-menu "geneated fstab options"
+menu "generated fstab options"
 	depends on DS_FSTAB_GEN
 
 config DS_FSTAB_GEN_ROOT_DEVICE
