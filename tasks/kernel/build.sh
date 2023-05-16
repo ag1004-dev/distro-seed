@@ -8,7 +8,7 @@ INSTALL="$DS_WORK/overlays/kernel/"
 BUILD_OBJECT_KEY="linux-kernel-build-${KERNEL_CACHE_KEY}"
 INSTALL_OBJECT_KEY="linux-kernel-install-${KERNEL_CACHE_KEY}"
 
-# The kernel caching is a little unusual since we have two differnet objects to cache.
+# The kernel caching is a little unusual since we have two differenet objects to cache.
 # The installed kernel+modules make up one cached object, and the build objects make up
 # the other. We still need the build object in the cache to support building other modules
 # that may use the kernel source as a dependency.
