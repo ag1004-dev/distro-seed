@@ -133,14 +133,35 @@ if is_module_available('colorama'):
     print("Pass: python 'colorama' module is available")
 else:
     print("Fail: python 'colorama' module is not available")
-    print("Try \"pip install colorama\"")
+    print("Try \"pip install -r requirements.txt\"")
     ret = 1
 
 if is_module_available('path'):
     print("Pass: python 'path' module is available")
 else:
     print("Fail: python 'path' module is not available")
-    print("Try \"pip install path\"")
+    print("Try \"pip install -r requirements.txt\"")
+    ret = 1
+
+if is_module_available('yaml'):
+    print("Pass: python 'yaml' module is available")
+else:
+    print("Fail: python 'yaml' module is not available")
+    print("Try \"pip install -r requirements.txt\"")
+    ret = 1
+
+if is_module_available('matplotlib'):
+    print("Pass: python 'matplotlib' module is available")
+else:
+    print("Fail: python 'matplotlib' module is not available")
+    print("Try \"pip install -r requirements.txt\"")
+    ret = 1
+
+if is_module_available('networkx'):
+    print("Pass: python 'networkx' module is available")
+else:
+    print("Fail: python 'networkx' module is not available")
+    print("Try \"pip install -r requirements.txt\"")
     ret = 1
 
 if check_bin_in_path('qemu-aarch64-static'):
