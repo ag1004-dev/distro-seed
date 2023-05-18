@@ -1,0 +1,5 @@
+config DS_COMPONENT_TS7670_UTILS
+	bool "ts7670-utils"
+	help
+	  Userspace utilities for controlling various aspects of the on-board
+	  microcontroller and other platform information.
