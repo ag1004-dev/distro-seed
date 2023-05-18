@@ -94,7 +94,7 @@ class Task:
             if os.path.exists(dockerenv):
                 command += ['--env-file', dockerenv]
 
-            ds_overlay_docker = os.environ['DS_CACHE'].replace(
+            ds_overlay_docker = os.environ['DS_OVERLAY'].replace(
                 os.environ['DS_HOST_ROOT_PATH'], '/work')
             command += ['-e', f'DS_OVERLAY={ds_overlay_docker}']
 
