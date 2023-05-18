@@ -1,0 +1,12 @@
+config DS_COMPONENT_TS7400V2_UBOOT
+        bool "Binary bootable U-Boot blob for TS-7400-V2"
+        help
+          Pre-built binary blob for making bootable SD/eMMC devices.
+
+          This is based on the 2014.10 U-Boot release which requires
+          an older gcc 4.4 compiler which is not possible to build
+          in modern Buildroot release. In order to still support this
+          platform, this package provides a binary used as part of the
+          final image build.
+
+          THIS IS REQUIRED FOR A BOOTABLE TS-7400-V2 IMAGE!

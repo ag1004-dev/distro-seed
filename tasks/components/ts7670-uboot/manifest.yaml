@@ -1,0 +1,5 @@
+config: DS_COMPONENT_TS7670_UBOOT
+tasks:
+- cmd: fetch.sh
+  cmd_type: host
+  description: Downloading ts7670-uboot

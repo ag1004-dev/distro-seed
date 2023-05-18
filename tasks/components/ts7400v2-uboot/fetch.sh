@@ -1,0 +1,12 @@
+#!/bin/bash -e
+
+TS7400V2_UBOOT_VERSION="20230301"
+TS7400V2_UBOOT_SOURCE="ts7400v2-${TS7400V2_UBOOT_VERSION}.sd"
+TS7400V2_UBOOT_SITE="https://files.embeddedts.com/ts-arm-sbc/ts-7400_V2-linux/binaries/u-boot"
+TS7400V2_UBOOT_SHA256="2573f4420f9863ece2c40dcf3a4b9d51b77a04f37c80503b45f10c372747b3ad"
+
+URL="${TS7400V2_UBOOT_SITE}/${TS7400V2_UBOOT_SOURCE}"
+PRJ_WORK="$DS_WORK/output/"
+
+mkdir -p "$PRJ_WORK"
+common/host/fetch_blob.sh "$URL" "$PRJ_WORK/uboot.sd" "$TS7400V2_UBOOT_SHA256"
