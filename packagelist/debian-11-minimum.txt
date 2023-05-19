@@ -2,7 +2,6 @@
 kmod # Required for kernel module management
 systemd # needed for init system
 systemd-sysv # needed to provide /sbin/init
-systemd-resolved # systemd dns resolution
 udev # needed to set up serial console
 
 # Network configuration
