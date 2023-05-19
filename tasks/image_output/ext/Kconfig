@@ -1,0 +1,68 @@
+config DS_IMAGE_ROOTFS_EXT
+	bool "ext2/3/4 root filesystem"
+	help
+	  Build an ext2/3/4 root filesystem
+
+choice
+	depends on DS_IMAGE_ROOTFS_EXT
+	prompt "ext2/3/4 variant"
+	default DS_IMAGE_ROOTFS_EXT_EXT4
+
+config DS_IMAGE_ROOTFS_EXT_EXT2
+	bool "ext2"
+
+config DS_IMAGE_ROOTFS_EXT_EXT3
+	bool "ext3"
+
+config DS_IMAGE_ROOTFS_EXT_EXT4
+	bool "ext4"
+
+endchoice
+
+choice
+	prompt "compression method"
+	depends on DS_IMAGE_ROOTFS_EXT
+	default DS_IMAGE_ROOTFS_EXT_NONE
+	help
+	  In addition to outputting a file like rootfs.ext4 this can output a
+	  compressed copy.
+
+config DS_IMAGE_ROOTFS_EXT_NONE
+	bool "no compression"
+
+config DS_IMAGE_ROOTFS_EXT_XZ
+	bool "xz"
+
+config DS_IMAGE_ROOTFS_EXT_BZ2
+	bool "bzip2"
+
+endchoice
+
+config DS_IMAGE_ROOTFS_EXT_VER
+	depends on DS_IMAGE_ROOTFS_EXT
+	int
+	default 2 if DS_IMAGE_ROOTFS_EXT_EXT2
+	default 3 if DS_IMAGE_ROOTFS_EXT_EXT3
+	default 4 if DS_IMAGE_ROOTFS_EXT_EXT4
+
+config DS_IMAGE_ROOTFS_EXT_LABEL
+	string "filesystem label"
+	depends on DS_IMAGE_ROOTFS_EXT
+	default "rootfs"
+
+config DS_IMAGE_ROOTFS_EXT_SIZE
+	string "filesystem size"
+	depends on DS_IMAGE_ROOTFS_EXT
+	default "2G"
+	help
+	  Specify size of the ext partition.
+	  256M would be 256MiB
+	  1G would be 1024MiB
+
+config DS_IMAGE_ROOTFS_EXT_MKFS_OPTS
+	string "additional mkfs options"
+	depends on DS_IMAGE_ROOTFS_EXT
+	help
+	  These are options passed to mkfs when creating the filesystem.
+	  Eg:
+	  ext4 compatibility with older u-boots: -O ^metadata_csum,^64bit

@@ -1,0 +1,7 @@
+config: DS_IMAGE_ROOTFS_EXT
+tasks:
+  - cmd: package-ext.sh
+    cmd_type: docker
+    dependencies:
+      - DS_ROOTFS_READY
+    description: Packaging up output ext filesystem

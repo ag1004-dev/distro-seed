@@ -1,5 +1,6 @@
 menu "Output Image"
 
 source "tasks/image_output/tar/Kconfig"
+source "tasks/image_output/ext/Kconfig"
 
 endmenu
