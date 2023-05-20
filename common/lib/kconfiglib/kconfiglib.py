@@ -548,7 +548,7 @@ import importlib
 import os
 import re
 import sys
-
+import pprint
 # Get rid of some attribute lookups. These are obvious in context.
 from glob import iglob
 from os.path import dirname, exists, expandvars, islink, join, realpath
@@ -1047,6 +1047,7 @@ class Kconfig(object):
         self.top_node.kconfig = self
         self.top_node.item = MENU
         self.top_node.is_menuconfig = True
+        self.top_node.is_table = True
         self.top_node.visibility = self.y
         self.top_node.prompt = ("Main menu", self.y)
         self.top_node.parent = None
@@ -1620,6 +1621,13 @@ class Kconfig(object):
                         add("# end of {}\n".format(node.prompt[0]))
                         after_end_comment = True
 
+                    # Add a comment when leaving visible menus
+                    if node.item is TABLE and expr_value(node.dep) and \
+                       expr_value(node.visibility) and \
+                       node is not self.top_node:
+                        add("# end of {}\n".format(node.prompt[0]))
+                        after_end_comment = True
+
                     if node.next:
                         node = node.next
                         break
@@ -1649,6 +1657,12 @@ class Kconfig(object):
 
             elif expr_value(node.dep) and \
                  ((item is MENU and expr_value(node.visibility)) or
+                  item is COMMENT):
+
+                add("\n#\n# {}\n#\n".format(node.prompt[0]))
+                after_end_comment = False
+            elif expr_value(node.dep) and \
+                 ((item is TABLE and expr_value(node.visibility)) or
                   item is COMMENT):
 
                 add("\n#\n# {}\n#\n".format(node.prompt[0]))
@@ -3014,6 +3028,7 @@ class Kconfig(object):
                 node.kconfig = self
                 node.item = t0  # _T_MENU == MENU
                 node.is_menuconfig = True
+                node.is_table = False
                 node.prompt = (self._expect_str_and_eol(), self.y)
                 node.visibility = self.y
                 node.parent = parent
@@ -3029,11 +3044,49 @@ class Kconfig(object):
 
                 prev.next = prev = node
 
+            elif t0 is _T_TABLE:
+                node = MenuNode()
+                node.kconfig = self
+                node.item = t0  # _T_TABLE == _T_TABLE
+                node.is_menuconfig = True
+                node.is_table = True
+                node.prompt = (self._expect_str_and_eol(), self.y)
+                node.visibility = self.y
+                node.parent = parent
+                node.filename = self.filename
+                node.linenr = self.linenr
+                node.include_path = self._include_path
+
+                self.menus.append(node)
+
+                self._parse_props(node)
+                self._parse_block(_T_ENDTABLE, node, node)
+                node.list = node.next
+
+                prev.next = prev = node
+
+            elif t0 is _T_ADDROW:
+                node = MenuNode()
+                node.kconfig = self
+                node.item = t0  # _T_ADDROW == _T_ADDROW
+                node.is_menuconfig = False
+                node.is_table = False
+                node.prompt = (self._expect_str_and_eol(), self.y)
+                node.visibility = self.y
+                node.parent = parent
+                node.filename = self.filename
+                node.linenr = self.linenr
+                node.include_path = self._include_path
+
+                self._parse_props(node)
+                prev.next = prev = node
+
             elif t0 is _T_COMMENT:
                 node = MenuNode()
                 node.kconfig = self
                 node.item = t0  # _T_COMMENT == COMMENT
                 node.is_menuconfig = False
+                node.is_table = False
                 node.prompt = (self._expect_str_and_eol(), self.y)
                 node.list = None
                 node.parent = parent
@@ -3067,6 +3120,7 @@ class Kconfig(object):
                 node.kconfig = choice.kconfig = self
                 node.item = choice
                 node.is_menuconfig = True
+                node.is_table = False
                 node.prompt = node.help = None
                 node.parent = parent
                 node.filename = self.filename
@@ -5613,6 +5667,7 @@ class MenuNode(object):
         "help",
         "include_path",
         "is_menuconfig",
+        "is_table",
         "item",
         "kconfig",
         "linenr",
@@ -5733,6 +5788,9 @@ class MenuNode(object):
         elif self.item is MENU:
             add("menu node for menu")
 
+        elif self.item is TABLE:
+            add("table node for table")
+
         else:  # self.item is COMMENT
             add("menu node for comment")
 
@@ -5746,6 +5804,9 @@ class MenuNode(object):
         add("deps " + TRI_TO_STR[expr_value(self.dep)])
 
         if self.item is MENU:
+            add("'visible if' deps " + TRI_TO_STR[expr_value(self.visibility)])
+
+        if self.item is TABLE:
             add("'visible if' deps " + TRI_TO_STR[expr_value(self.visibility)])
 
         if self.item.__class__ in _SYMBOL_CHOICE and self.help is not None:
@@ -6854,6 +6915,7 @@ except AttributeError:
 # all tokens except empty strings truthy.
 (
     _T_ALLNOCONFIG_Y,
+    _T_ADDROW,
     _T_AND,
     _T_BOOL,
     _T_CHOICE,
@@ -6867,10 +6929,12 @@ except AttributeError:
     _T_DEF_INT,
     _T_DEF_STRING,
     _T_DEF_TRISTATE,
+    _T_DELETEROW,
     _T_DEPENDS,
     _T_ENDCHOICE,
     _T_ENDIF,
     _T_ENDMENU,
+    _T_ENDTABLE,
     _T_ENV,
     _T_EQUAL,
     _T_GREATER,
@@ -6900,15 +6964,17 @@ except AttributeError:
     _T_SELECT,
     _T_SOURCE,
     _T_STRING,
+    _T_TABLE,
     _T_TRISTATE,
     _T_UNEQUAL,
     _T_VISIBLE,
-) = range(1, 51)
+) = range(1, 55)
 
 # Keyword to token map, with the get() method assigned directly as a small
 # optimization
 _get_keyword = {
     "---help---":     _T_HELP,
+    "addrow":         _T_ADDROW,
     "allnoconfig_y":  _T_ALLNOCONFIG_Y,
     "bool":           _T_BOOL,
     "boolean":        _T_BOOL,
@@ -6922,10 +6988,12 @@ _get_keyword = {
     "def_tristate":   _T_DEF_TRISTATE,
     "default":        _T_DEFAULT,
     "defconfig_list": _T_DEFCONFIG_LIST,
+    "deleterow":      _T_DELETEROW,
     "depends":        _T_DEPENDS,
     "endchoice":      _T_ENDCHOICE,
     "endif":          _T_ENDIF,
     "endmenu":        _T_ENDMENU,
+    "endtable":       _T_ENDTABLE,
     "env":            _T_ENV,
     "grsource":       _T_ORSOURCE,  # Backwards compatibility
     "gsource":        _T_OSOURCE,   # Backwards compatibility
@@ -6949,6 +7017,7 @@ _get_keyword = {
     "select":         _T_SELECT,
     "source":         _T_SOURCE,
     "string":         _T_STRING,
+    "table":          _T_TABLE,
     "tristate":       _T_TRISTATE,
     "visible":        _T_VISIBLE,
 }.get
@@ -6957,8 +7026,11 @@ _get_keyword = {
 # need for conversion
 
 # Node types
-MENU    = _T_MENU
-COMMENT = _T_COMMENT
+MENU       = _T_MENU
+TABLE      = _T_TABLE
+COMMENT    = _T_COMMENT
+ADDROW     = _T_ADDROW
+DELETEROW  = _T_DELETEROW
 
 # Expression types
 AND           = _T_AND
@@ -7038,6 +7110,7 @@ _STRING_LEX = frozenset({
     _T_RSOURCE,
     _T_SOURCE,
     _T_STRING,
+    _T_TABLE,
     _T_TRISTATE,
 })
 
@@ -7094,6 +7167,16 @@ _SYMBOL_CHOICE = frozenset({
 _MENU_COMMENT = frozenset({
     MENU,
     COMMENT,
+})
+
+_TABLE_COMMENT = frozenset({
+    TABLE,
+    COMMENT,
+})
+
+_TABLE_RESOURCES = frozenset({
+    _T_ADDROW,
+    _T_DELETEROW,
 })
 
 _EQUAL_UNEQUAL = frozenset({

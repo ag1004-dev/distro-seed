@@ -214,8 +214,9 @@ import errno
 import locale
 import re
 import textwrap
+import pprint
 
-from kconfiglib import Symbol, Choice, MENU, COMMENT, MenuNode, \
+from kconfiglib import Symbol, Choice, TABLE, ADDROW, DELETEROW, MENU, COMMENT, MenuNode, \
                        BOOL, TRISTATE, STRING, INT, HEX, \
                        AND, OR, \
                        expr_str, expr_value, split_expr, \
@@ -1101,6 +1102,7 @@ def _enter_menu(menu):
         return False  # Not a menu
 
     shown_sub = _shown_nodes(menu)
+
     # Never enter empty menus. We depend on having a current node.
     if not shown_sub:
         return False
@@ -1113,6 +1115,27 @@ def _enter_menu(menu):
     _cur_menu = menu
     _shown = shown_sub
     _sel_node_i = _menu_scroll = 0
+
+    if menu.is_table:
+        add_new = MenuNode()
+        add_new.kconfig = menu.kconfig
+        add_new.item = ADDROW
+        add_new.is_menuconfig = False
+        add_new.is_table = False
+        add_new.visibility = "y"
+        add_new.prompt = ("Add New", menu.prompt[1])
+        add_new.parent = menu
+        add_new.dep = menu.prompt[1]
+        add_new.filename = menu.filename
+        add_new.linenr = 1
+        add_new.list = None
+        add_new.include_path = menu.include_path
+
+        shown_sub.append(add_new)
+    
+
+    with open("/tmp/debug.txt", "w") as fout:
+        fout.write(pprint.pformat(shown_sub))
 
     if isinstance(menu.item, Choice):
         _select_selected_choice_sym()
@@ -1551,6 +1574,7 @@ def _shown_nodes(menu):
                     res.append(node)
                     if isinstance(node.item, Symbol):
                         seen_syms.add(node.item)
+
         return res
 
     return rec(menu.list)
@@ -3044,7 +3068,7 @@ def _value_str(node):
 
     item = node.item
 
-    if item in (MENU, COMMENT):
+    if item in (TABLE, MENU, COMMENT):
         return ""
 
     # Wouldn't normally happen, and generates a warning

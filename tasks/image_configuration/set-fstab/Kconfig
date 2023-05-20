@@ -7,6 +7,22 @@ config DS_FSTAB_GEN
 	help
 	  Use Kconfig settings to generate a basic kconfig file
 
+table "generated fstab options"
+	depends on DS_FSTAB_GEN
+	
+	config DS_FSTAB_GEN_ROOT_DEVICE
+		string "rootfs device"
+		default "/dev/root"
+
+	config DS_FSTAB_GEN_ROOT_FS
+		string "rootfs filesystem"
+		default "ext4"
+
+	config DS_FSTAB_GEN_ROOT_OPTIONS
+		string "rootfs mount options"
+		default "defaults"
+endtable
+
 config DS_FSTAB_FILE
 	bool "User provided fstab"
 	help
@@ -18,19 +34,3 @@ config DS_FSTAB_FILE_PATH
 	depends on DS_FSTAB_FILE
 	help
 	  Path to the fstab to use in the target image
-
-menu "generated fstab options"
-	depends on DS_FSTAB_GEN
-
-config DS_FSTAB_GEN_ROOT_DEVICE
-	string "rootfs device"
-	default "/dev/root"
-
-config DS_FSTAB_GEN_ROOT_FS
-	string "rootfs filesystem"
-	default "ext4"
-
-config DS_FSTAB_GEN_ROOT_OPTIONS
-	string "rootfs mount options"
-	default "defaults"
-endmenu
