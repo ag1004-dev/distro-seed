@@ -1,4 +1,4 @@
-config: DS_PACKAGE_LEGACY_BOOTSCRIPT
+config: DS_COMPONENT_LEGACY_BOOTSCRIPT
 tasks:
 - cmd: build.sh
   cmd_type: docker

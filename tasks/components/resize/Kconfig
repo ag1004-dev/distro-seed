@@ -1,4 +1,4 @@
-config DS_PACKAGE_RESIZE
+config DS_COMPONENT_RESIZE
 	bool "resize"
 	help
 	  Installs a "resize" utility to match the terminal size of your host.  This

@@ -1,4 +1,4 @@
-config: DS_PACKAGE_TS7100_UTILS
+config: DS_COMPONENT_TS7100_UTILS
 tasks:
 - cmd: build.sh
   cmd_type: docker

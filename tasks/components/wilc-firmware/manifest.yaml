@@ -1,4 +1,4 @@
-config: DS_PACKAGE_WILC3000_FIRMWARE
+config: DS_COMPONENT_WILC3000_FIRMWARE
 tasks:
 - cmd: fetch.sh
   cmd_type: host
