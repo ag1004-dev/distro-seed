@@ -1,4 +1,4 @@
-config DS_PACKAGE_TSSUPERVISORUPDATE
+config DS_COMPONENT_TSSUPERVISORUPDATE
 	bool "tssupervisorupdate"
 	help
 	  This project is used to update the supervisory microcontroller on

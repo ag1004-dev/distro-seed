@@ -1,4 +1,4 @@
-config: DS_PACKAGE_DISTROBOOT_SCRIPTS
+config: DS_COMPONENT_DISTROBOOT_SCRIPTS
 tasks:
 - cmd: build.sh
   cmd_type: docker

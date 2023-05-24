@@ -1,4 +1,4 @@
-config: DS_PACKAGE_TSSUPERVISORUPDATE
+config: DS_COMPONENT_TSSUPERVISORUPDATE
 tasks:
 - cmd: fetch.sh
   cmd_type: host

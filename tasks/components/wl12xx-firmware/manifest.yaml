@@ -1,4 +1,4 @@
-config: DS_PACKAGE_WL12XX_FIRMWARE
+config: DS_COMPONENT_WL12XX_FIRMWARE
 tasks:
 - cmd: fetch.sh
   cmd_type: host

@@ -1,4 +1,4 @@
-config: DS_PACKAGE_TS4900_FPGA
+config: DS_COMPONENT_TS4900_FPGA
 tasks:
 - cmd_type: host
   cmd: fetch.sh
