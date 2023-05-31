@@ -138,7 +138,7 @@ def create_dependency_edges(graph, node):
     Raises:
         ValueError: If the given node does not have a child enforcing dependencies.
     """
-    # Initialize a list to store flush tasks
+    # Initialize a list to store enforced dependency tasks
     enforce_dependencies = []
 
     # Iterate over edges connected to the given node
@@ -162,11 +162,11 @@ def create_enforced_dependencies(graph, node, enforced_task_node=None):
         If None, it will be determined automatically.
 
     Raises:
-        ValueError: If multiple flush tasks are found during dependency creation.
+        ValueError: If multiple enforced dependencies are found during dependency creation.
 
     Notes:
         This method recursively creates enforced dependency edges from the
-        given node to the flush task node. It modifies the original graph.
+        given node to the enforced dependency task node. It modifies the original graph.
 
     """
     if enforced_task_node is None:
@@ -175,7 +175,11 @@ def create_enforced_dependencies(graph, node, enforced_task_node=None):
         if len(enforce_dependencies) == 1:
             enforced_task_node = enforce_dependencies[0]
         elif len(enforce_dependencies) > 1:
-            raise ValueError("Error: Multiple flush tasks found.")
+            enforced_task_names = []
+            for taskid in enforce_dependencies:
+                task = graph.nodes[taskid]['data']
+                enforced_task_names.append(f'{task.config}:{task.cmd}')
+            raise ValueError(f'Error: Multiple forced dependency tasks found {enforced_task_names}')
         else:
             return
 
