@@ -1,0 +1,16 @@
+config: DS_GENIMAGE
+tasks:
+  - cmd: fetch-host-genimage.sh
+    cmd_type: host
+    description: Fetching host genimage
+
+  - cmd: build-host-genimage.sh
+    cmd_type: docker
+    description: Building host genimage
+
+  - cmd: generate_image.sh
+    cmd_type: docker
+    description: Running genimage to generate a disk image
+    dependencies:
+      - DS_ROOTFS_READY
+    enforce_dependencies: true

@@ -1,0 +1,10 @@
+config DS_GENIMAGE
+    bool "Create image with genimage"
+    help
+      Generates a disk image from a config file and the other generated files
+
+config DS_GENIMAGE_PATH
+    string "Path to genimage config file"
+    depends on DS_GENIMAGE
+    help
+      Path relative to distro-seed to the genimage config file
