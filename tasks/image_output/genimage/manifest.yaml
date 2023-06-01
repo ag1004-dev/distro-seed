@@ -13,4 +13,4 @@ tasks:
     description: Running genimage to generate a disk image
     dependencies:
       - DS_ROOTFS_READY
-    enforce_dependencies: true
+    auto_create_rdepends: true

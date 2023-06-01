@@ -5,5 +5,5 @@ tasks:
   dependencies:
     - DS_CHROOT_READY
   provides: DS_ROOTFS_CLEANUP
-  enforce_dependencies: true
+  auto_create_rdepends: true
   description: Cleaning chroot environment

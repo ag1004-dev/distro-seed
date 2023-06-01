@@ -7,5 +7,5 @@ tasks:
   cmd_type: docker
   dependencies:
     - DS_CORE_BUILD_HOST_DOCKER
-  enforce_dependencies: true
+  auto_create_rdepends: true
   description: Cleaning Work directory

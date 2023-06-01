@@ -3,5 +3,5 @@ tasks:
 - cmd_type: dummy
   dependencies:
     - DS_ROOTFS_CLEANUP
-  enforce_dependencies: true
+  auto_create_rdepends: true
   description: rootfs ready

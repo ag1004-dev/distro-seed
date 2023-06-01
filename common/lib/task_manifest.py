@@ -12,11 +12,12 @@ class TaskManifest:
         dependencies (List[str]): List of task dependencies.
         provides (str): The output provided by the task.
         description (str): Description of the task.
-        enforce_dependencies (bool): Flag indicating whether to enforce task dependencies.
+        auto_create_rdepends (bool): Flag indicating whether to automatically 
+                                     create reverse dependencies from the parent node
     """
     cmd_type: str
     cmd: str
     dependencies: List[str]
     provides: str
     description: str
-    enforce_dependencies: bool
+    auto_create_rdepends: bool

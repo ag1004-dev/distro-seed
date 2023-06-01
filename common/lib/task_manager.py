@@ -28,7 +28,7 @@ def load_tasks_from_manifest(manifest_file):
                 dependencies = task_data.get('dependencies', []),
                 provides = task_data.get('provides', ""),
                 description = task_data['description'],
-                enforce_dependencies = task_data.get('enforce_dependencies', False)
+                auto_create_rdepends = task_data.get('auto_create_rdepends', False)
             )
             if task_config.cmd_type not in ['host', 'docker', 'target', 'dummy']:
                 raise ValueError(f"Invalid task type '{task_config.cmd_type}' "
@@ -124,73 +124,71 @@ def find_task_with_no_dependency(graph):
     else:
         return tasks_with_no_dependencies[0]
 
-def create_dependency_edges(graph, node):
+def create_rdependency_edges(graph, node):
     """
-    Finds the child node in the graph that enforces dependencies for the given node.
+    Finds the child node in the graph that automatically adds reverse dependencies
+    for the given node.
 
     Args:
         graph (networkx.DiGraph): A directed graph representing the task dependencies.
-        node: The node for which to find the child enforcing dependencies.
+        node: The node to traverse to add the reverse dependencies
 
     Returns:
-        The child node in the graph that enforces dependencies for the given node.
-
-    Raises:
-        ValueError: If the given node does not have a child enforcing dependencies.
+        The child next node in the graph that automatically adds reverse dependencies
     """
-    # Initialize a list to store enforced dependency tasks
-    enforce_dependencies = []
+    auto_create_rdepends = []
 
     # Iterate over edges connected to the given node
     for edge in nx.edges(graph, node):
         neighbor_node = edge[1]
         neighbor_task = graph.nodes[neighbor_node]['data']
-        if neighbor_task.enforce_dependencies is True:
-            enforce_dependencies.append(neighbor_node)
+        if neighbor_task.auto_create_rdepends is True:
+            auto_create_rdepends.append(neighbor_node)
 
-    return enforce_dependencies
+    return auto_create_rdepends
 
-def create_enforced_dependencies(graph, node, enforced_task_node=None):
+def auto_add_reverse_dependencies(graph, node, rdepends_node=None):
     """
-    Creates edges from from the children of the parent node to this node.
-    This enforces parent dependencies are finished before proceeding
+    Creates dependencies from from the children of the parent node to this node,
+    unless that task also has reverse dependencies
 
     Args:
         graph (networkx.DiGraph): A directed graph representing the task dependencies.
-        node: The node from which to create enforced dependency edges.
-        enforced_task_node: The node representing the enforced task to be reached.
+        node: The node we will check any edges for and create reverse dependencies
+        rdepends_node: The node representing next auto rdepends node
         If None, it will be determined automatically.
 
     Raises:
-        ValueError: If multiple enforced dependencies are found during dependency creation.
+        ValueError: If multiple reverse dependencies are found under a single node
+        during dependency creation.
 
     Notes:
-        This method recursively creates enforced dependency edges from the
-        given node to the enforced dependency task node. It modifies the original graph.
+        This method recursively creates reverse dependency edges from the
+        given node to the rdepends task node. It modifies the original graph.
 
     """
-    if enforced_task_node is None:
-        enforce_dependencies = create_dependency_edges(graph, node)
-        #pprint(f'enforced_task_node: {enforce_dependencies}')
-        if len(enforce_dependencies) == 1:
-            enforced_task_node = enforce_dependencies[0]
-        elif len(enforce_dependencies) > 1:
-            enforced_task_names = []
-            for taskid in enforce_dependencies:
+    if rdepends_node is None:
+        auto_create_rdepends = create_rdependency_edges(graph, node)
+        #pprint(f'rdepends_node: {auto_create_rdepends}')
+        if len(auto_create_rdepends) == 1:
+            rdepends_node = auto_create_rdepends[0]
+        elif len(auto_create_rdepends) > 1:
+            rdepends_task_names = []
+            for taskid in auto_create_rdepends:
                 task = graph.nodes[taskid]['data']
-                enforced_task_names.append(f'{task.config}:{task.cmd}')
-            raise ValueError(f'Error: Multiple forced dependency tasks found {enforced_task_names}')
+                rdepends_task_names.append(f'{task.config}:{task.cmd}')
+            raise ValueError(f'Error: Multiple forced dependency tasks found {rdepends_task_names}')
         else:
             return
 
     for edge in graph.edges(node):
-        if edge[1] != enforced_task_node:
+        if edge[1] != rdepends_node:
             #pprint(f'edge: {edge[1]}')
-            #pprint(f'enforced_task_node: {enforced_task_node}')
-            graph.add_edge(edge[1], enforced_task_node, label="enforced_dep")
-            create_enforced_dependencies(graph, edge[1], enforced_task_node)
+            #pprint(f'rdepends_node: {rdepends_node}')
+            graph.add_edge(edge[1], rdepends_node, label="auto_added_dep")
+            auto_add_reverse_dependencies(graph, edge[1], rdepends_node)
 
-    create_enforced_dependencies(graph, enforced_task_node, None)
+    auto_add_reverse_dependencies(graph, rdepends_node, None)
 
 def create_task_graph(tasks):
     """
@@ -219,8 +217,8 @@ def create_task_graph(tasks):
             for subtask in tasks:
                 if subtask.config == dep or subtask.provides == dep:
                     label = ''
-                    if task.enforce_dependencies:
-                        label = 'enforce_task'
+                    if task.auto_create_rdepends:
+                        label = 'auto_rdepends_task'
                     graph.add_edge(subtask.id, task.id, label=label)
                     found = 1
             if found == 0:
@@ -228,8 +226,8 @@ def create_task_graph(tasks):
 
     first_task_id = find_task_with_no_dependency(graph)
 
-    # Recurseively traverse all nodes and creat edges for enforce_dependencies
-    create_enforced_dependencies(graph, first_task_id, None)
+    # Recurseively traverse all nodes and creat edges for auto_create_rdepends
+    auto_add_reverse_dependencies(graph, first_task_id, None)
 
     return graph
 
@@ -238,9 +236,9 @@ def print_deps(tasks, nodename=None):
     normal_edges = [(u, v) for (u, v, d) in graph.edges(data=True)
                     if d['label'] == '']
     flush_task_edges = [(u, v) for (u, v, d) in graph.edges(data=True)
-                        if d['label'] == 'enforce_task']
+                        if d['label'] == 'auto_rdepends_task']
     flush_dep_edges = [(u, v) for (u, v, d) in graph.edges(data=True)
-                        if d['label'] == 'enforced_dep']
+                        if d['label'] == 'auto_added_dep']
 
     pos = nx.nx_pydot.pydot_layout(graph)
     nx.draw_networkx_nodes(graph, pos, node_size=400)

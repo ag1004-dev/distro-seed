@@ -30,7 +30,7 @@ class Task:
         self.cmd_type = task_manifest.cmd_type
         self.cmd = task_manifest.cmd
         self.description = task_manifest.description
-        self.enforce_dependencies = task_manifest.enforce_dependencies
+        self.auto_create_rdepends = task_manifest.auto_create_rdepends
         self.id = 0
 
     def run(self):

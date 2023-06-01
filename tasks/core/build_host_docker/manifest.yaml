@@ -2,5 +2,5 @@ config: DS_CORE_BUILD_HOST_DOCKER
 tasks:
 - cmd: build_host_docker.sh
   cmd_type: host
-  enforce_dependencies: true
+  auto_create_rdepends: true
   description: Generating Docker Image
