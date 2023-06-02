@@ -90,105 +90,42 @@ def topological_sort(graph, tasks):
         sorted_generation = sort_generation(generation, tasks)
         yield from sorted_generation
 
-def find_task_with_no_dependency(graph):
+def add_edge_to_parent(graph, node):
     """
-    Find the Task object with no dependencies from a list of Task objects.
+    Add an edge in the graph from the given node to a child node derived from its parents.
+
+    This function performs a breadth-first search from each parent node of the given node,
+    and then it selects the first child node whose associated task has the 'auto_create_rdepends'
+    attribute set to True.
+
+    If such a child node is found, an edge is added in the graph from the given node to the
+    selected child node.
 
     Args:
-        tasks (list): A list of Task objects.
+        graph (nx.DiGraph): A directed graph where nodes represent tasks and edges represent
+        dependencies between tasks.
 
-    Returns:
-        Task: The Task object with no dependencies.
-
-    Raises:
-        ValueError: If no task with no dependencies is found, or if multiple
-        tasks with no dependencies are found.
-    """
-    # Initialize variables to track tasks with no dependencies
-    tasks_with_no_dependencies = []
-    count_no_dependencies = 0
-
-    # Iterate over all nodes in the graph
-    for node in graph.nodes():
-        task = graph.nodes[node]['data']
-        # Check if the task has no dependencies
-        if len(task.dependencies) == 0:
-            tasks_with_no_dependencies.append(node)
-            count_no_dependencies += 1
-
-    # Check the number of tasks with no dependencies
-    if count_no_dependencies == 0:
-        raise ValueError("No tasks found with no dependencies.")
-    elif count_no_dependencies > 1:
-        raise ValueError("Multiple tasks found with no dependencies.")
-    else:
-        return tasks_with_no_dependencies[0]
-
-def create_rdependency_edges(graph, node):
-    """
-    Finds the child node in the graph that automatically adds reverse dependencies
-    for the given node.
-
-    Args:
-        graph (networkx.DiGraph): A directed graph representing the task dependencies.
-        node: The node to traverse to add the reverse dependencies
-
-    Returns:
-        The child next node in the graph that automatically adds reverse dependencies
-    """
-    auto_create_rdepends = []
-
-    # Iterate over edges connected to the given node
-    for edge in nx.edges(graph, node):
-        neighbor_node = edge[1]
-        neighbor_task = graph.nodes[neighbor_node]['data']
-        if neighbor_task.auto_create_rdepends is True:
-            auto_create_rdepends.append(neighbor_node)
-
-    return auto_create_rdepends
-
-def auto_add_reverse_dependencies(graph, node, rdepends_node=None):
-    """
-    Creates dependencies from from the children of the parent node to this node,
-    unless that task also has reverse dependencies
-
-    Args:
-        graph (networkx.DiGraph): A directed graph representing the task dependencies.
-        node: The node we will check any edges for and create reverse dependencies
-        rdepends_node: The node representing next auto rdepends node
-        If None, it will be determined automatically.
-
-    Raises:
-        ValueError: If multiple reverse dependencies are found under a single node
-        during dependency creation.
-
-    Notes:
-        This method recursively creates reverse dependency edges from the
-        given node to the rdepends task node. It modifies the original graph.
+        node (nx.Node): Node in the graph to BFS search from
 
     """
-    if rdepends_node is None:
-        auto_create_rdepends = create_rdependency_edges(graph, node)
-        #pprint(f'rdepends_node: {auto_create_rdepends}')
-        if len(auto_create_rdepends) == 1:
-            rdepends_node = auto_create_rdepends[0]
-        elif len(auto_create_rdepends) > 1:
-            rdepends_task_names = []
-            for taskid in auto_create_rdepends:
-                task = graph.nodes[taskid]['data']
-                rdepends_task_names.append(f'{task.config}:{task.cmd}')
-            raise ValueError(f'Error: Multiple forced dependency tasks found {rdepends_task_names}')
-        else:
-            return
+    # Find all parents of the node
+    parents = [n for n, d in graph.in_edges(node)]
 
-    for edge in graph.edges(node):
-        if edge[1] != rdepends_node:
-            #pprint(f'edge: {edge[1]}')
-            #pprint(f'rdepends_node: {rdepends_node}')
-            graph.add_edge(edge[1], rdepends_node, label="auto_added_dep")
-            auto_add_reverse_dependencies(graph, edge[1], rdepends_node)
+    # Perform BFS from each parent and get all edges
+    all_edges = []
+    for parent_node in parents:
+        all_edges.extend(list(nx.edge_bfs(graph, parent_node)))
 
-    auto_add_reverse_dependencies(graph, rdepends_node, None)
+    # Iterate over the edges until we find one that meets the conditions
+    child = None
+    for edge in all_edges:
+        task = graph.nodes[edge[1]]['data']
+        if task.auto_create_rdepends is True:
+            child = edge[1]
+            break
+
+    if child is not None:
+        graph.add_edge(node, child, label='auto_added_dep')
 
 def create_task_graph(tasks):
     """
@@ -216,35 +153,31 @@ def create_task_graph(tasks):
             found = 0
             for subtask in tasks:
                 if subtask.config == dep or subtask.provides == dep:
-                    label = ''
-                    if task.auto_create_rdepends:
-                        label = 'auto_rdepends_task'
-                    graph.add_edge(subtask.id, task.id, label=label)
+                    graph.add_edge(subtask.id, task.id, label='')
                     found = 1
             if found == 0:
                 raise ValueError (f'Unsatisifed dependency {dep} from {task.config}')
 
-    first_task_id = find_task_with_no_dependency(graph)
-
-    # Recurseively traverse all nodes and creat edges for auto_create_rdepends
-    auto_add_reverse_dependencies(graph, first_task_id, None)
+    # Recurseively traverse all nodes and create edges for auto_create_rdepends
+    for node in graph.nodes:
+        if not graph.out_degree(node):
+            add_edge_to_parent(graph, node)
 
     return graph
 
-def print_deps(tasks, nodename=None):
+def print_deps(tasks):
+    """
+    Creates a matplotlib drawing of the tasks list
+    """
     graph = create_task_graph(tasks)
     normal_edges = [(u, v) for (u, v, d) in graph.edges(data=True)
                     if d['label'] == '']
-    flush_task_edges = [(u, v) for (u, v, d) in graph.edges(data=True)
-                        if d['label'] == 'auto_rdepends_task']
     flush_dep_edges = [(u, v) for (u, v, d) in graph.edges(data=True)
                         if d['label'] == 'auto_added_dep']
 
     pos = nx.nx_pydot.pydot_layout(graph)
     nx.draw_networkx_nodes(graph, pos, node_size=400)
-    nx.draw_networkx_edges(graph, pos, edgelist=flush_task_edges, width=2)
-    nx.draw_networkx_edges(graph, pos, edgelist=normal_edges, width=2,
-                            alpha=0.5, edge_color="blue", style="dashed")
+    nx.draw_networkx_edges(graph, pos, edgelist=normal_edges, width=2)
     nx.draw_networkx_edges(graph, pos, edgelist=flush_dep_edges, width=2,
                             alpha=0.5, edge_color="green", style="dashed")
 
@@ -255,13 +188,12 @@ def print_deps(tasks, nodename=None):
 
         if len(task.provides) > 0:
             node_labels[task.id] += f'/{task.provides}'
-        
         if len(task.cmd) > 0:
             node_labels[task.id] += f' ({task.cmd})'
+        if task.auto_create_rdepends is True:
+            node_labels[task.id] += '(rdeps)'
     nx.draw_networkx_labels(graph, pos, font_size=10, font_family="sans-serif",
                             labels=node_labels)
-    #edge_labels = nx.get_edge_attributes(graph, 'label')
-    #nx.draw_networkx_edge_labels(graph, pos, edge_labels)
     plot_axis = plt.gca()
     plot_axis.margins(0.00)
     plt.axis("off")
