@@ -11,5 +11,5 @@ mkimage -A arm -T script -C none -n 'boot' \
         -d "${SOURCE}/boot.source" "${DS_OVERLAY}/boot/boot.ub"
 
 if [[ "$CONFIG_DS_COMPONENT_LEGACY_BOOTSCRIPT_INSTALL_SOURCE" == 'y' ]]; then
-    cp "${SOURCE}/boot.source" "${DS_OVERLAY}/boot/"
+    install -m 644 "${SOURCE}/boot.source" "${DS_OVERLAY}/boot/"
 fi
