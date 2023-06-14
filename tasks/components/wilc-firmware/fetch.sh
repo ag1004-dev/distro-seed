@@ -8,6 +8,6 @@ mkdir -p "$PRJ_WORK"
 
 common/host/fetch_tar.sh "$URL" "$PRJ_WORK"
 
-cp "${PRJ_WORK}/firmware-wilc_linux_16_1/wilc3000_ble_firmware.bin" "$DS_OVERLAY/lib/firmware/mchp/"
-cp "${PRJ_WORK}/firmware-wilc_linux_16_1/wilc3000_wifi_firmware.bin" "$DS_OVERLAY/lib/firmware/mchp/"
-cp "${PRJ_WORK}/firmware-wilc_linux_16_1/LICENSE.wilc_fw" "$DS_OVERLAY/lib/firmware/mchp/"
+install -m 644 "${PRJ_WORK}/firmware-wilc_linux_16_1/wilc3000_ble_firmware.bin" "$DS_OVERLAY/lib/firmware/mchp/"
+install -m 644 "${PRJ_WORK}/firmware-wilc_linux_16_1/wilc3000_wifi_firmware.bin" "$DS_OVERLAY/lib/firmware/mchp/"
+install -m 644 "${PRJ_WORK}/firmware-wilc_linux_16_1/LICENSE.wilc_fw" "$DS_OVERLAY/lib/firmware/mchp/"
