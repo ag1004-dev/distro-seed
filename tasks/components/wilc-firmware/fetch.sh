@@ -3,8 +3,8 @@
 URL="https://github.com/linux4wilc/firmware/archive/refs/tags/wilc_linux_16_1.tar.gz"
 PRJ_WORK="$DS_WORK/wilc-firmware/"
 
-mkdir -p "$DS_OVERLAY/lib/firmware/mchp/"
-mkdir -p "$PRJ_WORK"
+install -d "$DS_OVERLAY/lib/firmware/mchp/"
+install -d "$PRJ_WORK"
 
 common/host/fetch_tar.sh "$URL" "$PRJ_WORK"
 

@@ -8,7 +8,7 @@ file_name=$(basename "$url")
 
 file_dir="$DS_DL/blob"
 file_path="$file_dir/$file_name"
-mkdir -p "$file_dir"
+install -d "$file_dir"
 
 if [ ! -f "$file_path" ]; then
     wget -O "$file_path" "$url"

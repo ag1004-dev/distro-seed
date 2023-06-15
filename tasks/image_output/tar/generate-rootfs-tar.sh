@@ -4,7 +4,7 @@ ROOTFS="$DS_WORK/rootfs/"
 OUTPUT="$DS_WORK/output"
 TARFILE="${OUTPUT}/rootfs.tar"
 
-mkdir -p "$OUTPUT"
+install -d "$OUTPUT"
 
 if [[ "$CONFIG_DS_IMAGE_ROOTFS_TAR_NONE" == 'y' ]]; then
         COMPRESSION=""

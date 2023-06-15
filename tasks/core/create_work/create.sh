@@ -1,3 +1,3 @@
 #!/bin/bash -e
 
-mkdir -p $DS_WORK/overlays/
+install -d $DS_WORK/overlays/

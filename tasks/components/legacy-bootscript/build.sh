@@ -2,8 +2,8 @@
 
 SOURCE="${DS_WORK}/legacy-bootscripts"
 
-mkdir -p "${DS_OVERLAY}/boot/"
-mkdir -p "$SOURCE"
+install -d "${DS_OVERLAY}/boot/"
+install -d "$SOURCE"
 
 echo "env set cmdline_append $CONFIG_DS_COMPONENT_LEGACY_BOOTSCRIPT_CMDLINE" > "${SOURCE}/boot.source"
 
