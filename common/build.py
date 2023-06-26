@@ -71,7 +71,11 @@ if args.plot_deps:
     sys.exit(0)
 
 # Sort tasks based on their dependencies
-tasks = task_manager.sort(tasks)
+try:
+    tasks = task_manager.sort(tasks)
+except Exception as e:
+    print(f"Sort failed: {str(e)}")
+    sys.exit(1)
 
 # Execute all tasks
 for i, task in enumerate(tasks, start=1):
