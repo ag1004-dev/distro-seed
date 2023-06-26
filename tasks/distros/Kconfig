@@ -49,5 +49,5 @@ config DS_PACKAGELIST
 	default "debian-11-minimal.txt" if DS_DISTRO_DEBIAN_11 
 	default "debian-12-minimal.txt" if DS_DISTRO_DEBIAN_12
 	default "ubuntu_22_04-minimal.txt" if DS_DISTRO_UBUNTU_22_04
-	default "ubuntu_22304-minimal.txt" if DS_DISTRO_UBUNTU_23_04
+	default "ubuntu_23_04-minimal.txt" if DS_DISTRO_UBUNTU_23_04
 endmenu
