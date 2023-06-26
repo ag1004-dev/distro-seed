@@ -32,6 +32,9 @@ config DS_CHROOT_READY
 config DS_ROOTFS_READY
     bool
     default "y"
+config DS_CORE_IMAGES_READY
+    bool
+    default "y"
 
 # This task is never enabled. This task is only invoked form clean-cache.py,
 # but this definition silences the warning from this manifest not finding
