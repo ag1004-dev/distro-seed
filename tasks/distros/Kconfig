@@ -1,3 +1,7 @@
+config DS_DISTRO
+	bool
+	default "y"
+
 menu "Distribution"
 choice
 	prompt "Architecture"
