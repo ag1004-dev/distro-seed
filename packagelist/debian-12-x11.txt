@@ -83,6 +83,7 @@ nfs-common
 libdrm-etnaviv1
 
 # X11
+kbd # needed for chvt
 matchbox-window-manager
 x11-xserver-utils
 xdotool
@@ -95,4 +96,3 @@ xserver-xorg-video-fbdev
 
 # Graphics applications
 kmscube
-#chromium
