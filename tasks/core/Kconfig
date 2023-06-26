@@ -32,7 +32,19 @@ config DS_CHROOT_READY
 config DS_ROOTFS_READY
     bool
     default "y"
+config DS_CORE_MULTISTRAP_CONF
+    bool
+    default "y"
+config DS_CORE_PACKAGELIST
+    bool
+    default "y"
 config DS_CORE_IMAGES_READY
+    bool
+    default "y"
+config DS_CORE_PACKAGELIST_PREP
+    bool
+    default "y"
+config DS_DISTRO_PACKAGELIST_EXTRA
     bool
     default "y"
 

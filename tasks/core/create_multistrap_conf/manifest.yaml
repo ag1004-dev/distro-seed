@@ -1,0 +1,9 @@
+config: DS_CORE_MULTISTRAP_CONF
+tasks:
+- cmd: create_multistrap_conf.sh
+  cmd_type: host
+  provides: DS_CORE_PACKAGELIST_READY
+  description: Creating multistrap.conf
+  auto_create_rdepends: true
+  dependencies:
+    - DS_CORE_PACKAGELIST_PREP

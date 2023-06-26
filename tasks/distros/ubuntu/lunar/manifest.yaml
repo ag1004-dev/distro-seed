@@ -1,5 +1,8 @@
 config: DS_DISTRO_UBUNTU_23_04
 tasks:
-  - cmd: ../../build.sh
-    cmd_type: docker
-    description: Fetching Ubuntu 23.04 distribution
+- cmd: ../../build.sh
+  cmd_type: docker
+  dependencies:
+    - DS_CORE_MULTISTRAP_CONF
+  provides: DS_DISTRO
+  description: Fetching Ubuntu 23.04 distribution

@@ -57,6 +57,15 @@ class Task:
             # for fetches and early setup commands
             taskenv = os.environ.copy()
             subprocess.run(full_cmd, check=True, env=taskenv)
+        elif self.cmd_type == "packagelist":
+            packagelist_file = os.path.abspath(work + f'/packagelist/{self.id}-{self.config}')
+            packagelist_dir = os.path.dirname(packagelist_file)
+
+            os.makedirs(packagelist_dir, exist_ok=True)
+            taskenv = os.environ.copy()
+
+            with open(packagelist_file, 'w', encoding='utf-8') as packagelist:
+                subprocess.run(full_cmd, check=True, env=taskenv, stdout=packagelist)
         elif self.cmd_type == 'target':
             # Copy the script to the chroot, execute it in the chroot, then
             # remove the script

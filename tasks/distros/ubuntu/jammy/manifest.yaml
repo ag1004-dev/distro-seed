@@ -2,4 +2,7 @@ config: DS_DISTRO_UBUNTU_22_04
 tasks:
 - cmd: ../../build.sh
   cmd_type: docker
+  dependencies:
+    - DS_CORE_MULTISTRAP_CONF
+  provides: DS_DISTRO
   description: Fetching Ubuntu 22.04 distribution

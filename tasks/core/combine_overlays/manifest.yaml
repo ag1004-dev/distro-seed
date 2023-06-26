@@ -4,6 +4,7 @@ tasks:
   cmd_type: docker
   dependencies:
     - DS_DOCKER_READY
+    - DS_DISTRO
   provides: DS_ROOTFS_COMBINED
   auto_create_rdepends: true
   description: Combining overlays into rootfs

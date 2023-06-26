@@ -1,0 +1,5 @@
+config: DS_DISTRO_PACKAGELIST_EXTRA
+tasks:
+  - cmd: packages.sh
+    cmd_type: packagelist
+    description: Adding config packages

@@ -1,60 +1,8 @@
 #!/bin/bash -e
 
 INSTALL="$DS_WORK/rootfs/"
-packagelist_file=packagelist/$CONFIG_DS_PACKAGELIST
-
-install -d "$INSTALL"
-
-if [[ "$DS_DISTRO" == "debian" ]]; then
-    keyringname="debian-archive-keyring"
-    sourceurl="http://deb.debian.org/debian"
-    if [[ "$DS_RELEASE" == "bullseye" ]]; then
-        deb_components="main contrib non-free"
-    else
-        # After this release, debian split up non-free and non-free-firmware:
-        # https://www.debian.org/releases/bookworm/armhf/release-notes/ch-information.html#non-free-split
-        deb_components="main contrib non-free non-free-firmware"
-    fi
-elif [[ "$DS_DISTRO" == "ubuntu" ]]; then
-    keyringname="ubuntu-keyring"
-    sourceurl="http://www.ports.ubuntu.com/ubuntu-ports"
-    deb_components="main universe multiverse"
-else
-    echo "Unknown distro \"$DS_DISTRO!"
-    exit 1
-fi
-
 MULTISTRAPCONF="$DS_WORK/multistrap.conf"
-
-cat <<EOF > "$MULTISTRAPCONF"
-[General]
-arch=${DS_TARGET_ARCH}
-directory=rootfs
-cleanup=true
-noauth=false
-unpack=true
-debootstrap=Base
-aptsources=Base
-
-[Base]
-EOF
-echo -n "packages=" >> "$MULTISTRAPCONF"
-
-if [ ! -e "$packagelist_file" ] && [ -n "$packagelist_file" ]; then
-    echo "Specified packagelist \"$packagelist_file\" doesn't exist!"
-    exit 1
-fi
-
-# Skip anything between # and \n, and remove blank lines.
-sed -e 's/#.*$//' "${packagelist_file}" | tr -s '[:space:]' ' ' | tr -d '\n' >> "$MULTISTRAPCONF"
-
-cat <<EOF >> "$MULTISTRAPCONF"
-
-source=${sourceurl}
-keyring=${keyringname}
-suite=${DS_RELEASE}
-components=${deb_components}
-EOF
+install -d "$INSTALL"
 
 # For Debian based distributions we checksum the multistrap config
 # which comprises our arch/distro/release/sourceurl/

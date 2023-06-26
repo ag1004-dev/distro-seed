@@ -1,0 +1,3 @@
+#!/bin/bash
+
+echo "$CONFIG_DS_DISTRO_PACKAGELIST_APPEND"

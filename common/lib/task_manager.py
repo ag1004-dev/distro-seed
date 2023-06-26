@@ -30,7 +30,7 @@ def load_tasks_from_manifest(manifest_file):
                 description = task_data['description'],
                 auto_create_rdepends = task_data.get('auto_create_rdepends', False)
             )
-            if task_config.cmd_type not in ['host', 'docker', 'target', 'dummy']:
+            if task_config.cmd_type not in ['host', 'docker', 'target', 'dummy', 'packagelist']:
                 raise ValueError(f"Invalid task type '{task_config.cmd_type}' "
                                     f"in manifest file '{manifest_file}'")
             tasks.append(Task(config, manifest_path, task_config))

@@ -63,6 +63,8 @@ for task in tasks:
         task.dependencies += [ 'DS_DOCKER_READY' ]
     elif task.cmd_type == 'target':
         task.dependencies += [ 'DS_CHROOT_READY' ]
+    elif task.cmd_type == 'packagelist':
+        task.dependencies += [ 'DS_CORE_PACKAGELIST_PREP' ]
     else:
         raise ValueError(f"Invalid task type '{task.config.cmd_type}' in '{task.config}'")
 

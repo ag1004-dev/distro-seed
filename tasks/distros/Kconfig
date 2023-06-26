@@ -50,4 +50,9 @@ config DS_PACKAGELIST
 	default "debian-12-minimal.txt" if DS_DISTRO_DEBIAN_12
 	default "ubuntu_22_04-minimal.txt" if DS_DISTRO_UBUNTU_22_04
 	default "ubuntu_23_04-minimal.txt" if DS_DISTRO_UBUNTU_23_04
+
+config DS_DISTRO_PACKAGELIST_APPEND
+	string "extra packages"
+	help
+	  List space separated packages to be added to the image
 endmenu

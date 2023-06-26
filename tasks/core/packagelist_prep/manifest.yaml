@@ -1,0 +1,6 @@
+config: DS_CORE_PACKAGELIST_PREP
+tasks:
+- cmd_type: dummy
+  dependencies:
+    - DS_WORK_READY
+  description: Creating Packagelists
