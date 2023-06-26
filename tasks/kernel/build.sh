@@ -40,7 +40,7 @@ if ! common/host/fetch_cache_obj.sh "$INSTALL_OBJECT_KEY" "$INSTALL"; then
         set +e
         cd "$SOURCE"
 
-        mkdir -p "${INSTALL}/boot"
+        install -d "${INSTALL}/boot"
         INSTALL_MOD_PATH="${INSTALL}" make modules_install
 
         if [[ "$DS_TARGET_ARCH" == "armel" || "$DS_TARGET_ARCH" == "armhf" ]]; then

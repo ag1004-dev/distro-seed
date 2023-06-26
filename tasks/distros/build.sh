@@ -3,7 +3,7 @@
 INSTALL="$DS_WORK/rootfs/"
 packagelist_file=packagelist/$CONFIG_DS_PACKAGELIST
 
-mkdir -p "$INSTALL"
+install -d "$INSTALL"
 
 if [[ "$DS_DISTRO" == "debian" ]]; then
     keyringname="debian-archive-keyring"

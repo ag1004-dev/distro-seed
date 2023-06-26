@@ -6,7 +6,7 @@ work_path="$2"
 file_name=$(basename "$url")
 
 file_path="$DS_DL/tar/$file_name"
-mkdir -p "$DS_DL/tar/"
+install -d "$DS_DL/tar/"
 
 if [ -f "$file_path" ] && [ -f "${file_path}.sha256" ]; then
 	set +e

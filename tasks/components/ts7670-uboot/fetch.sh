@@ -8,5 +8,5 @@ TS7670_UBOOT_SHA256="84f15ebb83b5711e827d2d20aba4cdab7b8f8907d82941ebc685a86892a
 URL="${TS7670_UBOOT_SITE}/${TS7670_UBOOT_SOURCE}"
 PRJ_WORK="$DS_WORK/output/"
 
-mkdir -p "$PRJ_WORK"
+install -d "$PRJ_WORK"
 common/host/fetch_blob.sh "$URL" "$PRJ_WORK/uboot.sd" "$TS7670_UBOOT_SHA256"

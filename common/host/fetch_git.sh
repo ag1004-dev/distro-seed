@@ -6,7 +6,7 @@ work_path="$3"
 
 prj_name=$(echo "$git_url" | sed 's/[^a-zA-Z0-9]/-/g')
 git_path="$DS_DL/git/$prj_name"
-mkdir -p "$DS_DL/git/"
+install -d "$DS_DL/git/"
 
 if [[ -d "$git_path" ]]; then
     cd "$git_path"
@@ -29,5 +29,5 @@ else
     git checkout "$git_version"
 fi
 
-mkdir -p "$work_path"
+install -d "$work_path"
 cp -a "$git_path/." "$work_path"
