@@ -165,11 +165,38 @@ def create_task_graph(tasks):
 
     return graph
 
+def detect_cycles(graph):
+    """
+    This function detects any cycles present in a directed graph.
+
+    A cycle in a graph represents a situation where a node can be reached from
+    itself following the graph's edges. In this case, it indicates a dependency
+    loop. If any cycles are detected, it raises a ValueError indicating invalid dependencies.
+
+    Parameters:
+    graph (nx.DiGraph): The graph to analyze for cycles.
+
+    Returns:
+    None.
+
+    Raises:
+    ValueError: If a cycle is found in the graph, indicating invalid dependencies.
+    """
+    cycles = list(nx.simple_cycles(graph))
+    if cycles:
+        print("Found a dependency loop!")
+        for cycle in cycles:
+            for node in cycle:
+                current_task = graph.nodes[node]['data']
+                print(f"    {current_task.config}")
+        raise ValueError ('Invalid dependencies')
+
 def print_deps(tasks):
     """
     Creates a matplotlib drawing of the tasks list
     """
     graph = create_task_graph(tasks)
+    detect_cycles(graph)
     normal_edges = [(u, v) for (u, v, d) in graph.edges(data=True)
                     if d['label'] == '']
     flush_dep_edges = [(u, v) for (u, v, d) in graph.edges(data=True)
@@ -215,6 +242,7 @@ def sort(tasks):
 
     """
     graph = create_task_graph(tasks)
+    detect_cycles(graph)
     sorted_ids = [id for id in topological_sort(graph, tasks)]
     sorted_tasks = sorted(tasks, key=lambda task: sorted_ids.index(task.id))
 
