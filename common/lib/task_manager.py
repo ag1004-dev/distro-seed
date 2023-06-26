@@ -90,64 +90,57 @@ def topological_sort(graph, tasks):
         sorted_generation = sort_generation(generation, tasks)
         yield from sorted_generation
 
-def add_edge_to_parent(graph, node):
+def find_edge_to_parent(graph, node):
     """
-    Add an edge in the graph from the given node to a child node derived from its parents.
+    This function finds and returns a tuple of nodes (parent, child) in the given directed
+    graph where the child has auto_create_rdepends set to True.
+    The function starts by examining the predecessors of the specified node in the graph,
+    and checks their successors. If no such child is found, the function emits a warning
+    and returns None.
 
-    This function performs a breadth-first search from each parent node of the given node,
-    and then it selects the first child node whose associated task has the 'auto_create_rdepends'
-    attribute set to True.
+    Parameters:
+    graph (nx.DiGraph): The graph to analyze.
+    node: The node to find an edge to its parent.
 
-    If such a child node is found, an edge is added in the graph from the given node to the
-    selected child node.
-
-    Args:
-        graph (nx.DiGraph): A directed graph where nodes represent tasks and edges represent
-        dependencies between tasks.
-
-        node (nx.Node): Node in the graph to BFS search from
-
+    Returns:
+    tuple or None: A tuple (parent, child) if a suitable child is found, or None otherwise.
     """
-    # Find all parents of the node
-    parents = [n for n, d in graph.in_edges(node)]
-
-    # Perform BFS from each parent and get all edges
-    all_edges = []
-    for parent_node in parents:
-        all_edges.extend(list(nx.edge_bfs(graph, parent_node)))
-
-    # Iterate over the edges until we find one that meets the conditions
+    queue = list(graph.predecessors(node))
+    node_task = graph.nodes[node]['data']
+    #print(f"\nTask: {node_task.config}")
     child = None
-    for edge in all_edges:
-        task = graph.nodes[edge[1]]['data']
-        if task.auto_create_rdepends is True:
-            child = edge[1]
-            break
-
+    found_child = False
+    while queue and not found_child:
+        current_node = queue.pop(0)
+        current_task = graph.nodes[current_node]['data']
+        #print(f"Checking parent: {current_task.config}")
+        for child_node in graph.successors(current_node):
+            if child_node == node or child_node in graph.predecessors(node):
+                continue
+            child_task = graph.nodes[child_node]['data']
+            #print(f"Checking child: {child_task.config}")
+            if child_task.auto_create_rdepends is True:
+                child = child_node
+                #print(f"Adding edge to: {child_task.config}")
+                found_child = True
+                break
+        if not found_child:
+            queue.extend(graph.predecessors(current_node))
     if child is not None:
-        graph.add_edge(node, child, label='auto_added_dep')
+        return (node, child)
+    else:
+        task = graph.nodes[node]['data']
+        #print(f"Warning: No child with auto_create_rdepends=True found for node {task.config}")
+        return None
 
 def create_task_graph(tasks):
     """
-    Creates a networkx.DiGraph representing the tasks and their dependencies.
-
-    Args:
-        A list of Task objects to convert to a graph
-
-    Raises:
-        ValueError: If there are unsatisfied depenedencies in the tasks
+    This function adds all edges at once after the loop that calls add_edge_to_parent.
     """
     graph = nx.DiGraph()
-
-    # Add nodes for each task
-    # We attach an id to each task in the order we read it in.
-    # This way if there are no other order priorities, the tasks are
-    # sorted the way they are listed in the manifest.
     for i, task in enumerate(tasks, start=1):
         task.id = i
         graph.add_node(task.id, data=task)
-
-    # Create edges for each dependency to each config or provides
     for task in tasks:
         for dep in task.dependencies:
             found = 0
@@ -158,10 +151,19 @@ def create_task_graph(tasks):
             if found == 0:
                 raise ValueError (f'Unsatisifed dependency {dep} from {task.config}')
 
-    # Recurseively traverse all nodes and create edges for auto_create_rdepends
+    # Collect all edges that need to be added
+    edges_to_add = []
     for node in graph.nodes:
         if not graph.out_degree(node):
-            add_edge_to_parent(graph, node)
+            task = graph.nodes[node]['data']
+            if task.auto_create_rdepends is False:
+                edge = find_edge_to_parent(graph, node)
+                if edge is not None:
+                    edges_to_add.append(edge)
+
+    # Add all edges at once
+    for edge in edges_to_add:
+        graph.add_edge(*edge, label='auto_added_dep')
 
     return graph
 
