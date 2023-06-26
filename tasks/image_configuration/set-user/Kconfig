@@ -1,0 +1,55 @@
+# We always configure users
+config DS_SET_USERS
+    bool
+    default "y"
+
+config DS_USER_ROOT_EN
+    bool "Allow local login of root"
+    default "n"
+    help
+      This option, when enabled, allows the local login of the 'root'
+      user in the system. It's usually recommended for system administration
+      and should be used with caution due to the elevated privileges
+      of the 'root' user. If unsure, say N.
+
+config DS_USER_ROOT_PASSWORD
+    depends on DS_USER_ROOT_EN
+    string "default root password"
+    help
+      If 'Allow local login of root' is enabled, you can set a default password 
+      for the 'root' user.
+
+config DS_USER
+    bool "Create normal user"
+    help
+      Enabling this option will create a non-privileged, normal user on the system.
+      This is generally recommended for performing tasks that don't require elevated 
+      privileges.
+
+config DS_USER_NAME
+    string "username"
+    depends on DS_USER
+    default "user"
+    help
+      If 'Create normal user' is enabled, this option allows you to specify the 
+      username of the created user.
+
+config DS_USER_PASSWORD
+    string "default password"
+    depends on DS_USER
+    help
+      This option allows you to set a default password for the newly created user.
+
+config DS_USER_SUDO
+    bool "Enable sudo"
+    depends on DS_USER
+    default "y"
+    help
+      This option includes and enables sudo for the new user.
+
+config DS_USER_GROUPS
+    string "additional user groups"
+    depends on DS_USER
+    help
+      This option is used to specify additional user groups for the created user.
+      Groups should be space separated.

@@ -1,0 +1,8 @@
+config: DS_SET_USERS
+tasks:
+  - cmd: users.sh
+    cmd_type: target
+    description: Setting up users
+  - cmd: packages.sh
+    cmd_type: packagelist
+    description: Adding user management packages

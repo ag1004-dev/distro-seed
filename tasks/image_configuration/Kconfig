@@ -1,6 +1,7 @@
 menu "Image Configuration"
 
 comment "Required Settings"
+source "tasks/image_configuration/set-user/Kconfig"
 source "tasks/image_configuration/set-locales/Kconfig"
 source "tasks/image_configuration/set-hostname/Kconfig"
 source "tasks/image_configuration/set-timezone/Kconfig"
