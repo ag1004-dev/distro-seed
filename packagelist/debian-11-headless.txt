@@ -13,6 +13,7 @@ ifupdown2
 iproute2
 isc-dhcp-client
 systemd-timesyncd
+ca-certificates
 
 # Wireless support
 crda

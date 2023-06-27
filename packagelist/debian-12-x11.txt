@@ -17,6 +17,7 @@ iproute2
 isc-dhcp-client
 net-tools
 systemd-timesyncd
+ca-certificates
 
 # Wireless support
 iw
