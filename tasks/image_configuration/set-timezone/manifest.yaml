@@ -3,3 +3,6 @@ tasks:
   - cmd: set-timezone.sh
     cmd_type: target
     description: Setting timezone
+  - cmd: packages.sh
+    cmd_type: packagelist
+    description: Adding tzdata packages
