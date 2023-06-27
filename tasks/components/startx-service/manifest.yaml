@@ -3,4 +3,7 @@ tasks:
 - cmd: install.sh
   cmd_type: target
   description: Installing and Enabling startx.service
+- cmd: packages.sh
+  cmd_type: packagelist
+  description: Adding package dependencies for startx service
 
