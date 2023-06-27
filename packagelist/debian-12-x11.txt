@@ -40,6 +40,7 @@ lsb-release
 psmisc
 sensible-utils
 watchdog
+file
 
 # Network utilities
 bridge-utils
