@@ -1,5 +1,5 @@
 CONFIG_DS_DISTRO_UBUNTU_22_04=y
-CONFIG_DS_PACKAGELIST="ubuntu-22_04-minimum.txt"
+CONFIG_DS_PACKAGELIST="ubuntu_22.04_minimum.txt"
 CONFIG_DS_KERNEL_PROVIDER_GIT_URL="https://github.com/embeddedTS/linux-lts.git"
 CONFIG_DS_KERNEL_PROVIDER_GIT_VERSION="v5.10.170.4-ts"
 CONFIG_DS_KERNEL_DEFCONFIG="tsimx6_minimal_defconfig"

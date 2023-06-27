@@ -1,4 +1,4 @@
-CONFIG_DS_PACKAGELIST="debian-11-minimum.txt"
+CONFIG_DS_PACKAGELIST="debian_11_minimum.txt"
 CONFIG_DS_KERNEL_PROVIDER_GIT_URL="https://github.com/embeddedTS/linux-lts.git"
 CONFIG_DS_KERNEL_PROVIDER_GIT_VERSION="v5.10.170.4-ts"
 CONFIG_DS_KERNEL_DEFCONFIG="tsimx6_minimal_defconfig"
