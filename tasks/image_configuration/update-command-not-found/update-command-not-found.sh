@@ -1,9 +1,7 @@
-#!/bin/bash -e
+#!/bin/bash -ex
 
-if ! which update-command-not-found >/dev/null; then
-        echo "command-not-found is not installed"
-        exit 1
+if [ "$DS_DISTRO" == "ubuntu" ] && [ "$DS_RELEASE" == "lunar" ]; then
+        apt-get update
+else
+        update-command-not-found
 fi
-
-apt-get update
-update-command-not-found

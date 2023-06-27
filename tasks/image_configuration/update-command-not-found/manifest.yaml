@@ -3,3 +3,6 @@ tasks:
   - cmd: update-command-not-found.sh
     cmd_type: target
     description: Generating command-not-found database
+  - cmd: packages.sh
+    cmd_type: packagelist
+    description: Adding command-not-found package
