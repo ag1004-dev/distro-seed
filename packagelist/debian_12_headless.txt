@@ -1,0 +1,82 @@
+## Bare minimum options:
+kmod # Required for kernel module management
+systemd # needed for init system
+systemd-resolved # systemd dns resolution
+systemd-sysv # needed to provide /sbin/init
+udev # needed to set up serial console
+
+## Full package options:
+# Text editors
+nano
+vim
+
+# Network configuration
+ethtool
+ifupdown2
+iproute2
+isc-dhcp-client
+net-tools
+systemd-timesyncd
+ca-certificates
+
+# Wireless support
+iw
+wireless-tools
+wpasupplicant
+firmware-atheros
+
+# Bluetooth support
+bluetooth
+bluez
+bluez-hcidump
+bluez-test-tools
+
+# Base utils
+apt-utils
+dbus
+less
+locales
+lsb-release
+psmisc
+sensible-utils
+watchdog
+file
+
+# Network utilities
+bridge-utils
+curl
+iputils-ping
+openssh-client
+rsync
+wget
+
+# Remote connectivity
+openssh-server
+
+# Hardware utilities
+can-utils
+gpiod
+i2c-tools
+libiio-utils
+memtool
+mmc-utils
+picocom
+setserial
+usbutils
+pciutils
+
+# Debug utilities
+strace
+
+# Development tools
+autoconf
+automake
+build-essential
+command-not-found
+gdb
+git
+libiio-dev
+libubootenv-tool
+lsof
+meson
+nfs-common
