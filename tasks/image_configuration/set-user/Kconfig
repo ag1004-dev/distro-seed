@@ -43,7 +43,6 @@ config DS_USER_PASSWORD
 config DS_USER_SUDO
     bool "Enable sudo"
     depends on DS_USER
-    default "y"
     help
       This option includes and enables sudo for the new user.
 
