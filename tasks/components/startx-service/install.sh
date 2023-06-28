@@ -15,6 +15,9 @@ $WINDOW_MANAGER_COMMAND
 # Set the root window's name to "xsm-ready"
 xsetroot -name "xsm-ready"
 
+# Disable default 10 minute timeout
+xset s off -dpms
+
 # Wait for the window manager to be ready
 while true; do
     if xwininfo -root -name "xsm-ready" >/dev/null 2>&1; then
