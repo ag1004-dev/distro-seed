@@ -1,0 +1,11 @@
+config DS_COMPONENT_TS_TOUCHSCREEN_CALIBRATIONS
+	bool "Install embeddedTS touchscreen calibration"
+
+config DS_COMPONENT_TS_X11_CALIBRATION
+	bool "Install embeddedTS's x11 resistive touchscreen calibration files"
+	depends on DS_COMPONENT_TS_TOUCHSCREEN_CALIBRATIONS
+	help
+	  Installs x11 touchscreen calibration values for:
+	  TS-TPC-8390
+	  TS-TPC-8950
+	  TS-TPC-7990

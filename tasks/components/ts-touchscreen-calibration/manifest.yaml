@@ -1,0 +1,5 @@
+config: DS_COMPONENT_TS_X11_CALIBRATION
+tasks:
+- cmd: install.sh
+  cmd_type: docker
+  description: Installing embeddedTS Touchscreen Calibrations
