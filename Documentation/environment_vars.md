@@ -1,4 +1,4 @@
-Every script has access to these core set of environment variables:
+Every script run by distro-seed has access to these core set of environment variables:
 
 | Variable | Host | Docker | Target | Description |
 | - | - | - | - | - |
