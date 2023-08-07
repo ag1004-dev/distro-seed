@@ -32,6 +32,7 @@ source "tasks/components/wl12xx-firmware/Kconfig"
 endmenu
 endmenu
 
+source "tasks/components/linux-firmware/Kconfig"
 source "tasks/components/distroboot-scripts/Kconfig"
 source "tasks/components/resize/Kconfig"
 source "tasks/components/startx-service/Kconfig"

@@ -1,0 +1,11 @@
+
+config DS_COMPONENT_LINUX_FIRMWARE
+	bool "linux-firmware"
+	help
+	  Allows installing firmware files from linux-firmware git
+
+config DS_COMPONENT_LINUX_FIRMWARE_QCA9377
+	bool "Installs QCA9377 Firmware Files"
+	depends on DS_COMPONENT_LINUX_FIRMWARE
+	help
+	  Installs support for QCA9377 based devices

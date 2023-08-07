@@ -1,0 +1,5 @@
+config: DS_COMPONENT_LINUX_FIRMWARE
+tasks:
+- cmd: fetch.sh
+  cmd_type: host
+  description: Fetching linux-firwmare
