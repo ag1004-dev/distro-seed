@@ -23,7 +23,6 @@ ca-certificates
 iw
 wireless-tools
 wpasupplicant
-firmware-atheros
 
 # Bluetooth support
 bluetooth
