@@ -26,7 +26,7 @@ On either distribution, next install distro-seed, the python requirements and ch
 ```
 git clone https://github.com/embeddedTS/distro-seed.git
 cd distro-seed
-pip install -r requirements.txt
+pip3 install --user -r requirements.txt
 make checkdeps # Verifies all execution requirements are met
 ```
 ## Generating a rootfs:
