@@ -29,7 +29,7 @@ for key, value in kconf.syms.items():
         continue
     config_dict[f'CONFIG_{key}'] = value.str_value
 
-command = [ 'docker', 'run', '-it',
+command = [ 'docker', 'run', '--rm', '-it',
         '--volume', f'{HOST_ROOT_PATH}:/work/',
         '--workdir', '/work/' ]
 

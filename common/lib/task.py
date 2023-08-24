@@ -69,7 +69,7 @@ class Task:
         elif self.cmd_type == 'target':
             # Copy the script to the chroot, execute it in the chroot, then
             # remove the script
-            command = [ 'docker', 'run', '-it',
+            command = [ 'docker', 'run', '--rm', '-it',
                         '--volume', f'{ds_host_root_path}:/work/',
                         '--workdir', '/work/', 
                         tag,
@@ -77,7 +77,7 @@ class Task:
             subprocess.run(command, check=True)
 
             command = [
-                'docker', 'run', '-it',
+                'docker', 'run', '--rm', '-it',
                 '--volume', f'{ds_host_root_path}:/work/',
                 '--workdir', '/work/',
                 '--env-file', dockerenv,
@@ -86,7 +86,7 @@ class Task:
             ]
             subprocess.run(command, check=True)
 
-            command = [ 'docker', 'run', '-it',
+            command = [ 'docker', 'run', '--rm', '-it',
                         '--volume', f'{ds_host_root_path}:/work/',
                         '--workdir', '/work/',
                         tag,
@@ -95,7 +95,7 @@ class Task:
         elif self.cmd_type == "docker":
             docker_task_cmd = f"{self.path}/{self.cmd}"
 
-            command = [ 'docker', 'run', '-it',
+            command = [ 'docker', 'run', '--rm', '-it',
                         '--volume', f'{ds_host_root_path}:/work/',
                         '--workdir', '/work/', ]
 
