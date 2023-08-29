@@ -1,0 +1,9 @@
+config: DS_WATCHDOG
+tasks:
+- cmd: install.sh
+  cmd_type: target
+  description: Installing the watchdog service
+- cmd: packages.sh
+  cmd_type: packagelist
+  description: Adding package dependencies for the watchdog service
+

@@ -1,0 +1,20 @@
+config DS_WATCHDOG
+	bool "watchdog service to reboot on lockup"
+	help
+	  Run watchdog service automatically on startup
+
+config DS_WATCHDOG_DEVICE
+	string "watchdog device"
+	default "/dev/watchdog0"
+	depends on DS_WATCHDOG
+	help
+	  This is the hardware watchdog device to monitor. This is normally
+	  /dev/watchdog0.
+
+config DS_WATCHDOG_TIMEOUT
+	int "watchdog timeout seconds"
+	default 60
+	depends on DS_WATCHDOG
+	help
+	  The hardware timeout to use for a given device. This should generally
+	  be around 60 seconds by default.
