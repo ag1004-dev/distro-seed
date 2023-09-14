@@ -38,6 +38,7 @@ debootstrap=Base
 aptsources=Base
 
 [Base]
+omitdebsrc=true
 EOF
 echo -n "packages=" >> "$MULTISTRAPCONF"
 
