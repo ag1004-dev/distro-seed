@@ -6,3 +6,6 @@ tasks:
     - DS_CORE_MULTISTRAP_CONF
   provides: DS_DISTRO
   description: Fetching Ubuntu 23.04 distribution
+- cmd: sourceslist.sh
+  cmd_type: host
+  description: Adding sources.list
