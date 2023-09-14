@@ -1,0 +1,2 @@
+deb [arch=armhf] http://deb.debian.org/debian bullseye main contrib non-free
+deb-src http://deb.debian.org/debian bullseye main contrib non-free
