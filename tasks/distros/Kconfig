@@ -40,6 +40,26 @@ config DS_DISTRO_UBUNTU_23_04
 
 endchoice
 
+config DS_CUSTOM_APT_MIRROR
+	bool "Override default apt repository"
+	default n
+	help
+	  Override debian/ubuntu repository and select a custom mirror for initial fetch
+
+config DS_CUSTOM_APT_URL
+	string "Custom mirror URL"
+	depends on DS_CUSTOM_APT_MIRROR
+	help
+	  Specify URL for custom mirror for initial fetch
+
+config DS_DISTRO_NO_CACHE
+	bool "Use mirror rather than local cache of packages"
+	default n
+	depends on DS_CUSTOM_APT_MIRROR
+	help
+	  Normally a set of packageslists are pulled down once and cached, but this will disable
+	  the local file cache and pull from the mirror every time
+
 config DS_PACKAGELIST
 	string "Package List"
 	help

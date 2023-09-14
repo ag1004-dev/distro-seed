@@ -27,6 +27,10 @@ else
     exit 1
 fi
 
+if [ "$CONFIG_DS_CUSTOM_APT_MIRROR" = "y" ]; then
+	sourceurl="$CONFIG_DS_CUSTOM_APT_URL"
+fi
+
 cat <<EOF > "$MULTISTRAPCONF"
 [General]
 arch=${DS_TARGET_ARCH}
