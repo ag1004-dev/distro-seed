@@ -14,7 +14,8 @@ if [ ! -e "${DS_WORK}/rootfs/dev/null" ]; then
 fi
 
 # Set up a temporary resolv.conf.
-if [ -L "/etc/resolv.conf" ]; then
-    install -d $(dirname $(readlink /etc/resolv.conf))
-    echo "nameserver 1.1.1.1" > /etc/resolv.conf
+if [ -L "${DS_WORK}/rootfs/etc/resolv.conf" ]; then
+    cd ${DS_WORK}/rootfs/etc/
+    install -d $(dirname $(readlink resolv.conf))
+    echo "nameserver 1.1.1.1" > "${DS_WORK}/rootfs/etc/resolv.conf"
 fi
