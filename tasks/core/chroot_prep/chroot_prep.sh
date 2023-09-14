@@ -19,3 +19,8 @@ if [ -L "${DS_WORK}/rootfs/etc/resolv.conf" ]; then
     install -d $(dirname $(readlink resolv.conf))
     echo "nameserver 1.1.1.1" > "${DS_WORK}/rootfs/etc/resolv.conf"
 fi
+
+# The distro will ship its own sources.list
+if [ -e "${DS_WORK}/rootfs/etc/apt/sources.list.d/multistrap-base.list" ]; then
+    rm "${DS_WORK}/rootfs/etc/apt/sources.list.d/multistrap-base.list"
+fi
