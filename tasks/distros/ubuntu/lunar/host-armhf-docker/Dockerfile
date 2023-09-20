@@ -25,8 +25,7 @@ RUN aptitude install -y libgpiod-dev:armhf libc6:armhf libgcc-s1:armhf libstdc++
 # For linux cross compile
 ENV CROSS_COMPILE=arm-linux-gnueabihf-
 ENV ARCH=arm
-# For autotools crosscompile
-ENV host=arm-liux-gnueabihf
+ENV AUTOTOOLS_HOST=arm-linux-gnueabihf
 ENV MESON_CROSS="/meson.cross"
 RUN echo '[binaries]' > /meson.cross \
     && echo "c = 'arm-linux-gnueabihf-gcc'" >> /meson.cross \
