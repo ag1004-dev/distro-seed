@@ -15,7 +15,7 @@ RUN apt-get update && apt-get install -y aptitude autogen automake bash bc bison
 # Ubuntu has to fetch armhf from a different repo using ports.  We update the 
 # existing sources.list to specify the architecture, then install the packages we need
 RUN sed -i 's/deb http:\/\//deb [arch=amd64,i386] http:\/\//g' /etc/apt/sources.list
-RUN printf "\ndeb [arch=armhf] http://ports.ubuntu.com/ jammy main universe multiverse" >> /etc/apt/sources.list
+RUN printf "\ndeb [arch=armhf] http://ports.ubuntu.com/ lunar main universe multiverse" >> /etc/apt/sources.list
 RUN dpkg --add-architecture armhf
 RUN apt-get update
 # This must be aptitude because it will have to downgrade some packages
