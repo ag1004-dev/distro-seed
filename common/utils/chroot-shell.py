@@ -33,6 +33,7 @@ for key, value in kconf.syms.items():
 command = [
     'docker', 'run', '-it',
     '--volume', f'{host_root_path}:/work/',
+    '--mount type=bind,src="/proc/",target=/work/work/rootfs/proc',
     '--workdir', '/work/',
     '--env-file', f'{dockerenv}',
     tag, 'chroot', '/work/work/rootfs', '/bin/bash'

@@ -80,10 +80,12 @@ class Task:
                 'docker', 'run', '--rm', '-it',
                 '--volume', f'{ds_host_root_path}:/work/',
                 '--workdir', '/work/',
+                '--mount', 'type=bind,src=/proc/,target=/work/work/rootfs/proc',
                 '--env-file', dockerenv,
                 tag, 'chroot', '/work/work/rootfs',
-                '/bin/bash', '-c', '/run_in_chroot'
+                '/bin/bash', '-c', 'env LD_PRELOAD=/eatmydata.so /run_in_chroot'
             ]
+
             subprocess.run(command, check=True)
 
             command = [ 'docker', 'run', '--rm', '-it',

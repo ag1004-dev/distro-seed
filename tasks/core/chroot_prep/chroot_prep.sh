@@ -24,3 +24,9 @@ fi
 if [ -e "${DS_WORK}/rootfs/etc/apt/sources.list.d/multistrap-base.list" ]; then
     rm "${DS_WORK}/rootfs/etc/apt/sources.list.d/multistrap-base.list"
 fi
+
+# As an optimization for building images we do not want to honor fsync. This path
+# is set from the dockerfile
+if [ -e "${CROSS_EATMYDATALIB}" ]; then
+    cp "${CROSS_EATMYDATALIB}" "${DS_WORK}/rootfs/eatmydata.so"
+fi

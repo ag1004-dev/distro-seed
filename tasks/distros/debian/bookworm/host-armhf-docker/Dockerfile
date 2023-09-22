@@ -10,16 +10,17 @@ ENV LANG en_US.UTF-8
 ENV LANGUAGE en_US.UTF-8
 
 # Set up common docker packages
-RUN apt-get update && apt-get install -y autogen automake bash bc bison build-essential bzip2 ca-certificates curl fakeroot file flex git gzip kmod libconfuse-dev libncursesw5-dev libssl-dev libtool lzop lz4 make meson multistrap ncurses-dev pkg-config qemu-user-static rsync runit u-boot-tools vim wget xz-utils
+RUN apt-get update && apt-get install -y autogen automake bash bc bison build-essential bzip2 ca-certificates curl eatmydata fakeroot file flex git gzip kmod libconfuse-dev libncursesw5-dev libssl-dev libtool lzop lz4 make meson multistrap ncurses-dev pkg-config qemu-user-static rsync runit u-boot-tools vim wget xz-utils
 
 # Install arch specific packages:
 RUN dpkg --add-architecture armhf
-RUN apt-get update && apt-get install -y gcc-arm-linux-gnueabihf libc6-dev:armhf libgpiod-dev:armhf
+RUN apt-get update && apt-get install -y gcc-arm-linux-gnueabihf libc6-dev:armhf libgpiod-dev:armhf libeatmydata1:armhf
 
 # Cross compile variables:
 ENV CROSS_COMPILE=arm-linux-gnueabihf-
 ENV ARCH=arm
 ENV AUTOTOOLS_HOST=arm-linux-gnueabihf
+ENV CROSS_EATMYDATALIB="/usr/lib/arm-linux-gnueabihf/libeatmydata.so.1.3.0"
 ENV MESON_CROSS="/meson.cross"
 RUN echo '[binaries]' > /meson.cross \
     && echo "c = 'arm-linux-gnueabihf-gcc'" >> /meson.cross \

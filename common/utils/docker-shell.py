@@ -31,6 +31,7 @@ for key, value in kconf.syms.items():
 
 command = [ 'docker', 'run', '--rm', '-it',
         '--volume', f'{HOST_ROOT_PATH}:/work/',
+        '--privileged=true', # Needed for mount -o bind /proc/
         '--workdir', '/work/' ]
 
 # For the very first run we might not have a docker env file

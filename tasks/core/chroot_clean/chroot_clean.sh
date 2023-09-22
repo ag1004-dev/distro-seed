@@ -10,3 +10,8 @@ rm "${DS_WORK}/rootfs/${QEMU_STATIC_PATH}"
 rm -rf ${DS_WORK}/rootfs/dev/*
 rm -rf ${DS_WORK}/rootfs/tmp/*
 rm -rf ${DS_WORK}/rootfs/run/*
+
+if [ -e "${DS_WORK}/rootfs/eatmydata.so" ]; then
+    rm "${DS_WORK}/rootfs/eatmydata.so"
+fi
+
