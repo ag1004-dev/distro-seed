@@ -9,6 +9,7 @@ Every script run by distro-seed has access to these core set of environment vari
 | DS_RELEASE        | X | X | X | Release name, eg "bullseye", or "jammy" |
 | DS_TARGET_ARCH    | X | X | X | Architecture name, eg "armhf" or "armel" |
 | DS_OVERLAY        | X | X |   | Path to the overlay this project should use. Must create the directory manually |
+| DS_TASK_PATH      | X | X |   | Path to the manifest being executed |
 
 The rest of the CONFIG options are also exported into each environment. For example a bool option in Kconfig will be y or n.  If a config file contains:
 ```
