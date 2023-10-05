@@ -18,7 +18,7 @@ if [[ -d "$git_path" ]]; then
     set +e
     if ! git checkout "$git_version"; then
         set -e
-        git fetch origin -a
+        git fetch origin --tags
         git reset --hard
         git checkout "$git_version"
     fi
