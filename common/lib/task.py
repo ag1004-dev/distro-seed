@@ -48,7 +48,6 @@ class Task:
                 f"{self.path}/{self.cmd}", ds_host_root_path)
         os.environ['DS_OVERLAY'] = os.path.abspath(work + f'/overlays/{self.id}-{self.config}')
         os.environ['DS_TASK_PATH'] = os.path.abspath(os.environ['DS_HOST_ROOT_PATH'] + '/' + self.path)
-        pprint(f"self.path={os.environ['DS_TASK_PATH']}")
         
         if not os.path.isfile(full_cmd):
             raise ValueError(f'{self.config} has task \"{full_cmd}\" that does not exist')
