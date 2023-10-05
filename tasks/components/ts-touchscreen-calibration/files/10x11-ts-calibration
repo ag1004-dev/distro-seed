@@ -6,4 +6,6 @@ elif echo $MODEL | egrep -q "\-8390"; then
 	xinput set-prop "ADS7843 Touchscreen" "libinput Calibration Matrix" -1.04718565 0 1.02536149 0 -1.092512 1.05010376 0 0 1
 elif echo $MODEL | egrep -q "\-7990"; then
 	xinput set-prop "ADS7846 Touchscreen" "libinput Calibration Matrix" -1.0515863 0 1.02480729 0 -1.12352838 1.05727788 0 0 1
+elif echo $MODEL | egrep -q "\-7100"; then
+	xinput set-prop "ADS7846 Touchscreen" "libinput Calibration Matrix" 1.14360133 0.02219533 -0.06783767 -0.01262267 -1.13283667 1.047116 0 0 1
 fi
