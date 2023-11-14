@@ -1,0 +1,8 @@
+config: DS_COMPONENT_LIBLVGL
+tasks:
+- cmd: build.sh
+  cmd_type: docker
+  description: Building liblvgl
+- cmd: fetch.sh
+  cmd_type: host
+  description: Downloading liblvgl

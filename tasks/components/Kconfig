@@ -36,6 +36,11 @@ source "tasks/components/linux-firmware/Kconfig"
 source "tasks/components/distroboot-scripts/Kconfig"
 source "tasks/components/watchdog/Kconfig"
 source "tasks/components/resize/Kconfig"
-source "tasks/components/startx-service/Kconfig"
 
+menu "Additional Graphical Components"
+source "tasks/components/startx-service/Kconfig"
+menu "Light and Versatile Graphics Library (LVGL)"
+source "tasks/components/liblvgl/Kconfig"
+endmenu
+endmenu
 endmenu

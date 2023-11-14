@@ -1,0 +1,13 @@
+config DS_COMPONENT_LIBLVGL
+	bool "liblvgl"
+	help
+	  Build and install libraries and header files to support
+	  the Light and Versatile Graphics Library (LVGL). This
+	  requires an externally provided lv_conf.h file to handle
+	  the build configuration.
+
+config DS_COMPONENT_LIBLVGL_LVCONF
+	string "Path to lv_conf.h"
+	depends on DS_COMPONENT_LIBLVGL
+	help
+	  Path to lv_conf.h file used for build configuration
