@@ -1,0 +1,30 @@
+config DS_COMPONENT_UDEV_RULES
+	bool "Install udev rules scripts"
+
+config DS_COMPONENT_UDEV_RULES_7100_TOUCH
+	depends on DS_COMPONENT_UDEV_RULES
+	bool "udev rules for TS-7100 resistive touschscreen"
+	help
+	  Installs a udev rules file for touchscreen calibration for
+	  TS-7100-Z
+
+config DS_COMPONENT_UDEV_RULES_4900_8390_TOUCH
+	depends on DS_COMPONENT_UDEV_RULES
+	bool "udev rules for TS-TPC-8390-4900 resistive touschscreen"
+	help
+	  Installs a udev rules file for touchscreen calibration for
+	  TS-TPC-8390-4900
+
+config DS_COMPONENT_UDEV_RULES_4900_8950_TOUCH
+	depends on DS_COMPONENT_UDEV_RULES
+	bool "udev rules for TS-TPC-8950-4900 resistive touschscreen"
+	help
+	  Installs a udev rules file for touchscreen calibration for
+	  TS-TPC-8950-4900
+
+config DS_COMPONENT_UDEV_RULES_7990_TOUCH
+	depends on DS_COMPONENT_UDEV_RULES
+	bool "udev rules for TS-TPC-7990 resistive touschscreen"
+	help
+	  Installs a udev rules file for touchscreen calibration for
+	  TS-TPC-7990

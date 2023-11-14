@@ -1,0 +1,4 @@
+# TS-4900-8950
+# Note that, this specifically matches the device and SPI bus.
+# If the SPI bus ever changes for some reason, this will no longer match
+ACTION=="add|change", KERNEL=="event[0-9]*", ATTRS{name}=="ADS7846 Touchscreen", ATTRS{phys}=="spi1.1/input[0-9]*", ENV{LIBINPUT_CALIBRATION_MATRIX}="-1.05070527 0 1.02480539 0 -1.09707288 1.04046077"
