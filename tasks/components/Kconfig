@@ -38,10 +38,11 @@ source "tasks/components/watchdog/Kconfig"
 source "tasks/components/resize/Kconfig"
 
 menu "Additional Graphical Components"
-source "tasks/components/startx-service/Kconfig"
 menu "Light and Versatile Graphics Library (LVGL)"
 source "tasks/components/liblvgl/Kconfig"
 source "tasks/components/lv_drivers/Kconfig"
 endmenu
+source "tasks/components/startx-service/Kconfig"
+source "tasks/components/ts7100z-lvgl-ui-demo/Kconfig"
 endmenu
 endmenu

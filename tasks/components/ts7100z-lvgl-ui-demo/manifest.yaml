@@ -1,0 +1,14 @@
+config: DS_COMPONENT_TS7100Z_LVGL_UI_DEMO
+tasks:
+- cmd: build.sh
+  cmd_type: docker
+  dependencies:
+    - DS_COMPONENT_LIBLVGL
+    - DS_COMPONENT_LV_DRIVERS
+  description: Building ts7100z-lvgl-ui-demo
+- cmd: fetch.sh
+  cmd_type: host
+  description: Downloading ts7100z-lvgl-ui-demo
+- cmd: packages.sh
+  cmd_type: packagelist
+  description: Adding libinput0 package
