@@ -41,6 +41,7 @@ menu "Additional Graphical Components"
 source "tasks/components/startx-service/Kconfig"
 menu "Light and Versatile Graphics Library (LVGL)"
 source "tasks/components/liblvgl/Kconfig"
+source "tasks/components/lv_drivers/Kconfig"
 endmenu
 endmenu
 endmenu
