@@ -1,7 +1,11 @@
 #!/usr/bin/env python3
 
 import os
-import path
+try:
+    import path
+except ModuleNotFoundError:
+    print("This environment does not have all packages listed in requirements.txt.")
+    raise
 import sys
 
 libpath = os.path.dirname(os.environ['DS_HOST_ROOT_PATH'] + '/common/')
