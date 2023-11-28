@@ -21,8 +21,12 @@ parser.add_argument("--plot-deps", action="store_true", help="Graph out dependen
 args = parser.parse_args()
 
 kconf = kconfiglib.Kconfig('Kconfig')
-kconf.load_config('.config')
-
+try:
+    kconf.load_config('.config')
+except kconfiglib._KconfigIOError as exc:
+    sys.stdout.write(str(exc) + "\n")
+    print("Did you run make <defconfig>?")
+    #sys.exit(2)
 kconfig_export_vars(kconf)
 
 DS_HOST_ROOT_PATH = os.environ['DS_HOST_ROOT_PATH']
