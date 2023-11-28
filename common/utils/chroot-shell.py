@@ -45,6 +45,8 @@ docker_path = result.stdout.strip()
 
 clean_tasks = task_manager.load_tasks_from_manifest('tasks/core/chroot_clean/manifest.yaml')
 prep_tasks = task_manager.load_tasks_from_manifest('tasks/core/chroot_prep/manifest.yaml')
+validation_tasks = task_manager.load_tasks_from_manifest('tasks/core/rootfs_verification/manifest.yaml')
+
 for prep in prep_tasks:
     prep.run()
 
@@ -52,5 +54,8 @@ ret = os.system(" ".join(command))
 
 for clean in clean_tasks:
     clean.run()
+
+for validation in validation_tasks:
+    validation.run()
 
 sys.exit(ret)
