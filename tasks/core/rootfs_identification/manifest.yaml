@@ -1,0 +1,9 @@
+config: DS_ROOTFS_IDENTIFIABLE
+tasks:
+  - cmd: add_version_sums.sh
+    cmd_type: docker
+    dependencies:
+      - DS_ROOTFS_CLEANUP
+    provides: DS_ROOTFS_IDENTIFICATION
+    auto_create_rdepends: true
+    description: Generate root.version and md5sums files

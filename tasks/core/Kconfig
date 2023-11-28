@@ -23,6 +23,9 @@ config DS_APT_CONFIGURED
 config DS_CORE_CHROOT_CLEAN
     bool
     default "y"
+config DS_ROOTFS_IDENTIFIABLE
+    bool
+    default "y"
 config DS_SET_TEMPORARY_RESOLV
     bool
     default "y"

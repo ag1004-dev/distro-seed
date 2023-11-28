@@ -2,6 +2,6 @@ config: DS_ROOTFS_READY
 tasks:
 - cmd_type: dummy
   dependencies:
-    - DS_ROOTFS_CLEANUP
+    - DS_ROOTFS_IDENTIFIABLE
   auto_create_rdepends: true
   description: rootfs ready
