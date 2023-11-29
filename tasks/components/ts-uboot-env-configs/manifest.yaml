@@ -1,5 +1,15 @@
 config: DS_COMPONENT_TS_UBOOT_CONFIGS
+
 tasks:
+
 - cmd: install.sh
   cmd_type: docker
   description: Installing u-boot configs
+
+- cmd: ensure-fw-env-config.sh
+  cmd_type: target
+  description: boot service to set up /run/fw_env.config
+
+- cmd: package-list.sh
+  cmd_type: packagelist
+  description: Installing U-Boot Tools

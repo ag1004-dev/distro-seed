@@ -1,4 +1,6 @@
 config DS_COMPONENT_TS_UBOOT_CONFIGS
-	bool "Install embeddedTS's u-boot fw_env.config files"
+	bool "Install U-Boot tools and embeddedTS's fw_env.config files to work together"
 	help
-	  Installs embeddedTS's u-boot fw_env.config files to /usr/share/uboot-env-configs/
+	  Installs tools so that Linux can access U-Boot's saved environment(s), and also
+          embeddedTS's fw_env.config files (to /usr/share/uboot-env-configs/), as well as
+          a startup service to select the correct config file for the running board/U-Boot.
