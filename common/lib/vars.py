@@ -6,7 +6,10 @@ from lib.kconfiglib import kconfiglib
 
 def kconfig_export_vars(kconf):
     ''' Exports Kconfig options to the environment '''
-    if kconf.eval_string('DS_ARCH_ARMHF') != 0:
+    if kconf.eval_string('DS_ARCH_AARCH64') != 0:
+        DS_TARGET_ARCH='arm64'
+        DS_QEMU_STATIC='qemu-aarch64-static'
+    elif kconf.eval_string('DS_ARCH_ARMHF') != 0:
         DS_TARGET_ARCH='armhf'
         DS_QEMU_STATIC='qemu-arm-static'
     elif kconf.eval_string('DS_ARCH_ARMEL') != 0:

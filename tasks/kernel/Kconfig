@@ -36,10 +36,17 @@ config DS_KERNEL_INSTALL_DEVICETREE_FILESYSTEM
 	  foo
 	  would build foo.dtb and install it to /boot/foo.dtb
 
+config DS_KERNEL_INSTALL_IMAGE_FILESYSTEM
+	depends on DS_ARCH_AARCH64
+	default y
+	bool "Install Image to the target filesystem in /boot/Image"
+
 config DS_KERNEL_INSTALL_ZIMAGE_FILESYSTEM
+	depends on DS_ARCH_ARMHF || DS_ARCH_ARMEL
 	bool "Install zImage to the target filesystem in /boot/"
 
 config DS_KERNEL_INSTALL_UIMAGE_FILESYSTEM
+	depends on DS_ARCH_ARMHF || DS_ARCH_ARMEL
 	bool "Install legacy uImage to the target filesystem in /boot/"
 
 config DS_KERNEL_INSTALL_UIMAGE_LOADADDR

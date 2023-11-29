@@ -122,6 +122,14 @@ else:
     print("Install your distribution's qemu static support, eg \'qemu-user-static\'")
     ret = 1
 
+if check_bin_in_path('qemu-aarch64-static'):
+    print("Pass: QEMU for aarch64")
+else:
+    print("Fail: QEMU for aarch64")
+    print("qemu-aarch64-static is required on the host for aarch64 targets")
+    print("Install your distribution's qemu static support, eg \'qemu-user-static\'")
+    ret = 1
+
 if check_bin_in_path('sha256sum'):
     print("Pass: sha256sum available")
 else:

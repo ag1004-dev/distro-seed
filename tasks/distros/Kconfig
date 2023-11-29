@@ -6,6 +6,10 @@ menu "Distribution"
 choice
 	prompt "Architecture"
 	default DS_ARCH_ARMHF
+config DS_ARCH_AARCH64
+	bool "aarch64"
+	help
+	  Target aarch64 (arm64) system
 config DS_ARCH_ARMHF
 	bool "armhf"
 	help
