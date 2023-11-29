@@ -1,0 +1,7 @@
+config DS_GENERATE_FW_ENV_CONFIG
+	default y
+	bool "Generate an appropriate /etc/fw_env.config"
+	help
+	  Generate fw_env.config during first boot. Otherwise Linux does
+          not know how to access the U-Boot environment. You should say
+	  'y' here.

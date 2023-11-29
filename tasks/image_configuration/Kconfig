@@ -14,5 +14,6 @@ source "tasks/image_configuration/set-log-size/Kconfig"
 source "tasks/image_configuration/purge-man-pages/Kconfig"
 source "tasks/image_configuration/nfsroot-helper/Kconfig"
 source "tasks/image_configuration/set-ntp/Kconfig"
+source "tasks/image_configuration/set-fw-env-config/Kconfig"
 
 endmenu

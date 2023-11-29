@@ -1,0 +1,5 @@
+config: DS_GENERATE_FW_ENV_CONFIG
+tasks:
+  - cmd: ensure-fw-env-config.sh
+    cmd_type: target
+    description: firstboot service to set up /etc/fw_env.config
