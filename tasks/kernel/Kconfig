@@ -12,20 +12,23 @@ config DS_KERNEL_PROVIDER_GIT
 endchoice
 
 if DS_KERNEL_PROVIDER_GIT
-
 config DS_KERNEL_PROVIDER_GIT_URL
 	string "URL of git repository"
 	help
-	  Specify git repo to fetch kernel
+	  Specify git repo to fetch kernel. This can be specified as:
+	  git://path/to/repo.git
+	  https://path/to/repo.git
+	  /path/to/locally/cloned/kernel/git/
 
 config DS_KERNEL_PROVIDER_GIT_VERSION
 	string "Kernel GIT srcrev"
 	help
-	  Specify tag or branch to checkout before building
+	  Specify tag or branch to checkout before building.
+	  This is optional if the provider git url points to a local path.
 endif
 
 config DS_KERNEL_DEFCONFIG
-	string "Git defconfig"
+	string "Kernel defconfig"
 	help
 	  Specify kernel defconfig to use
 
