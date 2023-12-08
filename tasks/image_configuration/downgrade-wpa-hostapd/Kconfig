@@ -1,0 +1,13 @@
+config DS_DOWNGRADE_WPA_HOSTAPD
+	default "n"
+	bool "Downgrade wpa_supplicant and hostapd to 2.9"
+	depends on DS_DISTRO_DEBIAN_12 || DS_DISTRO_UBUNTU_22_04 || DS_DISTRO_UBUNTU_23_04
+	help
+	  Say Y here to downgrade wpa_supplicant and hostapd to the 2.9
+	  release. This is needed on platforms with the Silix Wi-Fi device
+	  as there is some conflict between the driver, libnl, and the 2.10
+	  release version of the above packages.
+
+	  This will download an older binary release of these packages,
+	  install them, and mark them to be kept back to prevent accidental
+	  updating and breaking WPA.
