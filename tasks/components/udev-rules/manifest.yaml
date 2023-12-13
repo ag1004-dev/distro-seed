@@ -1,0 +1,5 @@
+config: DS_COMPONENT_UDEV_RULES
+tasks:
+- cmd: build.sh
+  cmd_type: docker
+  description: Installing udev rules

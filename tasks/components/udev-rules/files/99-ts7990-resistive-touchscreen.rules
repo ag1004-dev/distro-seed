@@ -1,0 +1,4 @@
+# TS-7990
+# Note that, this specifically matches the device and SPI bus.
+# If the SPI bus ever changes for some reason, this will no longer match
+ACTION=="add|change", KERNEL=="event[0-9]*", ATTRS{name}=="ADS7846 Touchscreen", ATTRS{phys}=="spi5.0/input[0-9]*", ENV{LIBINPUT_CALIBRATION_MATRIX}="-1.0515863 0 1.02480729 0 -1.12352838 1.05727788"

@@ -1,0 +1,17 @@
+config DS_COMPONENT_TS7100Z_LVGL_UI_DEMO
+	bool "ts7100z-lvgl-ui-demo"
+	depends on DS_COMPONENT_LIBLVGL
+	depends on DS_COMPONENT_LV_DRIVERS
+	help
+	  Simple graphical demo for TS-7100-Z using LVGL
+
+	  Includes the splash-screen image for I/O location reference;
+	  control of the two relays; control of the 3 high-voltage,
+	  low-side switches; feedback of the input path of those same
+	  low-side switches via emulated LEDs; control of the 1 high-voltage,
+	  high-side switch; and a meter display of the 4 0-12 V ADC inputs.
+
+	  libgpiod and libiiod are used for GPIO and ADC control.
+
+comment "ts7100z-lvgl-ui-demo needs liblvgl and lv_drivers"
+	depends on !DS_COMPONENT_LV_DRIVERS

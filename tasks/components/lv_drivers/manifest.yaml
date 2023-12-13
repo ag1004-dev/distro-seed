@@ -1,0 +1,10 @@
+config: DS_COMPONENT_LV_DRIVERS
+tasks:
+- cmd: build.sh
+  cmd_type: docker
+  dependencies:
+    - DS_COMPONENT_LIBLVGL
+  description: Building lv_drivers
+- cmd: fetch.sh
+  cmd_type: host
+  description: Downloading lv_drivers

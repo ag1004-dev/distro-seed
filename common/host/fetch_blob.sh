@@ -15,8 +15,9 @@ if [ ! -f "$file_path" ]; then
 fi
 
 if [ -z "$sha256sum" ]; then
-    echo "Error! no sha256sum $file_name!"
-    exit 1
+    echo "Skipping checksum! No sha256sum provided for $file_name!"
+    cp "$file_path" "$work_path"
+    exit 0
 fi
 
 if echo "$sha256sum  $file_path" | sha256sum --quiet -c -; then

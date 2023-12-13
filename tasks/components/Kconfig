@@ -16,6 +16,7 @@ source "tasks/components/ts4900-fpga/Kconfig"
 source "tasks/components/tssupervisorupdate/Kconfig"
 source "tasks/components/ts-uboot-env-configs/Kconfig"
 source "tasks/components/ts-touchscreen-calibration/Kconfig"
+source "tasks/components/udev-rules/Kconfig"
 endmenu
 
 menu "NXP"
@@ -36,6 +37,13 @@ source "tasks/components/linux-firmware/Kconfig"
 source "tasks/components/distroboot-scripts/Kconfig"
 source "tasks/components/watchdog/Kconfig"
 source "tasks/components/resize/Kconfig"
-source "tasks/components/startx-service/Kconfig"
 
+menu "Additional Graphical Components"
+menu "Light and Versatile Graphics Library (LVGL)"
+source "tasks/components/liblvgl/Kconfig"
+source "tasks/components/lv_drivers/Kconfig"
+endmenu
+source "tasks/components/startx-service/Kconfig"
+source "tasks/components/ts7100z-lvgl-ui-demo/Kconfig"
+endmenu
 endmenu

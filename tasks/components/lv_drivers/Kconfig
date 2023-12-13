@@ -1,0 +1,21 @@
+config DS_COMPONENT_LV_DRIVERS
+	bool "lv_drivers"
+	depends on DS_COMPONENT_LIBLVGL
+	help
+	  Drivers package for LVGL. This provides a number of interface
+	  routines for things such as libinput, fbdev, wayland, etc. It
+	  builds and installs libraries and header files to the target.
+
+	  This requires LVGL to be enabled and built. This will have
+	  access to lv_conf.h already from LVGL. Additionally, another
+	  configuration file, lv_drv_conf.h, is needed by lv_drivers in
+	  order to configure the build properly.
+
+comment "lv_drivers needs liblvgl"
+	depends on !DS_COMPONENT_LIBLVGL
+
+config DS_COMPONENT_LV_DRIVERS_LVDRVCONF
+	string "Path to lv_drv_conf.h"
+	depends on DS_COMPONENT_LV_DRIVERS
+	help
+	  Path to lv_drv_conf.h file used for build configuration
