@@ -1,0 +1,8 @@
+config: DS_DOWNGRADE_WPA_HOSTAPD
+tasks:
+  - cmd: fetch.sh
+    cmd_type: host
+    description: Fetching binary packages
+  - cmd: install.sh
+    cmd_type: target
+    description: Downgrading binary WPA packages
