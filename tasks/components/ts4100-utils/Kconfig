@@ -1,0 +1,8 @@
+config DS_COMPONENT_TS4100_UTILS
+	bool "ts4100-utils"
+	help
+	  Utilities tools for TS-4100 SoM
+
+	  Includes tools to communicate with the supervisory
+	  microcontroller, TS-SILO monitor script, interface to FPGA,
+	  and ZPU utilities

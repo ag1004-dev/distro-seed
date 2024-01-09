@@ -1,0 +1,9 @@
+config: DS_COMPONENT_TS4100_UTILS
+tasks:
+- cmd: fetch.sh
+  cmd_type: host
+  description: Downloading ts4100-utils
+
+- cmd: build.sh
+  cmd_type: docker
+  description: Building ts4100-utils
