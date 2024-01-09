@@ -5,5 +5,6 @@
 
 ROOTFS="${DS_WORK}/rootfs/"
 
-date +"%Y-%m-%d" > ${ROOTFS}/root.version
-find . -type f -print0 | xargs -0 md5sum > ${ROOTFS}/md5sums.txt
+cd "${ROOTFS}"
+date +"%Y-%m-%d" > root.version
+find . -type f \( ! -name md5sums.txt \) -print0 | xargs -0 md5sum > md5sums.txt
