@@ -1,0 +1,8 @@
+config DS_COMPONENT_TS7553V2_UTILS
+	bool "ts7553v2-utils"
+	help
+	  Utilities tools for TS-7553-V2 SBC.
+
+	  Includes tools to communicate with the supervisory
+	  microcontroller, TS-SILO monitor script, and LCD + KPad
+	  interface.

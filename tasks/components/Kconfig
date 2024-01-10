@@ -9,11 +9,17 @@ source "tasks/components/ts7400v2-uboot/Kconfig"
 source "tasks/components/ts7670-uboot/Kconfig"
 endmenu
 source "tasks/components/legacy-bootscript/Kconfig"
-source "tasks/components/ts4100-utils/Kconfig"
-source "tasks/components/ts4900-utils/Kconfig"
-source "tasks/components/ts7100-utils/Kconfig"
-source "tasks/components/ts7400v2-utils/Kconfig"
-source "tasks/components/ts7670-utils/Kconfig"
+choice
+	bool "Device Specific Utilities"
+	optional
+
+	source "tasks/components/ts4100-utils/Kconfig"
+	source "tasks/components/ts4900-utils/Kconfig"
+	source "tasks/components/ts7100-utils/Kconfig"
+	source "tasks/components/ts7400v2-utils/Kconfig"
+	source "tasks/components/ts7553v2-utils/Kconfig"
+	source "tasks/components/ts7670-utils/Kconfig"
+endchoice
 source "tasks/components/ts4900-fpga/Kconfig"
 source "tasks/components/tssupervisorupdate/Kconfig"
 source "tasks/components/ts-uboot-env-configs/Kconfig"

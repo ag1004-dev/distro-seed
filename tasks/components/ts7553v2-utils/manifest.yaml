@@ -1,0 +1,9 @@
+config: DS_COMPONENT_TS7553V2_UTILS
+tasks:
+- cmd: fetch.sh
+  cmd_type: host
+  description: Downloading ts7553v2-utils
+
+- cmd: build.sh
+  cmd_type: docker
+  description: Building ts7553v2-utils
