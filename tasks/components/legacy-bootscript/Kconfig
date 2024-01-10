@@ -1,5 +1,5 @@
 config DS_COMPONENT_LEGACY_BOOTSCRIPT
-	bool "Install legacy u-boot compatible /boot/boot.ub script"
+	bool "Install legacy U-Boot compatible /boot/boot.ub script"
 	help
 	  For pre-distroboot systems this can be used to customize the command line
 
@@ -7,7 +7,7 @@ config DS_COMPONENT_LEGACY_BOOTSCRIPT_CMDLINE
 	string "Boot script legacy CMDLINE"
 	depends on DS_COMPONENT_LEGACY_BOOTSCRIPT
 	help
-	  Sets the "cmdline_append" variable in u-boot
+	  Sets the "cmdline_append" variable in U-Boot
 
 config DS_COMPONENT_LEGACY_BOOTSCRIPT_INSTALL_SOURCE
 	bool "Install legacy boot script source file to /boot/boot.source"

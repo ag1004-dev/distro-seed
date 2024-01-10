@@ -50,7 +50,7 @@ config DS_KERNEL_INSTALL_UIMAGE_LOADADDR
 	depends on DS_KERNEL_INSTALL_UIMAGE_FILESYSTEM
 	help
 	  Specify the load address for the kernel. This is required for the
-	  uImage kernel format.  This is usually found in the target's u-boot
+	  uImage kernel format.  This is usually found in the target's U-Boot
 	  from:  "env print loadaddr" or "env print kernel_addr_r"
 
 endmenu

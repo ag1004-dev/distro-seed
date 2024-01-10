@@ -4,7 +4,7 @@ tasks:
 
 - cmd: install.sh
   cmd_type: docker
-  description: Installing u-boot configs
+  description: Installing U-Boot configs
 
 - cmd: ensure-fw-env-config.sh
   cmd_type: target

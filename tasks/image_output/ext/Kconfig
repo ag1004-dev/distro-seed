@@ -65,4 +65,4 @@ config DS_IMAGE_ROOTFS_EXT_MKFS_OPTS
 	help
 	  These are options passed to mkfs when creating the filesystem.
 	  Eg:
-	  ext4 compatibility with older u-boots: -O ^metadata_csum,^64bit
+	  ext4 compatibility with older U-Boots: -O ^metadata_csum,^64bit

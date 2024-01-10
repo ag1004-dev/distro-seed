@@ -1,7 +1,7 @@
 config DS_COMPONENT_DISTROBOOT_SCRIPTS
 	bool "Install distroboot compatible /boot/boot.scr script"
 	help
-	  For newer u-boots with distroboot a valid /boot/boot.scr script
+	  For newer U-Boots with distroboot a valid /boot/boot.scr script
 	  is needed to boot the system.
 
 config DS_COMPONENT_DISTROBOOT_SCRIPTS_INSTALL_SOURCE
