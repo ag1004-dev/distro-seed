@@ -1,7 +1,7 @@
 CONFIG_DS_DISTRO_UBUNTU_23_04=y
 CONFIG_DS_PACKAGELIST="ubuntu_23.04_minimum.txt"
 CONFIG_DS_KERNEL_PROVIDER_GIT_URL="https://github.com/embeddedTS/linux-lts.git"
-CONFIG_DS_KERNEL_PROVIDER_GIT_VERSION="v5.10.206.1-ts"
+CONFIG_DS_KERNEL_PROVIDER_GIT_VERSION="v5.10.208-ts"
 CONFIG_DS_KERNEL_DEFCONFIG="tsimx6_minimal_defconfig"
 CONFIG_DS_KERNEL_INSTALL_DEVICETREE_FILESYSTEM="imx6dl-ts4900-14 imx6dl-ts4900-2 imx6dl-ts4900 imx6dl-ts7970 imx6dl-ts7990-lxd imx6dl-ts7990-lxd-revb imx6dl-ts7990-microtips imx6dl-ts7990-microtips-revb imx6dl-ts7990-okaya imx6dl-ts7990-okaya-revb imx6q-ts4900-14 imx6q-ts4900-2 imx6q-ts4900 imx6q-ts7970 imx6q-ts7990-lxd imx6q-ts7990-lxd-revb imx6q-ts7990-microtips imx6q-ts7990-microtips-revb imx6q-ts7990-okaya imx6q-ts7990-okaya-revb"
 CONFIG_DS_KERNEL_INSTALL_UIMAGE_FILESYSTEM=y
