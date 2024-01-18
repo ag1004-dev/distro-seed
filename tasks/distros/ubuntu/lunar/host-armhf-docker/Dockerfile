@@ -20,7 +20,7 @@ RUN dpkg --add-architecture armhf
 RUN apt-get update
 # This must be aptitude because it will have to downgrade some packages
 # to install the armhf distribution
-RUN aptitude install -y libgpiod-dev:armhf libc6:armhf libgcc-s1:armhf libstdc++6:armhf gcc-arm-linux-gnueabihf g++-arm-linux-gnueabihf libinput-dev:armhf libiio-dev:armhf
+RUN aptitude install -y libgpiod-dev:armhf libc6-dev-armhf-cross gcc-arm-linux-gnueabihf g++-arm-linux-gnueabihf libinput-dev:armhf libiio-dev:armhf
 
 # For linux cross compile
 ENV CROSS_COMPILE=arm-linux-gnueabihf-
