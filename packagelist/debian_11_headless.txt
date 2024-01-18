@@ -9,7 +9,7 @@ udev # needed to set up serial console
 vim
 
 # Network configuration
-ifupdown2
+ifupdown
 iproute2
 isc-dhcp-client
 systemd-timesyncd

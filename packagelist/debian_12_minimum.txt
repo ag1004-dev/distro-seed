@@ -7,6 +7,6 @@ udev # needed to set up serial console
 kmod # needed for kernel module management
 
 # Network configuration
-ifupdown2 # Provides auto network configuration with /etc/network/interfaces
+ifupdown # Provides auto network configuration with /etc/network/interfaces
 iproute2 # "ip" and other related tools
 isc-dhcp-client # Basic DHCP client 

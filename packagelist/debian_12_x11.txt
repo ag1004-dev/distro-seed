@@ -12,7 +12,7 @@ vim
 
 # Network configuration
 ethtool
-ifupdown2
+ifupdown
 iproute2
 isc-dhcp-client
 net-tools

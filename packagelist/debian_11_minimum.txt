@@ -5,6 +5,6 @@ systemd-sysv # needed to provide /sbin/init
 udev # needed to set up serial console
 
 # Network configuration
-ifupdown2 # Provides auto network configuration with /etc/network/interfaces
+ifupdown # Provides auto network configuration with /etc/network/interfaces
 iproute2 # "ip" and other related tools
 isc-dhcp-client # Basic DHCP client
