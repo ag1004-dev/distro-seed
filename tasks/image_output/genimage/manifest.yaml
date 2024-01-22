@@ -12,5 +12,5 @@ tasks:
     cmd_type: docker
     description: Running genimage to generate a disk image
     dependencies:
-      - DS_ROOTFS_READY
+      - DS_CORE_IMAGES_READY
     auto_create_rdepends: true
