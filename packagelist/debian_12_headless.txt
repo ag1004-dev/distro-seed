@@ -6,9 +6,11 @@ systemd-sysv # needed to provide /sbin/init
 udev # needed to set up serial console
 
 ## Full package options:
+
 # Text editors
 nano
 vim
+ed
 
 # Network configuration
 ethtool
@@ -32,14 +34,21 @@ bluez-test-tools
 
 # Base utils
 apt-utils
+bsdmainutils
 dbus
+fdisk
+fuse
 less
 locales
+logrotate
 lsb-release
+man-db
+parted
 psmisc
+rdate
 sensible-utils
+u-boot-tools
 watchdog
-file
 
 # Network utilities
 bridge-utils
@@ -58,6 +67,7 @@ can-utils
 gpiod
 i2c-tools
 libiio-utils
+lshw
 memtool
 mmc-utils
 picocom
@@ -73,10 +83,24 @@ autoconf
 automake
 build-essential
 command-not-found
+dialog
 gdb
 git
+initramfs-tools
+libgpiod-dev
 libiio-dev
+libiio0-doc
 libubootenv-tool
 lsof
 meson
 nfs-common
+sqlite3
+xxd
+
+# Development tools - C/C++
+
+# Development tools - Python
+python3-bluez
+python3-can
+python3-libiio
+python3-pip
