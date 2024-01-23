@@ -31,6 +31,7 @@ watchdog
 # Network utilities
 curl
 iputils-ping
+netbase
 openssh-client
 wget
 
