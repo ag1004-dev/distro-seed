@@ -43,6 +43,7 @@ file
 bridge-utils
 curl
 iputils-ping
+netbase
 openssh-client
 rsync
 wget
