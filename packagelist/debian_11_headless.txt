@@ -1,10 +1,12 @@
+## NOTE: Debian 11 support is deprecated.
+
 ## Bare minimum options:
 kmod # Required for kernel module management
 systemd # needed for init system
 systemd-sysv # needed to provide /sbin/init
 udev # needed to set up serial console
 
-## Small package options:
+## Full package options:
 # Text editors
 vim
 
@@ -22,6 +24,8 @@ wpasupplicant
 
 # Base utils
 dbus
+fdisk
+file
 less
 locales
 lsb-release
@@ -47,3 +51,27 @@ usbutils
 
 # Debug utilities
 strace
+
+# Development tools
+autoconf
+automake
+build-essential
+command-not-found
+dialog
+gdb
+git
+libgpiod-dev
+libiio-dev
+libubootenv-tool
+lsof
+meson
+nfs-common
+sqlite3
+xxd
+
+# Development tools - Python
+python3-bluez
+python3-can
+python3-libgpiod
+python3-libiio
+python3-pip
