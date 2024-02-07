@@ -33,13 +33,13 @@ bluez-test-tools
 # Base utils
 apt-utils
 dbus
+file
 less
 locales
 lsb-release
 psmisc
 sensible-utils
 watchdog
-file
 
 # Network utilities
 bridge-utils
@@ -73,13 +73,24 @@ autoconf
 automake
 build-essential
 command-not-found
+fdisk
 gdb
 git
+libgpiod-dev
 libiio-dev
 libubootenv-tool
 lsof
 meson
 nfs-common
+sqlite3
+xxd
+
+# Development tools - Python
+python3-bluez
+python3-can
+python3-libgpiod
+python3-libiio
+python3-pip
 
 # DRM packages
 libdrm-etnaviv1
