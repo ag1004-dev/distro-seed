@@ -78,6 +78,8 @@ libubootenv-tool
 lsof
 meson
 nfs-common
+sqlite3
+xxd
 
 # DRM packages
 libdrm-etnaviv1
