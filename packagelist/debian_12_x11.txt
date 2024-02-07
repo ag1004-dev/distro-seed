@@ -75,11 +75,22 @@ build-essential
 command-not-found
 gdb
 git
+libcairo2-dev
+libgif-dev
 libiio-dev
+libjpeg-dev
+libpng-dev
 libubootenv-tool
 lsof
 meson
 nfs-common
+xxd
+
+# Development tools - Python
+python3-bluez
+python3-can
+python3-libiio
+python3-pip
 
 # DRM packages
 libdrm-etnaviv1
