@@ -1,3 +1,5 @@
+## NOTE: Debian 11 support is deprecated.
+
 ## Bare minimum options:
 kmod # Required for kernel module management
 systemd # needed for init system
