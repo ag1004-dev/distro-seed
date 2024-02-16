@@ -14,7 +14,7 @@ RUN apt-get update && apt-get install -y autogen automake bash bc bison build-es
 
 # Install arch specific packages:
 RUN dpkg --add-architecture armhf
-RUN apt-get update && apt-get install -y g++-arm-linux-gnueabihf gcc-arm-linux-gnueabihf libc6-dev:armhf libgpiod-dev:armhf libinput-dev:armhf libiio-dev:armhf
+RUN apt-get update && apt-get install -y g++-arm-linux-gnueabihf gcc-arm-linux-gnueabihf libc6-dev:armhf libcairo2-dev:armhf libgpiod-dev:armhf libinput-dev:armhf libiio-dev:armhf
 
 # Cross compile variables:
 ENV CROSS_COMPILE=arm-linux-gnueabihf-
