@@ -76,6 +76,7 @@ gdb
 git
 libgpiod-dev
 libiio-dev
+libiio0-doc
 libubootenv-tool
 lsof
 meson
