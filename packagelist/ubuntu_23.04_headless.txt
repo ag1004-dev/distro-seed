@@ -78,3 +78,5 @@ libubootenv-tool
 lsof
 meson
 nfs-common
+sqlite3
+xxd

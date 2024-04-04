@@ -45,5 +45,24 @@ mmc-utils
 picocom
 usbutils
 
+# Development tools
+autoconf
+automake
+build-essential
+command-not-found
+dialog
+gdb
+git
+initramfs-tools
+libgpiod-dev
+libiio-dev
+libiio0-doc
+libubootenv-tool
+lsof
+meson
+nfs-common
+sqlite3
+xxd
+
 # Debug utilities
 strace
