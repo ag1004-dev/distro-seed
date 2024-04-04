@@ -1,7 +1,16 @@
 config DS_REGENERATE_SSH_KEYS
 	default y
-	bool "Regenerate SSH keys on first boot"
+	bool "Regenerate SSH keys (YOU REALLY WANT THIS IF INSTALLING SSHD)"
 	help
-	  Regenerate SSH keys during first boot. Otherwise if ssh is included
-	  in the image, all images would have the same keys. You should say
-	  'y' here unless ssh is not included in the image.
+	  Remove target image's generated SSH host keys and generate new host
+	  keys at system bootup if they do not exist.
+
+	  This has the side effect of generating host keys on boot if they are
+	  removed for any reason. If you want to disable sshd, disable it from
+	  starting instead of removing its keys.
+
+	  Otherwise, the image generated will have the keys baked in to it and
+	  all devices the image is installed to will have the same keys.
+
+	  YOU REALLY WANT TO SAY 'y' HERE IF SSH IS INSTALLED IN THE IMAGE UNLESS
+	  YOU ARE SURE YOU KNOW WHAT YOU ARE DOING!
